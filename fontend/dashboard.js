@@ -84,3 +84,12 @@ document.addEventListener("DOMContentLoaded", () => {
             applyTheme(isDark ? "light" : "dark");
         });
     }
+
+        // Accent init and events
+    const initialAccent = localStorage.getItem("astra-accent") || "teal";
+    applyAccent(initialAccent);
+    accentSwatches.forEach(btn => {
+        btn.addEventListener("click", () => {
+            applyAccent(btn.dataset.accent);
+        });
+    });
