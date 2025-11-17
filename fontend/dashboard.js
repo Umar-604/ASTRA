@@ -66,3 +66,15 @@ document.addEventListener("DOMContentLoaded", () => {
         bodyEl.setAttribute("data-theme", "dark");
         if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
     }
+    const applyTheme = (next) => {
+        if (next === "dark") {
+            bodyEl.setAttribute("data-theme", "dark");
+            localStorage.setItem("astra-theme", "dark");
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
+        } else {
+            bodyEl.removeAttribute("data-theme");
+            localStorage.setItem("astra-theme", "light");
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-moon" aria-hidden="true"></i>';
+        }
+        rebuildChartsDebounced();
+    };
