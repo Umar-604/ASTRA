@@ -41,3 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
         bodyEl.style.setProperty("--primary-accent-hover", hover);
         bodyEl.style.setProperty("--accent-rgb", rgb);
     };
+
+    let rebuildTimeout;
+    const rebuildChartsDebounced = () => {
+        clearTimeout(rebuildTimeout);
+        rebuildTimeout = setTimeout(() => {
+            buildCharts();
+        }, 50);
+    };
