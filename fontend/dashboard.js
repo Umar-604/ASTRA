@@ -78,3 +78,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         rebuildChartsDebounced();
     };
+    if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+            const isDark = bodyEl.getAttribute("data-theme") === "dark";
+            applyTheme(isDark ? "light" : "dark");
+        });
+    }
