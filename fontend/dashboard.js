@@ -59,3 +59,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         rebuildChartsDebounced();
     };
+
+    // Theme handling
+    const savedTheme = localStorage.getItem("astra-theme");
+    if (savedTheme === "dark") {
+        bodyEl.setAttribute("data-theme", "dark");
+        if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i>';
+    }
