@@ -49,3 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
             buildCharts();
         }, 50);
     };
+
+    const applyAccent = (name) => {
+        const palette = ACCENTS[name] || ACCENTS.teal;
+        setAccentVars(palette.hex, palette.hover, palette.rgb);
+        localStorage.setItem("astra-accent", name);
+        accentSwatches.forEach(btn => {
+            btn.setAttribute("aria-pressed", btn.dataset.accent === name ? "true" : "false");
+        });
+        rebuildChartsDebounced();
+    };
