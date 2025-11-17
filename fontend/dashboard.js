@@ -32,3 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
         "rose-gold": { hex: "#b76e79", hover: "#9e5d68", rgb: "183, 110, 121" },
         bronze:  { hex: "#b87333", hover: "#a05f2a", rgb: "184, 115, 51" }
     };
+
+        const setAccentVars = (hex, hover, rgb) => {
+        rootEl.style.setProperty("--primary-accent", hex);
+        rootEl.style.setProperty("--primary-accent-hover", hover);
+        rootEl.style.setProperty("--accent-rgb", rgb);
+        bodyEl.style.setProperty("--primary-accent", hex);
+        bodyEl.style.setProperty("--primary-accent-hover", hover);
+        bodyEl.style.setProperty("--accent-rgb", rgb);
+    };
