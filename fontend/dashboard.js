@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const rootEl = document.documentElement;
     const accentSwatches = document.querySelectorAll(".accent-swatch");
 
-        // Accent palettes
+    // Accent palettes
     const ACCENTS = {
         teal:    { hex: "#0d9488", hover: "#0f766e", rgb: "13, 148, 136" },
         emerald: { hex: "#10b981", hover: "#059669", rgb: "16, 185, 129" },
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         bronze:  { hex: "#b87333", hover: "#a05f2a", rgb: "184, 115, 51" }
     };
 
-        const setAccentVars = (hex, hover, rgb) => {
+    const setAccentVars = (hex, hover, rgb) => {
         rootEl.style.setProperty("--primary-accent", hex);
         rootEl.style.setProperty("--primary-accent-hover", hover);
         rootEl.style.setProperty("--accent-rgb", rgb);
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-        // Accent init and events
+    // Accent init and events
     const initialAccent = localStorage.getItem("astra-accent") || "teal";
     applyAccent(initialAccent);
     accentSwatches.forEach(btn => {
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-        navLinks.forEach(link => {
+    navLinks.forEach(link => {
         link.addEventListener("click", function(e) {
             // Check if it's not the logout button
             if (!this.parentElement.classList.contains("logout")) {
@@ -118,3 +118,117 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    // Chart.js initialization with rebuild support
+    function buildCharts() {
+        if (!window.Chart) return;
+        // Destroy previous charts if any
+        if (window.__astraCharts) {
+            if (window.__astraCharts.line) { window.__astraCharts.line.destroy(); }
+            if (window.__astraCharts.donut) { window.__astraCharts.donut.destroy(); }
+        }
+
+        const styles = getComputedStyle(document.body);
+        const accent = styles.getPropertyValue("--primary-accent").trim() || "#007bff";
+        const textColor = styles.getPropertyValue("--dark-text").trim() || "#000";
+        const gridColor = styles.getPropertyValue("--border-color").trim() || "#e9ecef";
+        const sevCritical = styles.getPropertyValue("--severity-critical").trim() || "#dc3545";
+        const sevHigh = styles.getPropertyValue("--severity-high").trim() || "#fd7e14";
+        const sevMedium = styles.getPropertyValue("--severity-medium").trim() || "#ffc107";
+
+        let newLine = null;
+        let newDonut = null;
+
+        const lineCanvas = document.getElementById("alertsOverTimeChart");
+        if (lineCanvas) {
+            const ctx = lineCanvas.getContext("2d");
+            const gradient = ctx.createLinearGradient(0, 0, 0, 250);
+            gradient.addColorStop(0, accent + "33"); // ~20% opacity
+            gradient.addColorStop(1, accent + "00");
+
+            newLine = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                    datasets: [{
+                        label: "Alerts",
+                        data: [12, 18, 27, 35, 46, 59, 73],
+                        borderColor: accent,
+                        backgroundColor: gradient,
+                        tension: 0.35,
+                        fill: true,
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    resizeDelay: 150,
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: textColor }
+                        },
+                        y: {
+                            grid: { color: gridColor },
+                            beginAtZero: true,
+                            ticks: { color: textColor, precision: 0 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: "#000",
+                            titleColor: "#fff",
+                            bodyColor: "#fff",
+                            borderColor: "#333",
+                            borderWidth: 1
+                        }
+                    }
+                }
+            });
+        }
+
+        const doughnutCanvas = document.getElementById("alertsBySeverityChart");
+        if (doughnutCanvas) {
+            const ctx2 = doughnutCanvas.getContext("2d");
+            newDonut = new Chart(ctx2, {
+                type: "doughnut",
+                data: {
+                    labels: ["Critical", "High", "Medium"],
+                    datasets: [{
+                        data: [12, 26, 49],
+                        backgroundColor: [sevCritical, sevHigh, sevMedium],
+                        borderColor: [sevCritical, sevHigh, sevMedium],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    resizeDelay: 150,
+                    cutout: "65%",
+                    plugins: {
+                        legend: {
+                            position: "bottom",
+                            labels: { color: textColor, usePointStyle: true }
+                        },
+                        tooltip: {
+                            backgroundColor: "#000",
+                            titleColor: "#fff",
+                            bodyColor: "#fff",
+                            borderColor: "#333",
+                            borderWidth: 1
+                        }
+                    }
+                }
+            });
+        }
+
+        window.__astraCharts = { line: newLine, donut: newDonut };
+    }
+
+    // Initial build
+    buildCharts();
+});
