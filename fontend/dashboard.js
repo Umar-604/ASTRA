@@ -93,3 +93,28 @@ document.addEventListener("DOMContentLoaded", () => {
             applyAccent(btn.dataset.accent);
         });
     });
+
+        navLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+            // Check if it's not the logout button
+            if (!this.parentElement.classList.contains("logout")) {
+                e.preventDefault(); // Prevent navigation for demo
+
+                // Remove 'active' class from all links
+                navLinks.forEach(nav => {
+                    nav.classList.remove("active");
+                    nav.removeAttribute("aria-current");
+                });
+                
+                // Add 'active' class to the clicked link
+                this.classList.add("active");
+                this.setAttribute("aria-current", "page");
+                
+                // Update the main-header title
+                const headerTitle = document.querySelector(".main-header h2");
+                if (headerTitle) {
+                    headerTitle.textContent = this.textContent.trim();
+                }
+            }
+        });
+    });
