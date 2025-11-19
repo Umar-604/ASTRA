@@ -86,4 +86,21 @@ const table = document.getElementById("alertsTable");
         URL.revokeObjectURL(url);
     };
     if (exportBtn) {
+        exportBtn.addEventListener("click", toCSV);
+    }
 
+    // Refresh button (demo)
+    if (refreshBtn) {
+        refreshBtn.addEventListener("click", () => {
+            refreshBtn.disabled = true;
+            refreshBtn.style.opacity = "0.7";
+            setTimeout(() => {
+                refreshBtn.disabled = false;
+                refreshBtn.style.opacity = "1";
+            }, 500);
+        });
+    }
+
+    // Initial filter
+    applyFilters();
+});
