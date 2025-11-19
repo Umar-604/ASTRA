@@ -16,3 +16,5 @@ const table = document.getElementById("alertsTable");
     const exportBtn = document.getElementById("exportCSV");
     const refreshBtn = document.getElementById("refreshBtn");
 
+    const applyFilters = () => {
+        const q = query.trim().toLowerCase();
