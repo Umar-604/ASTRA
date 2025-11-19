@@ -43,3 +43,25 @@ body[data-theme="dark"] {
     --severity-high: #fdba74;
     --severity-medium: #fde68a;
 }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    
+    /* * UPDATED: 
+     * Set background to a white and light-blue mix.
+     * Set font color to black.
+    */
+    background:
+        radial-gradient(1200px 600px at -10% -10%, rgba(var(--accent-rgb), 0.06), transparent 50%),
+        radial-gradient(1000px 500px at 110% 10%, rgba(var(--accent-rgb), 0.05), transparent 50%),
+        linear-gradient(135deg, var(--light-bg-blue) 0%, var(--light-bg-white) 70%);
+    color: var(--dark-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
