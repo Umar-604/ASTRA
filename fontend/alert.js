@@ -73,3 +73,17 @@ const table = document.getElementById("alertsTable");
                 }
                 return text;
             });
+            if (cells.length) lines.push(cells.join(","));
+        });
+        const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "alerts.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+    if (exportBtn) {
+
