@@ -11,3 +11,5 @@ const table = document.getElementById("alertsTable");
 
     const tbody = table.querySelector("tbody");
     const rows = Array.from(tbody.querySelectorAll("tr")).filter(r => !r.classList.contains("empty-row"));
+    const emptyRow = tbody.querySelector(".empty-row");
+    const countEl = document.getElementById("alertsCount");
