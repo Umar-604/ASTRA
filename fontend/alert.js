@@ -52,3 +52,10 @@ const table = document.getElementById("alertsTable");
         if (searchInput) searchInput.value = "";
         applyFilters();
     });
+
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            query = e.target.value || "";
+            applyFilters();
+        });
+    }
