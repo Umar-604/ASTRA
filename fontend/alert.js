@@ -13,3 +13,6 @@ const table = document.getElementById("alertsTable");
     const rows = Array.from(tbody.querySelectorAll("tr")).filter(r => !r.classList.contains("empty-row"));
     const emptyRow = tbody.querySelector(".empty-row");
     const countEl = document.getElementById("alertsCount");
+    const exportBtn = document.getElementById("exportCSV");
+    const refreshBtn = document.getElementById("refreshBtn");
+
