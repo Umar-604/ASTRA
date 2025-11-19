@@ -59,3 +59,17 @@ const table = document.getElementById("alertsTable");
             applyFilters();
         });
     }
+
+    // Export visible rows to CSV
+    const toCSV = () => {
+        const headers = Array.from(table.querySelectorAll("thead th")).slice(0, 4).map(th => th.textContent.trim());
+        const lines = [headers.join(",")];
+        rows.forEach(row => {
+            if (row.style.display === "none") return;
+            const cells = Array.from(row.querySelectorAll("td")).slice(0, 4).map(td => {
+                const text = td.textContent.trim().replace(/\s+/g, " ");
+                if (text.includes(",") || text.includes("\"")) {
+                    return "${text.replace(/"/g, '""')}";
+                }
+                return text;
+            });
