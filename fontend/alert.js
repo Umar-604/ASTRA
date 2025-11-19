@@ -9,4 +9,5 @@ const table = document.getElementById("alertsTable");
     let severity = "all";
     let query = "";
 
-    
+    const tbody = table.querySelector("tbody");
+    const rows = Array.from(tbody.querySelectorAll("tr")).filter(r => !r.classList.contains("empty-row"));
