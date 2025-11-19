@@ -81,3 +81,27 @@ body {
     flex-direction: column;
     backdrop-filter: saturate(130%) blur(6px);
 }
+
+.sidebar-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.sidebar-header h3 {
+    color: var(--primary-accent);
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 0.5rem;
+}
