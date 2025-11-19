@@ -18,3 +18,5 @@ const table = document.getElementById("alertsTable");
 
     const applyFilters = () => {
         const q = query.trim().toLowerCase();
+        let visible = 0;
+        rows.forEach(row => {
