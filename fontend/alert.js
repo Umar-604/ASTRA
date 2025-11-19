@@ -44,3 +44,11 @@ const table = document.getElementById("alertsTable");
             applyFilters();
         });
     });
+
+    clearBtn.addEventListener("click", () => {
+        severity = "all";
+        query = "";
+        chips.forEach(c => c.setAttribute("aria-pressed", c.dataset.severity === "all" ? "true" : "false"));
+        if (searchInput) searchInput.value = "";
+        applyFilters();
+    });
