@@ -27,3 +27,7 @@ const table = document.getElementById("alertsTable");
             
             const sevOk = (severity === "all") || (sevClass === severity);
             const searchOk = q.length === 0 || rowText.includes(q);
+
+            const show = (sevOk && searchOk);
+            row.style.display = show ? "" : "none";
+            if (show) visible += 1;
