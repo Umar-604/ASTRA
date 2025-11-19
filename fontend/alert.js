@@ -22,3 +22,5 @@ const table = document.getElementById("alertsTable");
         rows.forEach(row => {
             const severitySpan = row.querySelector("td:nth-child(4) span") || null;
             const rowText = row.textContent.toLowerCase();
+        
+            const sevClass = severitySpan ? (Array.from(severitySpan.classList).find(c => c.startsWith("severity-")) || "severity-").replace("severity-","") : "";
