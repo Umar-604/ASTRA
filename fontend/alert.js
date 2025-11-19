@@ -24,3 +24,6 @@ const table = document.getElementById("alertsTable");
             const rowText = row.textContent.toLowerCase();
         
             const sevClass = severitySpan ? (Array.from(severitySpan.classList).find(c => c.startsWith("severity-")) || "severity-").replace("severity-","") : "";
+            
+            const sevOk = (severity === "all") || (sevClass === severity);
+            const searchOk = q.length === 0 || rowText.includes(q);
