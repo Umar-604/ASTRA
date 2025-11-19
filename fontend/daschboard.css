@@ -1,0 +1,24 @@
+:root {
+    --primary-accent: #0d9488; /* Teal-600 */
+    --primary-accent-hover: #0f766e; /* Teal-700 */
+    --accent-rgb: 13, 148, 136; /* r,g,b for dynamic rgba() */
+    --light-bg-white: #ffffff;
+    --light-bg-blue: #f0f8ff; /* A very light, subtle blue (AliceBlue) */
+    --sidebar-bg: #ffffff;      /* White sidebar */
+    --widget-bg: #ffffff;       /* White widgets */
+    --dark-text: #0f172a;      /* Slate-900 */
+    --gray-text: #475569;      /* Slate-600 */
+    --border-color: #e2e8f0;   /* Slate-200 */
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.08);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+    --muted: #f8fafc;          /* Slate-50 */
+    --muted-strong: #eef2f7;   /* Light neutral */
+    
+    /* Severity Colors */
+    --severity-critical: #ef4444;
+    --severity-high: #f59e0b;
+    --severity-medium: #fbbf24;
+}
