@@ -35,3 +35,12 @@ const table = document.getElementById("alertsTable");
         if (emptyRow) emptyRow.style.display = visible === 0 ? "" : "none";
         if (countEl) countEl.textContent = ${visible} result${visible === 1 ? "" : "s"};
     };
+
+    chips.forEach(chip => {
+        chip.addEventListener("click", () => {
+            chips.forEach(c => c.setAttribute("aria-pressed", "false"));
+            chip.setAttribute("aria-pressed", "true");
+            severity = chip.dataset.severity || "all";
+            applyFilters();
+        });
+    });
