@@ -22,3 +22,24 @@
     --severity-high: #f59e0b;
     --severity-medium: #fbbf24;
 }
+
+/* Dark theme tokens */
+body[data-theme="dark"] {
+    --light-bg-white: #0b1220;
+    --light-bg-blue: #0a1224;
+    --sidebar-bg: #0d162b;
+    --widget-bg: #0f1a33;
+    --dark-text: #e5e7eb;
+    --gray-text: #9aa4b2;
+    --border-color: #1f2a44;
+    --muted: #0e172d;
+    --muted-strong: #14213d;
+    --primary-accent: #2dd4bf; /* Teal-400 */
+    --primary-accent-hover: #5eead4; /* Teal-300 */
+    --accent-rgb: 45, 212, 191;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.45);
+    --severity-critical: #f87171;
+    --severity-high: #fdba74;
+    --severity-medium: #fde68a;
+}
