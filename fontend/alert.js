@@ -31,3 +31,7 @@ const table = document.getElementById("alertsTable");
             const show = (sevOk && searchOk);
             row.style.display = show ? "" : "none";
             if (show) visible += 1;
+            });
+        if (emptyRow) emptyRow.style.display = visible === 0 ? "" : "none";
+        if (countEl) countEl.textContent = ${visible} result${visible === 1 ? "" : "s"};
+    };
