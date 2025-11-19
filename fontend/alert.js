@@ -20,3 +20,5 @@ const table = document.getElementById("alertsTable");
         const q = query.trim().toLowerCase();
         let visible = 0;
         rows.forEach(row => {
+            const severitySpan = row.querySelector("td:nth-child(4) span") || null;
+            const rowText = row.textContent.toLowerCase();
