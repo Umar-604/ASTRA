@@ -76,3 +76,20 @@ class BlockchainAuditLogger:
         # Start background processing
         self.running = False
         self.start_background_processing()
+
+    def get_default_config(self) -> Dict[str, Any]:
+        """Get default configuration"""
+        return {
+            'fabric': {
+                'network_config': 'network-config.yaml',
+                'channel_name': 'audit-channel',
+                'chaincode_name': 'audit-logger',
+                'org_name': 'SecurityOrg',
+                'user_name': 'admin'
+            },
+            'ethereum': {
+                'rpc_url': 'http://localhost:8545',
+                'contract_address': '0x1234567890123456789012345678901234567890',
+                'private_key': 'your_private_key_here',
+                'gas_limit': 100000
+            },
