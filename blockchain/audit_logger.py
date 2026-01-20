@@ -496,3 +496,13 @@ class BlockchainAuditLogger:
         except Exception:
             pass
         return result
+    
+    def verify_event_payload(self, event: Dict[str, Any]) -> Dict[str, Any]:
+        """Compute hash from event['data'] and verify anchoring."""
+        try:
+            h = self.calculate_data_hash(event.get("data", {}))
+            res = self.verify_hash(h)
+            res["event_id"] = event.get("event_id")
+            return res
+        except Exception as e:
+            return {"anchored": False, "error": str(e)}
