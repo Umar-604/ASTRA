@@ -518,3 +518,12 @@ class BlockchainAuditLogger:
                 'chain_integrity': True,
                 'errors': []
             }
+        previous_hash = ""
+            for i, entry in enumerate(self.audit_chain):
+                # Verify previous hash
+                if entry.previous_hash != previous_hash:
+                    verification_result['chain_integrity'] = False
+                    verification_result['errors'].append(f"Hash mismatch at entry {i}")
+                    verification_result['invalid_entries'] += 1
+                else:
+                    verification_result['valid_entries'] += 1
