@@ -527,3 +527,8 @@ class BlockchainAuditLogger:
                     verification_result['invalid_entries'] += 1
                 else:
                     verification_result['valid_entries'] += 1
+
+            # Verify block hash
+                expected_hash = hashlib.sha256(
+                    f"{entry.event_id}{entry.timestamp}{entry.data_hash}{entry.previous_hash}".encode()
+                ).hexdigest()
