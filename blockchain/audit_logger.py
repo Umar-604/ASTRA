@@ -179,4 +179,21 @@ class BlockchainAuditLogger:
         except Exception as e:
             self.logger.error(f"Error initializing Fabric: {e}")
             self.fabric_client = None
-
+    def initialize_ethereum(self):
+        """Initialize Ethereum connection"""
+        try:
+            if ETHEREUM_AVAILABLE:
+                self.ethereum_client = Web3(Web3.HTTPProvider(self.config['ethereum']['rpc_url']))
+                
+                if self.ethereum_client.is_connected():
+                    self.logger.info("Ethereum connection initialized")
+                else:
+                    self.logger.warning("Ethereum connection failed - using simulation mode")
+                    self.ethereum_client = None
+            else:
+                self.logger.warning("Ethereum not available - using simulation mode")
+                
+        except Exception as e:
+            self.logger.error(f"Error initializing Ethereum: {e}")
+            self.ethereum_client = None
+    
