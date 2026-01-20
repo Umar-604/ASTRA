@@ -602,4 +602,8 @@ class BlockchainAuditLogger:
             if self.audit_chain:
                 stats['time_range']['earliest'] = self.audit_chain[0].timestamp
                 stats['time_range']['latest'] = self.audit_chain[-1].timestamp
-            
+            for entry in self.audit_chain:
+                # Count by platform
+                platform = entry.platform
+                stats['platforms'][platform] = stats['platforms'].get(platform, 0) + 1
+                
