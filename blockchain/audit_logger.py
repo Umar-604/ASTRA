@@ -431,5 +431,12 @@ class BlockchainAuditLogger:
             # Persist anchor/index off-chain
             self._persist_anchor(merkle_root, batch, chain_label, tx_id)
             
+            if fabric_success and ethereum_success:
+                self.logger.info(f"Successfully logged batch of {len(batch)} entries")
+            else:
+                self.logger.warning(f"Partial failure logging batch of {len(batch)} entries")
+            
+        except Exception as e:
+            self.logger.error(f"Error processing audit batch: {e}")
 
             
