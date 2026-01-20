@@ -77,7 +77,7 @@ class BlockchainAuditLogger:
         self.running = False
         self.start_background_processing()
 
-    def get_default_config(self) -> Dict[str, Any]:
+     def get_default_config(self) -> Dict[str, Any]:
         """Get default configuration"""
         return {
             'fabric': {
@@ -93,3 +93,10 @@ class BlockchainAuditLogger:
                 'private_key': 'your_private_key_here',
                 'gas_limit': 100000
             },
+            'audit': {
+                'batch_size': 10,
+                'batch_timeout': 30,  # seconds
+                'merkle_tree_depth': 10
+            }
+        }
+
