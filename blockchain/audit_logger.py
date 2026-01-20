@@ -341,3 +341,11 @@ class BlockchainAuditLogger:
         except Exception as e:
             self.logger.error(f"Error logging to Ethereum: {e}")
             return False
+        
+    def log_event(self, event: Dict[str, Any]) -> bool:
+        """Log security event to blockchain"""
+        try:
+            # Create audit entry
+            entry = self.create_audit_entry(event)
+            if not entry:
+                return False
