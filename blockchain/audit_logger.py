@@ -27,3 +27,12 @@ try:
 except ImportError:
     FABRIC_AVAILABLE = False
     print("Hyperledger Fabric SDK not available - using simulation mode")
+
+# Ethereum imports (simulated for demo)
+try:
+    from web3 import Web3
+    from eth_account import Account
+    ETHEREUM_AVAILABLE = True
+except ImportError:
+    ETHEREUM_AVAILABLE = False
+    print("Ethereum Web3 not available - using simulation mode")
