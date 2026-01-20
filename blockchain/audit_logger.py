@@ -295,3 +295,10 @@ class BlockchainAuditLogger:
                     } for e in entries
                 ],
             }
+            resp = requests.post(f"{gateway_url.rstrip('/')}/audit/batch", json=payload, timeout=10)
+            if resp.status_code == 200:
+                self.logger.info(f"Logged {len(entries)} entries to Fabric via gateway")
+                return True
+            else:
+                self.logger.error(f"Fabric gateway error: {resp.status_code} {resp.text}")
+                return False
