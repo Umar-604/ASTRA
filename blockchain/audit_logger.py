@@ -302,3 +302,7 @@ class BlockchainAuditLogger:
             else:
                 self.logger.error(f"Fabric gateway error: {resp.status_code} {resp.text}")
                 return False
+            
+            except Exception as e:
+            self.logger.error(f"Error logging to Fabric: {e}")
+            return False
