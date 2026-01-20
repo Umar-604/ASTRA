@@ -17,3 +17,13 @@ from db_logging import attach_postgres_handler
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 import requests
+
+
+# Hyperledger Fabric imports (simulated for demo)
+try:
+    from hfc.fabric import Client
+    from hfc.fabric_ca.caservice import ca_service
+    FABRIC_AVAILABLE = True
+except ImportError:
+    FABRIC_AVAILABLE = False
+    print("Hyperledger Fabric SDK not available - using simulation mode")
