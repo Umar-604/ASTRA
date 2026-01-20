@@ -583,3 +583,19 @@ class BlockchainAuditLogger:
         except Exception as e:
             self.logger.error(f"Error retrieving audit entries: {e}")
             return []
+        
+
+    def get_audit_statistics(self) -> Dict[str, Any]:
+        """Get audit logging statistics"""
+        try:
+            stats = {
+                'total_entries': len(self.audit_chain),
+                'queue_size': self.audit_queue.qsize(),
+                'platforms': {},
+                'event_types': {},
+                'severities': {},
+                'time_range': {
+                    'earliest': None,
+                    'latest': None
+                }
+            }
