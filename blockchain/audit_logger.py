@@ -506,3 +506,15 @@ class BlockchainAuditLogger:
             return res
         except Exception as e:
             return {"anchored": False, "error": str(e)}
+        
+
+    def verify_audit_chain(self) -> Dict[str, Any]:
+        """Verify integrity of audit chain"""
+        try:
+            verification_result = {
+                'total_entries': len(self.audit_chain),
+                'valid_entries': 0,
+                'invalid_entries': 0,
+                'chain_integrity': True,
+                'errors': []
+            }
