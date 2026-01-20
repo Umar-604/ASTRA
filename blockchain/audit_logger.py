@@ -275,3 +275,23 @@ class BlockchainAuditLogger:
                 # Fall back to simulation if gateway is not configured
                 self.logger.warning("FABRIC_GATEWAY_URL not set - simulating Fabric log")
                 return True
+            # Compute a batchId deterministically from merkle_root + count
+            if not entries:
+                return True
+            merkle_root = entries[0].merkle_root if entries else ""
+            batch_id = hashlib.sha256((merkle_root + str(len(entries))).encode()).hexdigest()[:32]
+            payload = {
+                "batchId": batch_id,
+                "merkleRoot": merkle_root,
+                "count": len(entries),
+                "timestamp": datetime.utcnow().isoformat(),
+                "entries": [
+                    {
+                        "event_id": e.event_id,
+                        "agent_id": e.agent_id,
+                        "severity": e.severity,
+                        "timestamp": e.timestamp,
+                        "data_hash": e.data_hash,
+                    } for e in entries
+                ],
+            }
