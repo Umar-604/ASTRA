@@ -52,6 +52,7 @@ class AuditEntry:
     signature: str
     merkle_root: str
 
+
 class BlockchainAuditLogger:
     """Blockchain-based tamper-proof audit logger"""
     
@@ -60,3 +61,18 @@ class BlockchainAuditLogger:
         self.setup_logging()
         self._db_engine: Optional[Engine] = self._ensure_db_engine()
         self._ensure_db_tables()
+        
+        # Initialize blockchain connections
+        self.fabric_client = None
+        self.ethereum_client = None
+        self.audit_queue = Queue()
+        self.audit_chain = []
+        self.merkle_tree = {}
+        
+        # Initialize blockchain connections
+        self.initialize_fabric()
+        self.initialize_ethereum()
+        
+        # Start background processing
+        self.running = False
+        self.start_background_processing()
