@@ -313,3 +313,19 @@ class BlockchainAuditLogger:
             if not self.ethereum_client:
                 self.logger.warning("Ethereum client not available - simulating log")
                 return True
+            
+        # Prepare data for smart contract
+            audit_data = []
+            for entry in entries:
+                audit_data.append([
+                    entry.event_id,
+                    entry.timestamp,
+                    entry.agent_id,
+                    entry.platform,
+                    entry.event_type,
+                    entry.severity,
+                    entry.data_hash,
+                    entry.block_hash,
+                    entry.signature,
+                    entry.merkle_root
+                ])
