@@ -159,3 +159,24 @@ class BlockchainAuditLogger:
         except Exception:
             # Non-fatal
             pass
+
+    def initialize_fabric(self):
+        """Initialize Hyperledger Fabric connection"""
+        try:
+            if FABRIC_AVAILABLE:
+                self.fabric_client = Client(net_profile=self.config['fabric']['network_config'])
+                self.fabric_client.new_channel(self.config['fabric']['channel_name'])
+                
+                # Get user context
+                org = self.config['fabric']['org_name']
+                user = self.config['fabric']['user_name']
+                self.fabric_client.get_user(org, user)
+                
+                self.logger.info("Hyperledger Fabric connection initialized")
+            else:
+                self.logger.warning("Hyperledger Fabric not available - using simulation mode")
+                
+        except Exception as e:
+            self.logger.error(f"Error initializing Fabric: {e}")
+            self.fabric_client = None
+
