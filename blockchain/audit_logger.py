@@ -580,3 +580,6 @@ class BlockchainAuditLogger:
                 filtered_entries.append(asdict(entry))
             
             return filtered_entries
+        except Exception as e:
+            self.logger.error(f"Error retrieving audit entries: {e}")
+            return []
