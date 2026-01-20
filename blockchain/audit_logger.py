@@ -99,4 +99,18 @@ class BlockchainAuditLogger:
                 'merkle_tree_depth': 10
             }
         }
+    
+     def setup_logging(self):
+        """Setup logging configuration"""
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - AuditLogger - %(levelname)s - %(message)s',
+            handlers=[
+                logging.FileHandler('logs/audit_logger.log'),
+                logging.StreamHandler()
+            ]
+        )
+        self.logger = logging.getLogger('AuditLogger')
+        # Also send logs to PostgreSQL when configured
+        attach_postgres_handler(self.logger)
 
