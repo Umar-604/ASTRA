@@ -400,4 +400,13 @@ class BlockchainAuditLogger:
             batch = []
             batch_start_time = time.time()
 
+            # Collect entries for batch
+            while len(batch) < self.config['audit']['batch_size']:
+                try:
+                    entry = self.audit_queue.get(timeout=1)
+                    batch.append(entry)
+                except:
+                    # Timeout - process current batch
+                    break
+
             
