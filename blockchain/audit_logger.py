@@ -365,4 +365,18 @@ class BlockchainAuditLogger:
     def _persist_anchor(self, merkle_root: str, entries: List[AuditEntry], chain: str, tx_id: Optional[str]) -> None:
         if not self._db_engine:
             return
+        batch_id = hashlib.sha256((merkle_root + str(len(entries))).encode()).hexdigest()[:32]
+        try:
+            with self._db_engine.begin() as conn:
+                conn.execute(text("""
+                    INSERT INTO audit_anchors (batch_id, merkle_root, count, chain, tx_id)
+                    VALUES (:batch_id, :merkle_root, :count, :chain, :tx_id)
+                    ON CONFLICT (batch_id) DO NOTHING
+                """), {
+                    "batch_id": batch_id,
+                    "merkle_root": merkle_root,
+                    "count": len(entries),
+                    "chain": chain,
+                    "tx_id": tx_id
+                })
             
