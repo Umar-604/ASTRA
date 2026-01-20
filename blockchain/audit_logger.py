@@ -36,3 +36,18 @@ try:
 except ImportError:
     ETHEREUM_AVAILABLE = False
     print("Ethereum Web3 not available - using simulation mode")
+
+@dataclass
+class AuditEntry:
+    """Immutable audit log entry"""
+    event_id: str
+    timestamp: str
+    agent_id: str
+    platform: str
+    event_type: str
+    severity: str
+    data_hash: str
+    previous_hash: str
+    block_hash: str
+    signature: str
+    merkle_root: str
