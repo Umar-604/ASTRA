@@ -338,3 +338,6 @@ class BlockchainAuditLogger:
             
             self.logger.info(f"Logged {len(entries)} entries to Ethereum: {tx_hash}")
             return True
+        except Exception as e:
+            self.logger.error(f"Error logging to Ethereum: {e}")
+            return False
