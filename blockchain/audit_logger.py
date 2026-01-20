@@ -119,3 +119,12 @@ class BlockchainAuditLogger:
             return os.getenv("POSTGRES_DSN") or os.getenv("DATABASE_URL")
         except Exception:
             return None
+        
+     def _ensure_db_engine(self) -> Optional[Engine]:
+        dsn = self._get_dsn()
+        if not dsn:
+            return None
+        try:
+            return create_engine(dsn, pool_pre_ping=True)
+        except Exception:
+            return None
