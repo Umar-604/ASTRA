@@ -465,4 +465,13 @@ class BlockchainAuditLogger:
             self.background_thread.join(timeout=5)
         self.logger.info("Audit logger stopped")
 
-            
+    # ------ Verification helpers ------
+    def verify_hash(self, data_hash: str) -> Dict[str, Any]:
+        """Check if a data hash is anchored (off-chain index lookup)."""
+        result = {
+            "anchored": False,
+            "data_hash": data_hash,
+            "tx_id": None,
+            "merkle_root": None,
+            "batch_id": None,
+        }
