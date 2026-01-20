@@ -128,3 +128,20 @@ class BlockchainAuditLogger:
             return create_engine(dsn, pool_pre_ping=True)
         except Exception:
             return None
+        
+    def _ensure_db_tables(self) -> None:
+        if not self._db_engine:
+            return
+        try:
+            with self._db_engine.begin() as conn:
+                conn.execute(text("""
+                    CREATE TABLE IF NOT EXISTS audit_anchors (
+                        id BIGSERIAL PRIMARY KEY,
+                        batch_id TEXT UNIQUE NOT NULL,
+                        merkle_root TEXT NOT NULL,
+                        count INTEGER NOT NULL,
+                        chain TEXT NOT NULL,
+                        tx_id TEXT,
+                        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                    );
+                """))
