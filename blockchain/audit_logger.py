@@ -51,3 +51,12 @@ class AuditEntry:
     block_hash: str
     signature: str
     merkle_root: str
+
+class BlockchainAuditLogger:
+    """Blockchain-based tamper-proof audit logger"""
+    
+    def __init__(self, config: Dict[str, Any] = None):
+        self.config = config or self.get_default_config()
+        self.setup_logging()
+        self._db_engine: Optional[Engine] = self._ensure_db_engine()
+        self._ensure_db_tables()
