@@ -532,3 +532,22 @@ class BlockchainAuditLogger:
                 expected_hash = hashlib.sha256(
                     f"{entry.event_id}{entry.timestamp}{entry.data_hash}{entry.previous_hash}".encode()
                 ).hexdigest()
+
+                if entry.block_hash != expected_hash:
+                    verification_result['chain_integrity'] = False
+                    verification_result['errors'].append(f"Block hash mismatch at entry {i}")
+                    verification_result['invalid_entries'] += 1
+                
+                # Verify signature (simplified)
+                expected_signature = hashlib.sha256(
+                    f"{entry.event_id}{entry.timestamp}{entry.block_hash}".encode()
+                ).hexdigest()
+                
+                if entry.signature != expected_signature:
+                    verification_result['chain_integrity'] = False
+                    verification_result['errors'].append(f"Signature mismatch at entry {i}")
+                    verification_result['invalid_entries'] += 1
+                
+                previous_hash = entry.block_hash
+            
+            return verification_result
