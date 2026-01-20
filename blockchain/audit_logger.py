@@ -456,6 +456,13 @@ class BlockchainAuditLogger:
             except Exception as e:
                 self.logger.error(f"Error in background worker: {e}")
                 time.sleep(5)  # Wait before retrying
-    
+
+        
+    def stop(self):
+        """Stop the audit logger"""
+        self.running = False
+        if hasattr(self, 'background_thread'):
+            self.background_thread.join(timeout=5)
+        self.logger.info("Audit logger stopped")
 
             
