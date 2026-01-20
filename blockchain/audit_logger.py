@@ -641,3 +641,16 @@ if __name__ == "__main__":
                 "user": "administrator"
             }
         },
+        {
+            "event_id": "test_002",
+            "agent_id": "linux_agent_v2",
+            "platform": "linux",
+            "event_type": "auth_failed",
+            "severity": "WARNING",
+            "data": {
+                "username": "admin",
+                "source_ip": "192.168.1.100",
+                "attempts": 5
+            }
+        }
+    ]
