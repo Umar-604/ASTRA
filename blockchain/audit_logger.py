@@ -358,4 +358,11 @@ class BlockchainAuditLogger:
             
             self.logger.debug(f"Queued audit entry: {entry.event_id}")
             return True
+        except Exception as e:
+            self.logger.error(f"Error logging event: {e}")
+            return False
+    
+    def _persist_anchor(self, merkle_root: str, entries: List[AuditEntry], chain: str, tx_id: Optional[str]) -> None:
+        if not self._db_engine:
+            return
             
