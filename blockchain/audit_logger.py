@@ -379,4 +379,15 @@ class BlockchainAuditLogger:
                     "chain": chain,
                     "tx_id": tx_id
                 })
+                for e in entries:
+                    conn.execute(text("""
+                        INSERT INTO audit_index (event_id, data_hash, merkle_root, batch_id, tx_id)
+                        VALUES (:event_id, :data_hash, :merkle_root, :batch_id, :tx_id)
+                    """), {
+                        "event_id": e.event_id,
+                        "data_hash": e.data_hash,
+                        "merkle_root": merkle_root,
+                        "batch_id": batch_id,
+                        "tx_id": tx_id
+                    })
             
