@@ -266,3 +266,12 @@ class BlockchainAuditLogger:
          except Exception as e:
             self.logger.error(f"Error creating audit entry: {e}")
             return None
+        
+    def log_to_fabric(self, entries: List[AuditEntry]) -> bool:
+        """Log entries to Hyperledger Fabric via REST gateway if configured"""
+        try:
+            gateway_url = os.getenv("FABRIC_GATEWAY_URL")
+            if not gateway_url:
+                # Fall back to simulation if gateway is not configured
+                self.logger.warning("FABRIC_GATEWAY_URL not set - simulating Fabric log")
+                return True
