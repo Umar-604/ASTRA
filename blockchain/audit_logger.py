@@ -654,3 +654,23 @@ if __name__ == "__main__":
             }
         }
     ]
+    # Log test events
+    for event in test_events:
+        success = logger.log_event(event)
+        print(f"Logged event {event['event_id']}: {success}")
+    
+    # Wait for processing
+    time.sleep(5)
+    
+    # Get statistics
+    stats = logger.get_audit_statistics()
+    print("Audit Statistics:")
+    print(json.dumps(stats, indent=2))
+    
+    # Verify chain
+    verification = logger.verify_audit_chain()
+    print("Chain Verification:")
+    print(json.dumps(verification, indent=2))
+    
+    # Stop logger
+    logger.stop()
