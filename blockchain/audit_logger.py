@@ -114,3 +114,8 @@ class BlockchainAuditLogger:
         # Also send logs to PostgreSQL when configured
         attach_postgres_handler(self.logger)
 
+    def _get_dsn(self) -> Optional[str]:
+        try:
+            return os.getenv("POSTGRES_DSN") or os.getenv("DATABASE_URL")
+        except Exception:
+            return None
