@@ -262,3 +262,7 @@ class BlockchainAuditLogger:
             entry.signature = hashlib.sha256(signature_data.encode()).hexdigest()
             
             return entry
+        
+         except Exception as e:
+            self.logger.error(f"Error creating audit entry: {e}")
+            return None
