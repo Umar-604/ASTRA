@@ -606,4 +606,7 @@ class BlockchainAuditLogger:
                 # Count by platform
                 platform = entry.platform
                 stats['platforms'][platform] = stats['platforms'].get(platform, 0) + 1
+                # Count by event type
+                event_type = entry.event_type
+                stats['event_types'][event_type] = stats['event_types'].get(event_type, 0) + 1
                 
