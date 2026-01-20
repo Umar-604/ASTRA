@@ -145,3 +145,17 @@ class BlockchainAuditLogger:
                         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
                     );
                 """))
+                conn.execute(text("""
+                    CREATE TABLE IF NOT EXISTS audit_index (
+                        id BIGSERIAL PRIMARY KEY,
+                        event_id TEXT NOT NULL,
+                        data_hash TEXT NOT NULL,
+                        merkle_root TEXT NOT NULL,
+                        batch_id TEXT NOT NULL,
+                        tx_id TEXT,
+                        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                    );
+                """))
+        except Exception:
+            # Non-fatal
+            pass
