@@ -560,3 +560,23 @@ class BlockchainAuditLogger:
                 'chain_integrity': False,
                 'errors': [str(e)]
             }
+    def get_audit_entries(self, start_time: str = None, end_time: str = None, 
+                         event_type: str = None, severity: str = None) -> List[Dict[str, Any]]:
+        """Retrieve audit entries with filtering"""
+        try:
+            filtered_entries = []
+            
+            for entry in self.audit_chain:
+                # Apply filters
+                if start_time and entry.timestamp < start_time:
+                    continue
+                if end_time and entry.timestamp > end_time:
+                    continue
+                if event_type and entry.event_type != event_type:
+                    continue
+                if severity and entry.severity != severity:
+                    continue
+                
+                filtered_entries.append(asdict(entry))
+            
+            return filtered_entries
