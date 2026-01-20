@@ -201,3 +201,16 @@ class BlockchainAuditLogger:
         """Calculate SHA-256 hash of event data"""
         data_string = json.dumps(data, sort_keys=True)
         return hashlib.sha256(data_string.encode()).hexdigest()
+    
+    def calculate_merkle_root(self, entries: List[AuditEntry]) -> str:
+        """Calculate Merkle tree root for batch of entries"""
+        if not entries:
+            return ""
+        
+        # Create leaf hashes
+        leaf_hashes = []
+        for entry in entries:
+            entry_data = f"{entry.event_id}{entry.timestamp}{entry.data_hash}"
+            leaf_hash = hashlib.sha256(entry_data.encode()).hexdigest()
+            leaf_hashes.append(leaf_hash)
+        
