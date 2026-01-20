@@ -551,3 +551,12 @@ class BlockchainAuditLogger:
                 previous_hash = entry.block_hash
             
             return verification_result
+        except Exception as e:
+            self.logger.error(f"Error verifying audit chain: {e}")
+            return {
+                'total_entries': 0,
+                'valid_entries': 0,
+                'invalid_entries': 0,
+                'chain_integrity': False,
+                'errors': [str(e)]
+            }
