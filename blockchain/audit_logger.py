@@ -349,3 +349,13 @@ class BlockchainAuditLogger:
             entry = self.create_audit_entry(event)
             if not entry:
                 return False
+            
+            # Add to queue for batch processing
+            self.audit_queue.put(entry)
+            
+            # Add to local chain
+            self.audit_chain.append(entry)
+            
+            self.logger.debug(f"Queued audit entry: {entry.event_id}")
+            return True
+            
