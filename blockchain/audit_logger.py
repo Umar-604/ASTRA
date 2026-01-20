@@ -409,4 +409,17 @@ class BlockchainAuditLogger:
                     # Timeout - process current batch
                     break
 
+            # Check timeout
+            if time.time() - batch_start_time > self.config['audit']['batch_timeout']:
+                # Process batch even if not full
+                pass
+            
+            if not batch:
+                return
+            
+            # Calculate Merkle root for batch
+            merkle_root = self.calculate_merkle_root(batch)
+            for entry in batch:
+                entry.merkle_root = merkle_root
+
             
