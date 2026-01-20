@@ -214,3 +214,16 @@ class BlockchainAuditLogger:
             leaf_hash = hashlib.sha256(entry_data.encode()).hexdigest()
             leaf_hashes.append(leaf_hash)
         
+         # Build Merkle tree
+        current_level = leaf_hashes
+        while len(current_level) > 1:
+            next_level = []
+            for i in range(0, len(current_level), 2):
+                left = current_level[i]
+                right = current_level[i + 1] if i + 1 < len(current_level) else left
+                combined = left + right
+                parent_hash = hashlib.sha256(combined.encode()).hexdigest()
+                next_level.append(parent_hash)
+            current_level = next_level
+        
+        return current_level[0] if current_level else ""
