@@ -599,3 +599,7 @@ class BlockchainAuditLogger:
                     'latest': None
                 }
             }
+            if self.audit_chain:
+                stats['time_range']['earliest'] = self.audit_chain[0].timestamp
+                stats['time_range']['latest'] = self.audit_chain[-1].timestamp
+            
