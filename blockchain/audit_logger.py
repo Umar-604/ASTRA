@@ -390,4 +390,8 @@ class BlockchainAuditLogger:
                         "batch_id": batch_id,
                         "tx_id": tx_id
                     })
+        except Exception:
+            # Non-fatal
+            pass
+
             
