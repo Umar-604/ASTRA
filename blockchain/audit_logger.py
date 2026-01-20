@@ -447,4 +447,15 @@ class BlockchainAuditLogger:
         self.background_thread.start()
         self.logger.info("Background audit processing started")
 
+        def background_worker(self):
+        """Background worker for processing audit entries"""
+        while self.running:
+            try:
+                self.process_audit_batch()
+                time.sleep(1)  # Check every second
+            except Exception as e:
+                self.logger.error(f"Error in background worker: {e}")
+                time.sleep(5)  # Wait before retrying
+    
+
             
