@@ -439,4 +439,12 @@ class BlockchainAuditLogger:
         except Exception as e:
             self.logger.error(f"Error processing audit batch: {e}")
 
+        def start_background_processing(self):
+        """Start background thread for processing audit entries"""
+        self.running = True
+        self.background_thread = threading.Thread(target=self.background_worker)
+        self.background_thread.daemon = True
+        self.background_thread.start()
+        self.logger.info("Background audit processing started")
+
             
