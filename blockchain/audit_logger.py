@@ -422,4 +422,14 @@ class BlockchainAuditLogger:
             for entry in batch:
                 entry.merkle_root = merkle_root
 
+            # Log to blockchains
+            fabric_success = self.log_to_fabric(batch)
+            ethereum_success = self.log_to_ethereum(batch)
+            # Simulated tx id based on merkle root + timestamp
+            tx_id = hashlib.sha256((merkle_root + str(int(time.time()))).encode()).hexdigest()[:40]
+            chain_label = "both" if (fabric_success and ethereum_success) else ("fabric" if fabric_success else ("ethereum" if ethereum_success else "none"))
+            # Persist anchor/index off-chain
+            self._persist_anchor(merkle_root, batch, chain_label, tx_id)
+            
+
             
