@@ -227,3 +227,14 @@ class BlockchainAuditLogger:
             current_level = next_level
         
         return current_level[0] if current_level else ""
+    
+    def create_audit_entry(self, event: Dict[str, Any]) -> AuditEntry:
+        """Create immutable audit log entry"""
+        try:
+            # Calculate data hash
+            data_hash = self.calculate_data_hash(event.get('data', {}))
+            
+            # Get previous hash
+            previous_hash = ""
+            if self.audit_chain:
+                previous_hash = self.audit_chain[-1].block_hash
