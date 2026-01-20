@@ -306,3 +306,10 @@ class BlockchainAuditLogger:
             except Exception as e:
             self.logger.error(f"Error logging to Fabric: {e}")
             return False
+        
+        def log_to_ethereum(self, entries: List[AuditEntry]) -> bool:
+        """Log entries to Ethereum smart contract"""
+        try:
+            if not self.ethereum_client:
+                self.logger.warning("Ethereum client not available - simulating log")
+                return True
