@@ -238,3 +238,18 @@ class BlockchainAuditLogger:
             previous_hash = ""
             if self.audit_chain:
                 previous_hash = self.audit_chain[-1].block_hash
+
+             # Create entry
+            entry = AuditEntry(
+                event_id=event.get('event_id', ''),
+                timestamp=datetime.utcnow().isoformat(),
+                agent_id=event.get('agent_id', ''),
+                platform=event.get('platform', ''),
+                event_type=event.get('event_type', ''),
+                severity=event.get('severity', 'INFO'),
+                data_hash=data_hash,
+                previous_hash=previous_hash,
+                block_hash="",  # Will be calculated after signature
+                signature="",   # Will be added after signing
+                merkle_root=""  # Will be calculated for batch
+            )
