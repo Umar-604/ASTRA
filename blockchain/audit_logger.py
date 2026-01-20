@@ -609,4 +609,12 @@ class BlockchainAuditLogger:
                 # Count by event type
                 event_type = entry.event_type
                 stats['event_types'][event_type] = stats['event_types'].get(event_type, 0) + 1
-                
+                 # Count by severity
+                severity = entry.severity
+                stats['severities'][severity] = stats['severities'].get(severity, 0) + 1
+            
+            return stats
+            
+        except Exception as e:
+            self.logger.error(f"Error getting audit statistics: {e}")
+            return {}
