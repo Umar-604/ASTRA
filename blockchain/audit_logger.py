@@ -253,3 +253,12 @@ class BlockchainAuditLogger:
                 signature="",   # Will be added after signing
                 merkle_root=""  # Will be calculated for batch
             )
+             # Calculate block hash
+            block_data = f"{entry.event_id}{entry.timestamp}{entry.data_hash}{entry.previous_hash}"
+            entry.block_hash = hashlib.sha256(block_data.encode()).hexdigest()
+            
+            # Sign entry (simplified - in production use proper digital signatures)
+            signature_data = f"{entry.event_id}{entry.timestamp}{entry.block_hash}"
+            entry.signature = hashlib.sha256(signature_data.encode()).hexdigest()
+            
+            return entry
