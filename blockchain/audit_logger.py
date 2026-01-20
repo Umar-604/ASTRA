@@ -18,7 +18,6 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 import requests
 
-
 # Hyperledger Fabric imports (simulated for demo)
 try:
     from hfc.fabric import Client
@@ -52,7 +51,6 @@ class AuditEntry:
     signature: str
     merkle_root: str
 
-
 class BlockchainAuditLogger:
     """Blockchain-based tamper-proof audit logger"""
     
@@ -76,8 +74,8 @@ class BlockchainAuditLogger:
         # Start background processing
         self.running = False
         self.start_background_processing()
-
-     def get_default_config(self) -> Dict[str, Any]:
+    
+    def get_default_config(self) -> Dict[str, Any]:
         """Get default configuration"""
         return {
             'fabric': {
@@ -100,7 +98,7 @@ class BlockchainAuditLogger:
             }
         }
     
-     def setup_logging(self):
+    def setup_logging(self):
         """Setup logging configuration"""
         logging.basicConfig(
             level=logging.INFO,
@@ -113,14 +111,14 @@ class BlockchainAuditLogger:
         self.logger = logging.getLogger('AuditLogger')
         # Also send logs to PostgreSQL when configured
         attach_postgres_handler(self.logger)
-
+    
     def _get_dsn(self) -> Optional[str]:
         try:
             return os.getenv("POSTGRES_DSN") or os.getenv("DATABASE_URL")
         except Exception:
             return None
-        
-     def _ensure_db_engine(self) -> Optional[Engine]:
+
+    def _ensure_db_engine(self) -> Optional[Engine]:
         dsn = self._get_dsn()
         if not dsn:
             return None
@@ -128,7 +126,7 @@ class BlockchainAuditLogger:
             return create_engine(dsn, pool_pre_ping=True)
         except Exception:
             return None
-        
+
     def _ensure_db_tables(self) -> None:
         if not self._db_engine:
             return
@@ -179,6 +177,7 @@ class BlockchainAuditLogger:
         except Exception as e:
             self.logger.error(f"Error initializing Fabric: {e}")
             self.fabric_client = None
+    
     def initialize_ethereum(self):
         """Initialize Ethereum connection"""
         try:
@@ -214,7 +213,7 @@ class BlockchainAuditLogger:
             leaf_hash = hashlib.sha256(entry_data.encode()).hexdigest()
             leaf_hashes.append(leaf_hash)
         
-         # Build Merkle tree
+        # Build Merkle tree
         current_level = leaf_hashes
         while len(current_level) > 1:
             next_level = []
@@ -238,8 +237,8 @@ class BlockchainAuditLogger:
             previous_hash = ""
             if self.audit_chain:
                 previous_hash = self.audit_chain[-1].block_hash
-
-             # Create entry
+            
+            # Create entry
             entry = AuditEntry(
                 event_id=event.get('event_id', ''),
                 timestamp=datetime.utcnow().isoformat(),
@@ -253,7 +252,8 @@ class BlockchainAuditLogger:
                 signature="",   # Will be added after signing
                 merkle_root=""  # Will be calculated for batch
             )
-             # Calculate block hash
+            
+            # Calculate block hash
             block_data = f"{entry.event_id}{entry.timestamp}{entry.data_hash}{entry.previous_hash}"
             entry.block_hash = hashlib.sha256(block_data.encode()).hexdigest()
             
@@ -262,11 +262,11 @@ class BlockchainAuditLogger:
             entry.signature = hashlib.sha256(signature_data.encode()).hexdigest()
             
             return entry
-        
-         except Exception as e:
+            
+        except Exception as e:
             self.logger.error(f"Error creating audit entry: {e}")
             return None
-        
+    
     def log_to_fabric(self, entries: List[AuditEntry]) -> bool:
         """Log entries to Hyperledger Fabric via REST gateway if configured"""
         try:
@@ -275,6 +275,7 @@ class BlockchainAuditLogger:
                 # Fall back to simulation if gateway is not configured
                 self.logger.warning("FABRIC_GATEWAY_URL not set - simulating Fabric log")
                 return True
+
             # Compute a batchId deterministically from merkle_root + count
             if not entries:
                 return True
@@ -302,19 +303,19 @@ class BlockchainAuditLogger:
             else:
                 self.logger.error(f"Fabric gateway error: {resp.status_code} {resp.text}")
                 return False
-            
-            except Exception as e:
+                
+        except Exception as e:
             self.logger.error(f"Error logging to Fabric: {e}")
             return False
-        
-        def log_to_ethereum(self, entries: List[AuditEntry]) -> bool:
+    
+    def log_to_ethereum(self, entries: List[AuditEntry]) -> bool:
         """Log entries to Ethereum smart contract"""
         try:
             if not self.ethereum_client:
                 self.logger.warning("Ethereum client not available - simulating log")
                 return True
             
-        # Prepare data for smart contract
+            # Prepare data for smart contract
             audit_data = []
             for entry in entries:
                 audit_data.append([
@@ -329,7 +330,8 @@ class BlockchainAuditLogger:
                     entry.signature,
                     entry.merkle_root
                 ])
-        # Get contract instance (simplified)
+            
+            # Get contract instance (simplified)
             contract_address = self.config['ethereum']['contract_address']
             # In production, you would load the actual contract ABI and create contract instance
             
@@ -338,10 +340,11 @@ class BlockchainAuditLogger:
             
             self.logger.info(f"Logged {len(entries)} entries to Ethereum: {tx_hash}")
             return True
+            
         except Exception as e:
             self.logger.error(f"Error logging to Ethereum: {e}")
             return False
-        
+    
     def log_event(self, event: Dict[str, Any]) -> bool:
         """Log security event to blockchain"""
         try:
@@ -358,6 +361,7 @@ class BlockchainAuditLogger:
             
             self.logger.debug(f"Queued audit entry: {entry.event_id}")
             return True
+            
         except Exception as e:
             self.logger.error(f"Error logging event: {e}")
             return False
@@ -379,27 +383,27 @@ class BlockchainAuditLogger:
                     "chain": chain,
                     "tx_id": tx_id
                 })
-                for e in entries:
-                    conn.execute(text("""
-                        INSERT INTO audit_index (event_id, data_hash, merkle_root, batch_id, tx_id)
-                        VALUES (:event_id, :data_hash, :merkle_root, :batch_id, :tx_id)
-                    """), {
-                        "event_id": e.event_id,
-                        "data_hash": e.data_hash,
-                        "merkle_root": merkle_root,
-                        "batch_id": batch_id,
-                        "tx_id": tx_id
-                    })
+                    for e in entries:
+                        conn.execute(text("""
+                            INSERT INTO audit_index (event_id, data_hash, merkle_root, batch_id, tx_id)
+                            VALUES (:event_id, :data_hash, :merkle_root, :batch_id, :tx_id)
+                        """), {
+                            "event_id": e.event_id,
+                            "data_hash": e.data_hash,
+                            "merkle_root": merkle_root,
+                            "batch_id": batch_id,
+                            "tx_id": tx_id
+                        })
         except Exception:
             # Non-fatal
             pass
 
-        def process_audit_batch(self):
+    def process_audit_batch(self):
         """Process batch of audit entries"""
         try:
             batch = []
             batch_start_time = time.time()
-
+            
             # Collect entries for batch
             while len(batch) < self.config['audit']['batch_size']:
                 try:
@@ -408,7 +412,7 @@ class BlockchainAuditLogger:
                 except:
                     # Timeout - process current batch
                     break
-
+            
             # Check timeout
             if time.time() - batch_start_time > self.config['audit']['batch_timeout']:
                 # Process batch even if not full
@@ -421,7 +425,7 @@ class BlockchainAuditLogger:
             merkle_root = self.calculate_merkle_root(batch)
             for entry in batch:
                 entry.merkle_root = merkle_root
-
+            
             # Log to blockchains
             fabric_success = self.log_to_fabric(batch)
             ethereum_success = self.log_to_ethereum(batch)
@@ -438,16 +442,16 @@ class BlockchainAuditLogger:
             
         except Exception as e:
             self.logger.error(f"Error processing audit batch: {e}")
-
-        def start_background_processing(self):
+    
+    def start_background_processing(self):
         """Start background thread for processing audit entries"""
         self.running = True
         self.background_thread = threading.Thread(target=self.background_worker)
         self.background_thread.daemon = True
         self.background_thread.start()
         self.logger.info("Background audit processing started")
-
-        def background_worker(self):
+    
+    def background_worker(self):
         """Background worker for processing audit entries"""
         while self.running:
             try:
@@ -456,15 +460,14 @@ class BlockchainAuditLogger:
             except Exception as e:
                 self.logger.error(f"Error in background worker: {e}")
                 time.sleep(5)  # Wait before retrying
-
-        
+    
     def stop(self):
         """Stop the audit logger"""
         self.running = False
         if hasattr(self, 'background_thread'):
             self.background_thread.join(timeout=5)
         self.logger.info("Audit logger stopped")
-
+    
     # ------ Verification helpers ------
     def verify_hash(self, data_hash: str) -> Dict[str, Any]:
         """Check if a data hash is anchored (off-chain index lookup)."""
@@ -475,7 +478,7 @@ class BlockchainAuditLogger:
             "merkle_root": None,
             "batch_id": None,
         }
-         if not self._db_engine:
+        if not self._db_engine:
             return result
         try:
             with self._db_engine.begin() as conn:
@@ -496,7 +499,7 @@ class BlockchainAuditLogger:
         except Exception:
             pass
         return result
-    
+
     def verify_event_payload(self, event: Dict[str, Any]) -> Dict[str, Any]:
         """Compute hash from event['data'] and verify anchoring."""
         try:
@@ -506,7 +509,6 @@ class BlockchainAuditLogger:
             return res
         except Exception as e:
             return {"anchored": False, "error": str(e)}
-        
 
     def verify_audit_chain(self) -> Dict[str, Any]:
         """Verify integrity of audit chain"""
@@ -518,7 +520,8 @@ class BlockchainAuditLogger:
                 'chain_integrity': True,
                 'errors': []
             }
-        previous_hash = ""
+            
+            previous_hash = ""
             for i, entry in enumerate(self.audit_chain):
                 # Verify previous hash
                 if entry.previous_hash != previous_hash:
@@ -527,12 +530,12 @@ class BlockchainAuditLogger:
                     verification_result['invalid_entries'] += 1
                 else:
                     verification_result['valid_entries'] += 1
-
-            # Verify block hash
+                
+                # Verify block hash
                 expected_hash = hashlib.sha256(
                     f"{entry.event_id}{entry.timestamp}{entry.data_hash}{entry.previous_hash}".encode()
                 ).hexdigest()
-
+                
                 if entry.block_hash != expected_hash:
                     verification_result['chain_integrity'] = False
                     verification_result['errors'].append(f"Block hash mismatch at entry {i}")
@@ -551,6 +554,7 @@ class BlockchainAuditLogger:
                 previous_hash = entry.block_hash
             
             return verification_result
+            
         except Exception as e:
             self.logger.error(f"Error verifying audit chain: {e}")
             return {
@@ -560,6 +564,7 @@ class BlockchainAuditLogger:
                 'chain_integrity': False,
                 'errors': [str(e)]
             }
+    
     def get_audit_entries(self, start_time: str = None, end_time: str = None, 
                          event_type: str = None, severity: str = None) -> List[Dict[str, Any]]:
         """Retrieve audit entries with filtering"""
@@ -580,11 +585,11 @@ class BlockchainAuditLogger:
                 filtered_entries.append(asdict(entry))
             
             return filtered_entries
+            
         except Exception as e:
             self.logger.error(f"Error retrieving audit entries: {e}")
             return []
-        
-
+    
     def get_audit_statistics(self) -> Dict[str, Any]:
         """Get audit logging statistics"""
         try:
@@ -599,17 +604,21 @@ class BlockchainAuditLogger:
                     'latest': None
                 }
             }
+            
             if self.audit_chain:
                 stats['time_range']['earliest'] = self.audit_chain[0].timestamp
                 stats['time_range']['latest'] = self.audit_chain[-1].timestamp
+            
             for entry in self.audit_chain:
                 # Count by platform
                 platform = entry.platform
                 stats['platforms'][platform] = stats['platforms'].get(platform, 0) + 1
+                
                 # Count by event type
                 event_type = entry.event_type
                 stats['event_types'][event_type] = stats['event_types'].get(event_type, 0) + 1
-                 # Count by severity
+                
+                # Count by severity
                 severity = entry.severity
                 stats['severities'][severity] = stats['severities'].get(severity, 0) + 1
             
@@ -618,7 +627,7 @@ class BlockchainAuditLogger:
         except Exception as e:
             self.logger.error(f"Error getting audit statistics: {e}")
             return {}
-        
+
 # Example usage and testing
 if __name__ == "__main__":
     # Create logs directory
@@ -654,6 +663,7 @@ if __name__ == "__main__":
             }
         }
     ]
+    
     # Log test events
     for event in test_events:
         success = logger.log_event(event)
