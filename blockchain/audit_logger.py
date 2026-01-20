@@ -618,3 +618,26 @@ class BlockchainAuditLogger:
         except Exception as e:
             self.logger.error(f"Error getting audit statistics: {e}")
             return {}
+        
+# Example usage and testing
+if __name__ == "__main__":
+    # Create logs directory
+    os.makedirs("logs", exist_ok=True)
+    
+    # Initialize audit logger
+    logger = BlockchainAuditLogger()
+    
+    # Example events for testing
+    test_events = [
+        {
+            "event_id": "test_001",
+            "agent_id": "win_agent_v2",
+            "platform": "windows",
+            "event_type": "process_creation",
+            "severity": "HIGH",
+            "data": {
+                "process_name": "powershell.exe",
+                "command_line": "powershell -enc aGVsbG8=",
+                "user": "administrator"
+            }
+        },
