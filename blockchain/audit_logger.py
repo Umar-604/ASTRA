@@ -197,3 +197,7 @@ class BlockchainAuditLogger:
             self.logger.error(f"Error initializing Ethereum: {e}")
             self.ethereum_client = None
     
+    def calculate_data_hash(self, data: Dict[str, Any]) -> str:
+        """Calculate SHA-256 hash of event data"""
+        data_string = json.dumps(data, sort_keys=True)
+        return hashlib.sha256(data_string.encode()).hexdigest()
