@@ -475,3 +475,24 @@ class BlockchainAuditLogger:
             "merkle_root": None,
             "batch_id": None,
         }
+         if not self._db_engine:
+            return result
+        try:
+            with self._db_engine.begin() as conn:
+                row = conn.execute(text("""
+                    SELECT data_hash, tx_id, merkle_root, batch_id
+                    FROM audit_index
+                    WHERE data_hash = :h
+                    ORDER BY id DESC
+                    LIMIT 1
+                """), {"h": data_hash}).mappings().first()
+                if row:
+                    result.update({
+                        "anchored": True,
+                        "tx_id": row["tx_id"],
+                        "merkle_root": row["merkle_root"],
+                        "batch_id": row["batch_id"],
+                    })
+        except Exception:
+            pass
+        return result
