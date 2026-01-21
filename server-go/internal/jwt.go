@@ -18,3 +18,6 @@ func VerifyJWT(tokenString string) (map[string]any, error) {
         }
         return []byte(secret), nil
     })
+	if err != nil || !token.Valid {
+        return nil, errors.New("invalid token")
+    }
