@@ -19,3 +19,8 @@ warnings.filterwarnings('ignore', category=UserWarning, module='tensorflow')
 import tensorflow as tf
 from collections import deque
 from typing import Dict, List, Any, Optional, Tuple
+
+# Cumulative scoring: keep last N raw MSE values per (host_id, process_id)
+_CUMULATIVE_MAX_LEN = 100
+# Cumulative threshold = multiple of per-event threshold; repeated low scores can trigger
+_CUMULATIVE_THRESHOLD_MULTIPLIER = 2.5
