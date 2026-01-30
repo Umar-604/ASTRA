@@ -80,3 +80,6 @@ class EndpointPredictor:
             print(f"✅ Loaded endpoint model: {self.model_type}")
             print(f"   Features: {len(self.feature_names) if self.feature_names else 'unknown'}")
             
+        except Exception as e:
+            print(f"⚠️  Failed to load endpoint model: {e}")
+            self.model = None
