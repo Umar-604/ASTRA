@@ -83,3 +83,11 @@ class EndpointPredictor:
         except Exception as e:
             print(f"⚠️  Failed to load endpoint model: {e}")
             self.model = None
+    
+    def predict(
+        self,
+        events: List[Dict[str, Any]],
+        threshold: float = 0.5,
+        host_id: Optional[str] = None,
+        process_id: Optional[str] = None,
+        use_cumulative: bool = True,
