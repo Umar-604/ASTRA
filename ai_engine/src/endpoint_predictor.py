@@ -134,3 +134,8 @@ class EndpointPredictor:
                 score = self.model.score_samples(feature_array)[0]
                 anomaly_score = 1 - (score - score.min()) / (score.max() - score.min() + 1e-9)
                 is_anomaly = prediction == -1
+            
+            elif self.model_type == "autoencoder":
+                reconstruction = self.model.predict(feature_array)
+                mse = float(np.mean(np.power(feature_array - reconstruction, 2)))
+                raw_mse = mse
