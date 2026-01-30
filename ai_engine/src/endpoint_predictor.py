@@ -91,3 +91,9 @@ class EndpointPredictor:
         host_id: Optional[str] = None,
         process_id: Optional[str] = None,
         use_cumulative: bool = True,
+        ) -> Dict[str, Any]:
+        """Predict behavioral anomaly for endpoint events.
+        Uses mean+k*std threshold from training_stats when available.
+        If host_id/process_id are provided and use_cumulative is True, repeated
+        low-score anomalies can still raise an alert via cumulative scoring."""
+        if self.model is None:
