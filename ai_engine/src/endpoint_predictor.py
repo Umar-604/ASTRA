@@ -120,3 +120,9 @@ class EndpointPredictor:
             # Scale features
             if self.scaler:
                 feature_array = self.scaler.transform(feature_array)
+
+            raw_mse: Optional[float] = None
+            saved_threshold: Optional[float] = None
+            if self.training_stats and isinstance(self.training_stats, dict):
+                saved_threshold = self.training_stats.get("anomaly_threshold")
+            
