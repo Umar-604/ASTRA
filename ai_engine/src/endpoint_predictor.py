@@ -105,3 +105,7 @@ class EndpointPredictor:
                 "model_used": False,
                 "error": "No model loaded"
             }
+        try:
+            # Extract behavioral features
+            features = extract_endpoint_behavioral_features(events)
+            
