@@ -61,3 +61,9 @@ class EndpointPredictor:
                 self.model = tf.keras.models.load_model(model_path)
                 base = os.path.splitext(model_path)[0]
                 metadata_path = f"{base}_metadata.pkl"
+                if os.path.exists(metadata_path):
+                    metadata = joblib.load(metadata_path)
+                    self.scaler = metadata.get('scaler')
+                    self.feature_names = metadata.get('feature_names')
+                    self.model_type = metadata.get('model_type') or 'autoencoder'
+                    self.training_stats = metadata.get('training_stats')
