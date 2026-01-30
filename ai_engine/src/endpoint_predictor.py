@@ -97,3 +97,11 @@ class EndpointPredictor:
         If host_id/process_id are provided and use_cumulative is True, repeated
         low-score anomalies can still raise an alert via cumulative scoring."""
         if self.model is None:
+            return {
+                "is_anomaly": False,
+                "anomaly_score": 0.0,
+                "cumulative_score": 0.0,
+                "confidence": 0.0,
+                "model_used": False,
+                "error": "No model loaded"
+            }
