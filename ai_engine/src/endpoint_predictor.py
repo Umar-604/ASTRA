@@ -144,3 +144,5 @@ class EndpointPredictor:
                     anomaly_score = min(mse / max(float(saved_threshold), 1e-9), 1.0)
                     is_anomaly = mse > saved_threshold
                 else:
+                    anomaly_score = min(mse / 10.0, 1.0)
+                    is_anomaly = anomaly_score > threshold
