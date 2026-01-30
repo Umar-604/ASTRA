@@ -153,3 +153,9 @@ class EndpointPredictor:
                     if key not in self._cumulative:
                         self._cumulative[key] = deque(maxlen=_CUMULATIVE_MAX_LEN)
                     self._cumulative[key].append(raw_mse)
+
+            elif self.model_type == "lstm":
+                feature_reshaped = feature_array.reshape(1, 1, -1)
+                proba = self.model.predict(feature_reshaped)[0][0]
+                anomaly_score = float(proba)
+                is_anomaly = proba > threshold
