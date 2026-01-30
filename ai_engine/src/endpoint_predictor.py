@@ -37,3 +37,9 @@ class EndpointPredictor:
         self.training_stats = None
         # Cumulative anomaly scores: (host_id, process_id) -> deque of raw MSE values
         self._cumulative: Dict[Tuple[str, str], deque] = {}
+
+        if model_path:
+            self.load_model(model_path)
+    
+    def load_model(self, model_path: str):
+        """Load trained endpoint model"""
