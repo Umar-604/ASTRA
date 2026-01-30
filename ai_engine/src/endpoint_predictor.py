@@ -57,3 +57,7 @@ class EndpointPredictor:
                     self.model_type = metadata.get('model_type')
                     self.training_stats = metadata.get('training_stats')
             elif model_path.endswith('.keras'):
+                # Keras model file
+                self.model = tf.keras.models.load_model(model_path)
+                base = os.path.splitext(model_path)[0]
+                metadata_path = f"{base}_metadata.pkl"
