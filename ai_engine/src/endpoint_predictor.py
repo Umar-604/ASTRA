@@ -125,4 +125,12 @@ class EndpointPredictor:
             saved_threshold: Optional[float] = None
             if self.training_stats and isinstance(self.training_stats, dict):
                 saved_threshold = self.training_stats.get("anomaly_threshold")
+
+                cumulative_score = 0.0
             
+            # Make prediction
+            if self.model_type == "isolation_forest":
+                prediction = self.model.predict(feature_array)[0]
+                score = self.model.score_samples(feature_array)[0]
+                anomaly_score = 1 - (score - score.min()) / (score.max() - score.min() + 1e-9)
+                is_anomaly = prediction == -1
