@@ -146,3 +146,10 @@ class EndpointPredictor:
                 else:
                     anomaly_score = min(mse / 10.0, 1.0)
                     is_anomaly = anomaly_score > threshold
+
+                # Cumulative scoring per host/process: repeated low scores can raise alert
+                if use_cumulative and (host_id is not None or process_id is not None):
+                    key = (host_id or "default", process_id or "default")
+                    if key not in self._cumulative:
+                        self._cumulative[key] = deque(maxlen=_CUMULATIVE_MAX_LEN)
+                    self._cumulative[key].append(raw_mse)
