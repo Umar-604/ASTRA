@@ -109,3 +109,9 @@ class EndpointPredictor:
             # Extract behavioral features
             features = extract_endpoint_behavioral_features(events)
             
+            # Build array in model's feature order (handles old 26-feature models with new 30-feature extractor)
+            if self.feature_names:
+                feature_array = np.array([[
+                    float(features.get(k, 0.0)) for k in self.feature_names
+                ]]).reshape(1, -1)
+            else:
