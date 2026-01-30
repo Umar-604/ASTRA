@@ -159,3 +159,9 @@ class EndpointPredictor:
                 proba = self.model.predict(feature_reshaped)[0][0]
                 anomaly_score = float(proba)
                 is_anomaly = proba > threshold
+
+            else:
+                raise ValueError(f"Unknown model type: {self.model_type}")
+            
+            confidence = abs(anomaly_score - 0.5) * 2
+            
