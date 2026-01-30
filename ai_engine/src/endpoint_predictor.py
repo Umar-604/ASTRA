@@ -67,3 +67,10 @@ class EndpointPredictor:
                     self.feature_names = metadata.get('feature_names')
                     self.model_type = metadata.get('model_type') or 'autoencoder'
                     self.training_stats = metadata.get('training_stats')
+                else:
+                    self.model_type = 'autoencoder'
+            else:
+                # Pickle file (sklearn model)
+                data = joblib.load(model_path)
+                self.model = data.get('model')
+                self.scaler = data.get('scaler')
