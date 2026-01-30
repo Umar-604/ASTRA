@@ -139,3 +139,8 @@ class EndpointPredictor:
                 reconstruction = self.model.predict(feature_array)
                 mse = float(np.mean(np.power(feature_array - reconstruction, 2)))
                 raw_mse = mse
+
+                if saved_threshold is not None:
+                    anomaly_score = min(mse / max(float(saved_threshold), 1e-9), 1.0)
+                    is_anomaly = mse > saved_threshold
+                else:
