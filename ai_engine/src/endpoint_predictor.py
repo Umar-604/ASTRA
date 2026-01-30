@@ -115,3 +115,8 @@ class EndpointPredictor:
                     float(features.get(k, 0.0)) for k in self.feature_names
                 ]]).reshape(1, -1)
             else:
+                feature_array = np.array([list(features.values())]).reshape(1, -1)
+            
+            # Scale features
+            if self.scaler:
+                feature_array = self.scaler.transform(feature_array)
