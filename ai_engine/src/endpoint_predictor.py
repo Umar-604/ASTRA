@@ -74,3 +74,6 @@ class EndpointPredictor:
                 data = joblib.load(model_path)
                 self.model = data.get('model')
                 self.scaler = data.get('scaler')
+                self.feature_names = data.get('feature_names')
+                self.model_type = data.get('model_type')
+                self.training_stats = data.get('training_stats')
