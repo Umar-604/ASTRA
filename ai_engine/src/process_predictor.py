@@ -157,4 +157,18 @@ class ProcessPredictor:
             anomaly_score = 1 - (score - score.min()) / (score.max() - score.min() + 1e-9)
             is_anomaly = prediction == -1
             
+        elif self.model_type == "autoencoder":
+            # Autoencoder: reconstruction error
+            reconstruction = self.model.predict(feature_array)
+            mse = np.mean(np.power(feature_array - reconstruction, 2))
+            
+            # Higher MSE = more anomalous
+            anomaly_score = min(mse / 10.0, 1.0)  # Normalize to 0-1
+            is_anomaly = anomaly_score > threshold
+            
+        else:  # Random Forest
+            proba = self.model.predict_proba(feature_array)[0]
+            anomaly_score = float(proba[1])  # Probability of being malicious
+            is_anomaly = anomaly_score > threshold
+        
         
