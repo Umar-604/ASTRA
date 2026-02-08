@@ -215,3 +215,13 @@ class ProcessPredictor:
         # Calculate confidence
         confidence = abs(anomaly_score - 0.5) * 2  # 0 to 1
         
+        return {
+            "is_anomaly": bool(is_anomaly),
+            "anomaly_score": anomaly_score,
+            "confidence": float(confidence),
+            "model_used": True,
+            "model_type": self.model_type,
+            "features_extracted": len(features),
+            "command_analyzed": combined_command[:100] + "..." if len(combined_command) > 100 else combined_command
+        }
+    
