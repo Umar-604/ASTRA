@@ -171,4 +171,15 @@ class ProcessPredictor:
             anomaly_score = float(proba[1])  # Probability of being malicious
             is_anomaly = anomaly_score > threshold
         
+        # Calculate confidence
+        confidence = abs(anomaly_score - 0.5) * 2  # 0 to 1
         
+        return {
+            "is_anomaly": bool(is_anomaly),
+            "anomaly_score": float(anomaly_score),
+            "confidence": float(confidence),
+            "model_used": True,
+            "model_type": self.model_type,
+            "features_extracted": len(features)
+        }
+            
