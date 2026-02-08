@@ -200,4 +200,18 @@ class ProcessPredictor:
                 "model_used": False,
                 "error": "No commands found or tokenizer not loaded"
             }
-            
+        # Combine commands
+        combined_command = ' '.join(command_texts)
+        
+        # Convert to sequence
+        sequence = self.tokenizer.texts_to_sequences([combined_command])
+        padded_sequence = pad_sequences(sequence, maxlen=100, padding='post')
+        
+        # Make prediction
+        proba = self.model.predict(padded_sequence)[0][0]
+        anomaly_score = float(proba)
+        is_anomaly = anomaly_score > threshold
+        
+        # Calculate confidence
+        confidence = abs(anomaly_score - 0.5) * 2  # 0 to 1
+        
