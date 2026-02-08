@@ -274,3 +274,24 @@ class ProcessPredictor:
             print(f"⚠️  Error generating behavioral insights: {e}")
             return {}
 
+def create_process_predictor(model_path: str = None) -> ProcessPredictor:
+    """Create process predictor instance"""
+    if model_path is None:
+        # Try to find default model
+        from .config import settings
+        model_dir = settings.MODEL_DIR
+        
+        # Look for process models
+        possible_paths = [
+            os.path.join(model_dir, "process_model_random_forest.pkl"),
+            os.path.join(model_dir, "process_model_isolation_forest.pkl"),
+            os.path.join(model_dir, "process_model_autoencoder"),
+            os.path.join(model_dir, "process_model_lstm_commands")
+        ]
+        
+        for path in possible_paths:
+            if os.path.exists(path):
+                model_path = path
+                break
+    
+    return ProcessPredictor(model_path)
