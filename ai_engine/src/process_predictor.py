@@ -38,7 +38,7 @@ class ProcessPredictor:
         if model_path:
             self.load_model(model_path)
     
-def load_model(self, model_path: str):
+    def load_model(self, model_path: str):
         """Load trained process model"""
         try:
             if os.path.isdir(model_path):
@@ -54,7 +54,7 @@ def load_model(self, model_path: str):
                     self.model_type = metadata.get('model_type')
                     self.training_stats = metadata.get('training_stats')
                     self.tokenizer = metadata.get('tokenizer')
-else:
+            else:
                 # Pickle file (sklearn model)
                 data = joblib.load(model_path)
                 self.model = data.get('model')
@@ -63,7 +63,8 @@ else:
                 self.model_type = data.get('model_type')
                 self.training_stats = data.get('training_stats')
             
-class ProcessPredictor:
+            
+            class ProcessPredictor:
     """Predict process behavioral anomalies with real behavioral analysis"""
     
     def _init_(self, model_path: str = None):
@@ -225,3 +226,51 @@ class ProcessPredictor:
             "command_analyzed": combined_command[:100] + "..." if len(combined_command) > 100 else combined_command
         }
     
+    def get_feature_importance(self, events: List[Dict[str, Any]]) -> Dict[str, float]:
+        """Get feature importance for the prediction"""
+        if self.model is None or self.feature_names is None:
+            return {}
+        
+       
+        try:
+            # Extract features
+            features = extract_process_features(events)
+            feature_values = list(features.values())
+            
+            # Calculate feature importance
+            if self.model_type == "random_forest" and hasattr(self.model, 'feature_importances_'):
+                # Use actual feature importance from Random Forest
+                importance = dict(zip(self.feature_names, self.model.feature_importances_))
+            else:
+                # Use normalized feature values as importance
+                max_val = max(feature_values) if feature_values else 1.0
+                importance = {name: abs(val) / max_val for name, val in zip(self.feature_names, feature_values)}
+            
+            return importance
+            
+        except Exception as e:
+            print(f"⚠️  Error calculating feature importance: {e}")
+            return {}
+    
+    def get_behavioral_insights(self, events: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Get behavioral insights from the analysis"""
+        try:
+            features = extract_process_features(events)
+            
+            insights = {
+                "process_diversity": features.get('process_diversity', 0),
+                "command_complexity": features.get('cmd_complexity', 0),
+                "suspicious_patterns": features.get('suspicious_cmd_patterns', 0),
+                "process_spawning_rate": features.get('process_spawning_rate', 0),
+                "temporal_anomaly": features.get('time_of_day_anomaly', 0),
+                "privilege_indicators": features.get('privilege_escalation_indicators', 0),
+                "network_activity": features.get('network_processes', 0),
+                "file_operations": features.get('file_operations', 0)
+            }
+            
+            return insights
+            
+        except Exception as e:
+            print(f"⚠️  Error generating behavioral insights: {e}")
+            return {}
+
