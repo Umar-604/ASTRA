@@ -147,4 +147,14 @@ class ProcessPredictor:
         # Scale features
         if self.scaler:
             feature_array = self.scaler.transform(feature_array)
+        # Make prediction
+        if self.model_type == "isolation_forest":
+            # Isolation Forest: -1 = outlier, 1 = inlier
+            prediction = self.model.predict(feature_array)[0]
+            score = self.model.score_samples(feature_array)[0]
+            
+            # Convert to anomaly score (higher = more anomalous)
+            anomaly_score = 1 - (score - score.min()) / (score.max() - score.min() + 1e-9)
+            is_anomaly = prediction == -1
+            
         
