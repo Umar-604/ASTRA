@@ -139,3 +139,12 @@ class ProcessPredictor:
                 "error": str(e)
             }
     
+    def _predict_traditional(self, features: Dict[str, Any], threshold: float) -> Dict[str, Any]:
+        """Predict using traditional ML models"""
+        # Convert to array
+        feature_array = np.array([list(features.values())]).reshape(1, -1)
+        
+        # Scale features
+        if self.scaler:
+            feature_array = self.scaler.transform(feature_array)
+        
