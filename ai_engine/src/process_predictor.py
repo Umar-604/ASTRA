@@ -126,3 +126,16 @@ class ProcessPredictor:
             if self.model_type == "lstm_commands":
                 # LSTM model for command analysis
                 return self._predict_lstm(events, features, threshold)
+            else:
+                # Traditional ML models
+                return self._predict_traditional(features, threshold)
+           
+        except Exception as e:
+            return {
+                "is_anomaly": False,
+                "anomaly_score": 0.0,
+                "confidence": 0.0,
+                "model_used": False,
+                "error": str(e)
+            }
+    
