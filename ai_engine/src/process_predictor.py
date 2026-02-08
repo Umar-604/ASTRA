@@ -2,7 +2,6 @@
 Process behavioral model predictor
 Dedicated predictor for process events with real behavioral analysis
 """
-
 import joblib
 import numpy as np
 import os
@@ -63,52 +62,13 @@ class ProcessPredictor:
                 self.model_type = data.get('model_type')
                 self.training_stats = data.get('training_stats')
             
-            
-            class ProcessPredictor:
-    """Predict process behavioral anomalies with real behavioral analysis"""
-    
-    def _init_(self, model_path: str = None):
-        self.model = None
-        self.scaler = None
-        self.feature_names = None
-        self.model_type = None
-        self.training_stats = None
-        self.tokenizer = None
-        
-        if model_path:
-            self.load_model(model_path)
-    
-    def load_model(self, model_path: str):
-        """Load trained process model"""
-        try:
-            if os.path.isdir(model_path):
-                # TensorFlow model directory
-                self.model = tf.keras.models.load_model(model_path)
-                
-                # Load metadata
-                metadata_path = os.path.join(model_path, 'metadata.pkl')
-                if os.path.exists(metadata_path):
-                    metadata = joblib.load(metadata_path)
-                    self.scaler = metadata.get('scaler')
-                    self.feature_names = metadata.get('feature_names')
-                    self.model_type = metadata.get('model_type')
-                    self.training_stats = metadata.get('training_stats')
-                    self.tokenizer = metadata.get('tokenizer')
-            else:
-                # Pickle file (sklearn model)
-                data = joblib.load(model_path)
-                self.model = data.get('model')
-                self.scaler = data.get('scaler')
-                self.feature_names = data.get('feature_names')
-                self.model_type = data.get('model_type')
-                self.training_stats = data.get('training_stats')
-            
             print(f"✅ Loaded process model: {self.model_type}")
             print(f"   Features: {len(self.feature_names) if self.feature_names else 'unknown'}")
             
         except Exception as e:
             print(f"⚠️  Failed to load process model: {e}")
             self.model = None
+    
     def predict(self, events: List[Dict[str, Any]], threshold: float = 0.5) -> Dict[str, Any]:
         """Predict process behavioral anomaly"""
         if self.model is None:
@@ -130,7 +90,7 @@ class ProcessPredictor:
             else:
                 # Traditional ML models
                 return self._predict_traditional(features, threshold)
-           
+            
         except Exception as e:
             return {
                 "is_anomaly": False,
@@ -148,6 +108,7 @@ class ProcessPredictor:
         # Scale features
         if self.scaler:
             feature_array = self.scaler.transform(feature_array)
+        
         # Make prediction
         if self.model_type == "isolation_forest":
             # Isolation Forest: -1 = outlier, 1 = inlier
@@ -183,6 +144,7 @@ class ProcessPredictor:
             "model_type": self.model_type,
             "features_extracted": len(features)
         }
+    
     def _predict_lstm(self, events: List[Dict[str, Any]], features: Dict[str, Any], threshold: float) -> Dict[str, Any]:
         """Predict using LSTM model for command analysis"""
         # Extract command texts
@@ -201,6 +163,7 @@ class ProcessPredictor:
                 "model_used": False,
                 "error": "No commands found or tokenizer not loaded"
             }
+        
         # Combine commands
         combined_command = ' '.join(command_texts)
         
@@ -231,7 +194,6 @@ class ProcessPredictor:
         if self.model is None or self.feature_names is None:
             return {}
         
-       
         try:
             # Extract features
             features = extract_process_features(events)
