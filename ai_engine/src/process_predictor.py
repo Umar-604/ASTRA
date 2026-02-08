@@ -54,3 +54,12 @@ def load_model(self, model_path: str):
                     self.model_type = metadata.get('model_type')
                     self.training_stats = metadata.get('training_stats')
                     self.tokenizer = metadata.get('tokenizer')
+else:
+                # Pickle file (sklearn model)
+                data = joblib.load(model_path)
+                self.model = data.get('model')
+                self.scaler = data.get('scaler')
+                self.feature_names = data.get('feature_names')
+                self.model_type = data.get('model_type')
+                self.training_stats = data.get('training_stats')
+            
