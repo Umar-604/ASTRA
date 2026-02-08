@@ -119,3 +119,10 @@ class ProcessPredictor:
                 "error": "No model loaded"
             }
         
+        try:
+            # Extract process features
+            features = extract_process_features(events)
+            
+            if self.model_type == "lstm_commands":
+                # LSTM model for command analysis
+                return self._predict_lstm(events, features, threshold)
