@@ -24,3 +24,17 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 from .features.process_features import extract_process_features
 
+class ProcessPredictor:
+    """Predict process behavioral anomalies with real behavioral analysis"""
+    
+    def _init_(self, model_path: str = None):
+        self.model = None
+        self.scaler = None
+        self.feature_names = None
+        self.model_type = None
+        self.training_stats = None
+        self.tokenizer = None
+        
+        if model_path:
+            self.load_model(model_path)
+    
