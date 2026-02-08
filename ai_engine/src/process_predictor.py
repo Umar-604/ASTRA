@@ -182,4 +182,22 @@ class ProcessPredictor:
             "model_type": self.model_type,
             "features_extracted": len(features)
         }
+    def _predict_lstm(self, events: List[Dict[str, Any]], features: Dict[str, Any], threshold: float) -> Dict[str, Any]:
+        """Predict using LSTM model for command analysis"""
+        # Extract command texts
+        command_texts = []
+        for event in events:
+            if event.get('event_type') == 'process_creation':
+                cmd = event.get('data', {}).get('command_line', '')
+                if cmd:
+                    command_texts.append(cmd)
+        
+        if not command_texts or not self.tokenizer:
+            return {
+                "is_anomaly": False,
+                "anomaly_score": 0.0,
+                "confidence": 0.0,
+                "model_used": False,
+                "error": "No commands found or tokenizer not loaded"
+            }
             
