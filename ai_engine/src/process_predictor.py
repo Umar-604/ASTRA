@@ -38,3 +38,19 @@ class ProcessPredictor:
         if model_path:
             self.load_model(model_path)
     
+def load_model(self, model_path: str):
+        """Load trained process model"""
+        try:
+            if os.path.isdir(model_path):
+                # TensorFlow model directory
+                self.model = tf.keras.models.load_model(model_path)
+                
+                # Load metadata
+                metadata_path = os.path.join(model_path, 'metadata.pkl')
+                if os.path.exists(metadata_path):
+                    metadata = joblib.load(metadata_path)
+                    self.scaler = metadata.get('scaler')
+                    self.feature_names = metadata.get('feature_names')
+                    self.model_type = metadata.get('model_type')
+                    self.training_stats = metadata.get('training_stats')
+                    self.tokenizer = metadata.get('tokenizer')
