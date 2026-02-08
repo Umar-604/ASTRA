@@ -63,3 +63,48 @@ else:
                 self.model_type = data.get('model_type')
                 self.training_stats = data.get('training_stats')
             
+class ProcessPredictor:
+    """Predict process behavioral anomalies with real behavioral analysis"""
+    
+    def _init_(self, model_path: str = None):
+        self.model = None
+        self.scaler = None
+        self.feature_names = None
+        self.model_type = None
+        self.training_stats = None
+        self.tokenizer = None
+        
+        if model_path:
+            self.load_model(model_path)
+    
+    def load_model(self, model_path: str):
+        """Load trained process model"""
+        try:
+            if os.path.isdir(model_path):
+                # TensorFlow model directory
+                self.model = tf.keras.models.load_model(model_path)
+                
+                # Load metadata
+                metadata_path = os.path.join(model_path, 'metadata.pkl')
+                if os.path.exists(metadata_path):
+                    metadata = joblib.load(metadata_path)
+                    self.scaler = metadata.get('scaler')
+                    self.feature_names = metadata.get('feature_names')
+                    self.model_type = metadata.get('model_type')
+                    self.training_stats = metadata.get('training_stats')
+                    self.tokenizer = metadata.get('tokenizer')
+            else:
+                # Pickle file (sklearn model)
+                data = joblib.load(model_path)
+                self.model = data.get('model')
+                self.scaler = data.get('scaler')
+                self.feature_names = data.get('feature_names')
+                self.model_type = data.get('model_type')
+                self.training_stats = data.get('training_stats')
+            
+            print(f"✅ Loaded process model: {self.model_type}")
+            print(f"   Features: {len(self.feature_names) if self.feature_names else 'unknown'}")
+            
+        except Exception as e:
+            print(f"⚠️  Failed to load process model: {e}")
+            self.model = None
