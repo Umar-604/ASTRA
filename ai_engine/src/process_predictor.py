@@ -108,3 +108,14 @@ class ProcessPredictor:
         except Exception as e:
             print(f"⚠️  Failed to load process model: {e}")
             self.model = None
+    def predict(self, events: List[Dict[str, Any]], threshold: float = 0.5) -> Dict[str, Any]:
+        """Predict process behavioral anomaly"""
+        if self.model is None:
+            return {
+                "is_anomaly": False,
+                "anomaly_score": 0.0,
+                "confidence": 0.0,
+                "model_used": False,
+                "error": "No model loaded"
+            }
+        
