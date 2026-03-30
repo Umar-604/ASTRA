@@ -28,3 +28,17 @@ export async function getHosts() {
           active_alerts: 0
         });
       }
+      const item = map.get(id)!;
+      item.active_alerts = (item.active_alerts || 0) + 1;
+      if (t > new Date(item.last_seen).getTime()) item.last_seen = ts;
+      const first = new Date(item.first_seen!).getTime();
+      if (t < first) item.first_seen = ts;
+      if (now - t < oneDay) item.events_24h = (item.events_24h ?? 0) + 1;
+      const ageMin = (now - new Date(item.last_seen).getTime()) / 60000;
+      if (ageMin < 5) item.health_status = 'healthy';
+      else if (ageMin < 60) item.health_status = 'warning';
+      else item.health_status = 'stale';
+    });
+    return { items: Array.from(map.values()) };
+  }
+}
