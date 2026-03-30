@@ -24,3 +24,4 @@ export async function refresh() {
   // Assumes server can read refresh token from HttpOnly cookie. If not, frontend must provide it.
   return apiClient.post<TokenPair>('/auth/refresh');
 }
+
