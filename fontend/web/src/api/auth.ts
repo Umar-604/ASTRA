@@ -19,3 +19,8 @@ export async function signup(email: string, password: string, role?: string) {
   setAuthToken(res.access_token);
   return res;
 }
+
+export async function refresh() {
+  // Assumes server can read refresh token from HttpOnly cookie. If not, frontend must provide it.
+  return apiClient.post<TokenPair>('/auth/refresh');
+}
