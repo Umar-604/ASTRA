@@ -37,3 +37,44 @@ function authHeaders(init?: RequestInit) {
   }
   return headers;
 }
+
+async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    ...init,
+    headers: authHeaders(init),
+    credentials: 'include', // allow HttpOnly refresh cookie participation
+  });
+  if (res.status === 401) {
+    // Graceful 401 handling: redirect to login
+    try {
+      clearAuthToken();
+    } catch {}
+    if (typeof window !== 'undefined') {
+      window.location.assign('/login');
+    }
+    throw new Error('Unauthorized');
+  }
+  if (!res.ok) {
+    // Reduce attack surface: do not surface backend error bodies to UI
+    const message = res.status === 401 ? 'Unauthorized' : res.status === 403 ? 'Forbidden' : 'Request failed';
+    throw new Error(message);
+  }
+  const ct = res.headers.get('content-type') || '';
+  if (ct.includes('application/json')) {
+    return (await res.json()) as T;
+  }
+  // Fallback when server returns empty/no-json body
+  return undefined as unknown as T;
+}
+
+export const apiClient = {
+  BASE_URL,
+  get: <T>(path: string) => request<T>(path, { method: 'GET' }),
+  post: <T>(path: string, body?: unknown) =>
+    request<T>(path, { method: 'POST', body: body ? JSON.stringify(body) : undefined }),
+  put: <T>(path: string, body?: unknown) =>
+    request<T>(path, { method: 'PUT', body: body ? JSON.stringify(body) : undefined }),
+  patch: <T>(path: string, body?: unknown) =>
+    request<T>(path, { method: 'PATCH', body: body ? JSON.stringify(body) : undefined }),
+  delete: <T>(path: string) => request<T>(path, { method: 'DELETE' }),
+};
