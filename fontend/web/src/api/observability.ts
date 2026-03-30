@@ -37,3 +37,4 @@ export function getDashboardMetrics(rangeOrDays: ChartTimeRange | number = 7) {
   const param = typeof rangeOrDays === 'string' ? `range=${rangeOrDays}` : `range=7d&days=${rangeOrDays}`;
   return apiClient.get<DashboardMetricsResponse>(`/observability/dashboard-metrics?${param}`);
 }
+
