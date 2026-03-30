@@ -27,6 +27,14 @@ export interface AdminSettingsUpdate {
   model_name?: string;
   task?: string;
   model_dir?: string;
+
+  export function getAdminSettings(): Promise<AdminSettings> {
+  return apiClient.get<AdminSettings>('/admin/settings');
+}
+
+export function updateAdminSettings(partial: AdminSettingsUpdate): Promise<AdminSettings> {
+  return apiClient.put<AdminSettings>('/admin/settings', partial);
+}
   nats_url?: string;
   nats_subject?: string;
 }
