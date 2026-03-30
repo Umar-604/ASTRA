@@ -16,3 +16,8 @@ export interface AuditListItem {
   anchored?: boolean;
   tx_id?: string | null;
 }
+
+export function getAuditList() {
+  return apiClient.get<{ items: AuditListItem[] }>('/audit');
+}
+
