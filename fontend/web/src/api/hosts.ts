@@ -61,3 +61,13 @@ export async function getHost(hostId: string) {
       else if (s === 'tampered') integ.tampered += 1;
       else integ.pending += 1;
     });
+    return {
+      host_id: hostId,
+      hostname: hostId,
+      os: 'unknown',
+      last_seen: new Date(lastSeen).toISOString(),
+      risk_score: null,
+      integrity: integ
+    } as HostDetail;
+  }
+}
