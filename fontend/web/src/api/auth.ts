@@ -6,3 +6,10 @@ export interface TokenPair {
   token_type: string;
   expires_in: number;
 }
+
+export async function login(email: string, password: string) {
+  const res = await apiClient.post<TokenPair>('/auth/login', { email, password });
+  // Store access in memory; refresh is expected to be set as HttpOnly cookie by server (if supported).
+  setAuthToken(res.access_token);
+  return res;
+}
