@@ -5,14 +5,8 @@ const BASE_URL =
     ? import.meta.env.VITE_API_BASE_URL.replace(/\/+$/, '')
     : '';
 
-// In-memory a
-
 // In-memory access token (clears on reload by design)
 let ACCESS_TOKEN: string | null = null;
-
-export function setAuthToken(token: string) {
-  ACCESS_TOKEN = token || null;
-}
 
 export function setAuthToken(token: string) {
   ACCESS_TOKEN = token || null;
