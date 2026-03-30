@@ -38,3 +38,10 @@ export function updateAdminSettings(partial: AdminSettingsUpdate): Promise<Admin
   nats_url?: string;
   nats_subject?: string;
 }
+
+export interface DeployResult {
+  status: string;
+  message: string;
+  loaded?: Record<string, boolean>;
+  subject?: string;
+}
