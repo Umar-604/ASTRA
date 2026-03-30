@@ -12,3 +12,17 @@ export interface OverviewResponse {
     by_event_type?: Record<string, number>;
   };
 }
+
+export interface DashboardMetricsPoint {
+  date: string;
+  criticalAlerts: number;
+  aiDetections: number;
+  logsSecured: number;
+  totalEvents?: number;
+}
+
+export interface DashboardMetricsResponse {
+  series: DashboardMetricsPoint[];
+  window?: string;
+  error?: string;
+}
