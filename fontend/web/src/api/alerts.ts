@@ -20,7 +20,6 @@ export async function getAlerts(params?: AlertsQuery) {
   return apiClient.get<{ items: AlertItem[] }>(`/alerts${qs}`);
 }
 
-
 export type AcknowledgeStatus = 'acknowledged' | 'resolved';
 
 export async function acknowledgeAlert(eventId: string, status: AcknowledgeStatus) {
