@@ -45,3 +45,15 @@ export interface DeployResult {
   loaded?: Record<string, boolean>;
   subject?: string;
 }
+
+export function deployConfig(): Promise<DeployResult> {
+  return apiClient.post<DeployResult>('/admin/deploy/config');
+}
+
+export function deployModels(): Promise<DeployResult> {
+  return apiClient.post<DeployResult>('/admin/deploy/models');
+}
+
+export function deployAgents(): Promise<DeployResult> {
+  return apiClient.post<DeployResult>('/admin/deploy/agents');
+}
