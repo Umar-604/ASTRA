@@ -19,3 +19,13 @@ export async function getAlerts(params?: AlertsQuery) {
   const qs = q.toString() ? `?${q.toString()}` : '';
   return apiClient.get<{ items: AlertItem[] }>(`/alerts${qs}`);
 }
+
+
+export type AcknowledgeStatus = 'acknowledged' | 'resolved';
+
+export async function acknowledgeAlert(eventId: string, status: AcknowledgeStatus) {
+  return apiClient.patch<{ event_id: string; status: string; acknowledged_by: string }>(
+    `/alerts/${encodeURIComponent(eventId)}/acknowledge`,
+    { status }
+  );
+}
