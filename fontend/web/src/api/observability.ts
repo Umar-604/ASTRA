@@ -26,3 +26,9 @@ export interface DashboardMetricsResponse {
   window?: string;
   error?: string;
 }
+
+export function getOverview() {
+  return apiClient.get<OverviewResponse>('/observability/overview');
+}
+
+export type ChartTimeRange = '1h' | '24h' | '7d';
