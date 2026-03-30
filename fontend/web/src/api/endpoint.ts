@@ -10,3 +10,8 @@ export const endpoints = {
     if (params?.limit) q.set('limit', String(params.limit));
     const qs = q.toString() ? `?${q.toString()}` : '';
     return apiClient.http<{ items: AlertItem[] }>(`/alerts${qs}`);
+  },
+  getEvent: (eventId: string) => apiClient.http<EventSummary>(`/events/${encodeURIComponent(eventId)}`),
+  verifyIntegrity: (eventId: string) =>
+    apiClient.http<VerifyResult>(`/audit/verify?event_id=${encodeURIComponent(eventId)}`)
+};
