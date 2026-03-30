@@ -71,3 +71,11 @@ export async function getHost(hostId: string) {
     } as HostDetail;
   }
 }
+
+export async function getHostAlerts(hostId: string, params?: AlertsQuery) {
+  const q: AlertsQuery = { ...(params || {}), limit: params?.limit ?? 200 };
+  const res = await getAlerts(q);
+  return {
+    items: (res.items || []).filter((a) => a.host_id === hostId)
+  };
+}
