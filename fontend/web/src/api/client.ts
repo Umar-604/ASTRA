@@ -25,3 +25,15 @@ export function getAuthToken(): string | null {
 export function clearAuthToken() {
   ACCESS_TOKEN = null;
 }
+
+function authHeaders(init?: RequestInit) {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(init?.headers as Record<string, string>),
+  };
+  const token = ACCESS_TOKEN;
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  return headers;
+}
