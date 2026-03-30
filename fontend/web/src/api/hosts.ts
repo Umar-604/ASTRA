@@ -42,3 +42,22 @@ export async function getHosts() {
     return { items: Array.from(map.values()) };
   }
 }
+export async function getHost(hostId: string) {
+  try {
+    return await apiClient.get<HostDetail>(`/hosts/${encodeURIComponent(hostId)}`);
+  } catch {
+    // Fallback: derive integrity and last_seen from alerts if /hosts/{id} not available
+    const alerts = await getAlerts({ limit: 200 });
+    const items = (alerts.items || []).filter((a) => a.host_id === hostId);
+    const lastSeen =
+      items.reduce((acc, cur) => {
+        const t = new Date(cur['@timestamp']).getTime();
+        return t > acc ? t : acc;
+      }, 0) || Date.now();
+    const integ = { verified: 0, pending: 0, tampered: 0 };
+    items.forEach((a) => {
+      const s = (a.integrity_status || 'Pending').toLowerCase();
+      if (s === 'verified') integ.verified += 1;
+      else if (s === 'tampered') integ.tampered += 1;
+      else integ.pending += 1;
+    });
