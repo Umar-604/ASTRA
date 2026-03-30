@@ -13,3 +13,9 @@ export async function login(email: string, password: string) {
   setAuthToken(res.access_token);
   return res;
 }
+
+export async function signup(email: string, password: string, role?: string) {
+  const res = await apiClient.post<TokenPair>('/auth/signup', { email, password, role });
+  setAuthToken(res.access_token);
+  return res;
+}
