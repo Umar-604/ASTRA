@@ -13,3 +13,15 @@ let ACCESS_TOKEN: string | null = null;
 export function setAuthToken(token: string) {
   ACCESS_TOKEN = token || null;
 }
+
+export function setAuthToken(token: string) {
+  ACCESS_TOKEN = token || null;
+}
+
+export function getAuthToken(): string | null {
+  return ACCESS_TOKEN;
+}
+
+export function clearAuthToken() {
+  ACCESS_TOKEN = null;
+}
