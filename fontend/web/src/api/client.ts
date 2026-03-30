@@ -6,3 +6,10 @@ const BASE_URL =
     : '';
 
 // In-memory a
+
+// In-memory access token (clears on reload by design)
+let ACCESS_TOKEN: string | null = null;
+
+export function setAuthToken(token: string) {
+  ACCESS_TOKEN = token || null;
+}
