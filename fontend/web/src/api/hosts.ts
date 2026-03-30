@@ -6,7 +6,7 @@ export async function getHosts() {
   try {
     return await apiClient.get<{ items: HostItem[] }>('/hosts');
   } catch {
-     // Fallback: derive list from alerts if /hosts not available
+    // Fallback: derive list from alerts if /hosts not available
     const alerts = await getAlerts({ limit: 500 });
     const map = new Map<string, HostItem>();
     const now = Date.now();
@@ -42,6 +42,7 @@ export async function getHosts() {
     return { items: Array.from(map.values()) };
   }
 }
+
 export async function getHost(hostId: string) {
   try {
     return await apiClient.get<HostDetail>(`/hosts/${encodeURIComponent(hostId)}`);
@@ -79,3 +80,4 @@ export async function getHostAlerts(hostId: string, params?: AlertsQuery) {
     items: (res.items || []).filter((a) => a.host_id === hostId)
   };
 }
+
