@@ -18,3 +18,15 @@ export interface AdminSettings {
     nats_subject: string;
   };
 }
+
+
+export interface AdminSettingsUpdate {
+  cumulative_risk_threshold?: number;
+  decision_threshold?: number;
+  fabric_gateway_url?: string;
+  model_name?: string;
+  task?: string;
+  model_dir?: string;
+  nats_url?: string;
+  nats_subject?: string;
+}
