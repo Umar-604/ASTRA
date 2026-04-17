@@ -300,3 +300,6 @@ def behavioral_parts(rec: Mapping[str, Any]) -> Dict[str, Any]:
     }
 
 
+class BehavioralEncoders:
+    """Frequency encoding for process/parent basenames only (fit on training data per split)."""
+
