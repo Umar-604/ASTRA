@@ -225,3 +225,8 @@ def _count_calltrace_dlls(rec: Mapping[str, Any]) -> int:
     return len(dlls)
 
 
+def _process_in_system_dir(path: str) -> int:
+    p = path.lower().replace("\\", "/")
+    return 1 if ("/windows/system32/" in p or "/windows/syswow64/" in p or p.startswith("c:/windows/")) else 0
+
+
