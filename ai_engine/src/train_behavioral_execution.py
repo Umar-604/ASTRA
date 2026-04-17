@@ -497,3 +497,12 @@ def train_pipeline(
             f"P={r['precision_attack']:.4f} R={r['recall_attack']:.4f} "
             f"F1={r['f1_attack']:.4f} F1m={r['f1_macro']:.4f} MCC={r['mcc']:.4f} AUC={auc_s}"
         )
+    print(
+        f"Mean ± std  acc={cv_mean_acc:.4f}±{cv_std_acc:.4f}  "
+        f"P={cv_mean_prec:.4f}±{cv_std_prec:.4f}  R={cv_mean_rec:.4f}±{cv_std_rec:.4f}  "
+        f"F1={cv_mean_f1:.4f}±{cv_std_f1:.4f}  "
+        f"F1m={cv_mean_f1m:.4f}±{cv_std_f1m:.4f}  "
+        f"MCC={cv_mean_mcc:.4f}±{cv_std_mcc:.4f}  "
+        f"AUC={cv_mean_auc:.4f}±{cv_std_auc:.4f}"
+    )
+
