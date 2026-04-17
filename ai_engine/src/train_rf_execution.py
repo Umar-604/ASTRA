@@ -312,3 +312,12 @@ def train(
     print("Top 15 features:")
     for rank, idx in enumerate(top_idx, 1):
         print(f"  {rank:>2}. {feature_names[idx]:>40s}  {importances[idx]:.4f}")
+
+    # ── Save plots ──
+    out_dir.mkdir(parents=True, exist_ok=True)
+    cm_png = out_dir / "endpoint_model_rf_confusion_matrix.png"
+    roc_png = out_dir / "endpoint_model_rf_roc_curve.png"
+    pr_png = out_dir / "endpoint_model_rf_pr_curve.png"
+    bar_png = out_dir / "endpoint_model_rf_metrics_bar.png"
+    imp_png = out_dir / "endpoint_model_rf_feature_importance.png"
+    results_json_path = out_dir / "endpoint_model_rf_results.json"
