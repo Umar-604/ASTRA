@@ -365,4 +365,22 @@ def lgbm_scale_pos_weight(y: np.ndarray) -> float:
         return 1.0
     return neg / pos
 
+def build_behavioral_lgbm(seed: int, scale_pos_weight: float) -> LGBMClassifier:
+    """Regularized model; tuned for generalization rather than peak train accuracy."""
+    return LGBMClassifier(
+        n_estimators=220,
+        num_leaves=31,
+        max_depth=6,
+        learning_rate=0.05,
+        min_child_samples=40,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        reg_alpha=0.15,
+        reg_lambda=0.15,
+        scale_pos_weight=scale_pos_weight,
+        random_state=seed,
+        n_jobs=-1,
+        verbose=-1,
+    )
+
 
