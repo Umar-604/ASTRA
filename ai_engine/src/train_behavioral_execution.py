@@ -190,4 +190,15 @@ _SUSPICIOUS_GA = frozenset([
 _HIGH_RISK_EIDS = frozenset([1, 3, 4104, 800, 4103, 5857])
 _MEDIUM_RISK_EIDS = frozenset([10, 7, 11, 12, 13, 4688, 4689])
 
+def _ga_risk_tier(ga_str: str) -> int:
+    """0=none/missing, 1=low(0x1000), 2=medium, 3=critical."""
+    s = ga_str.strip().lower()
+    if not s or s == "0" or s == "0x0":
+        return 0
+    if s in _SUSPICIOUS_GA:
+        return 3
+    if s == "0x1000":
+        return 1
+    return 2
+
 
