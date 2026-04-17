@@ -473,3 +473,9 @@ def train_pipeline(
         m["fold"] = fold_i + 1
         cv_fold_rows.append(m)
 
+    def _agg(key: str) -> Tuple[float, float]:
+        vals = [r[key] for r in cv_fold_rows if not (key == "roc_auc" and math.isnan(r[key]))]
+        if not vals:
+            return float("nan"), float("nan")
+        return float(np.mean(vals)), float(np.std(vals))
+
