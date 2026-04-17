@@ -201,4 +201,16 @@ def _ga_risk_tier(ga_str: str) -> int:
         return 1
     return 2
 
+def _event_id_risk_tier(eid: Any) -> int:
+    """0=low, 1=medium, 2=high."""
+    try:
+        eid_int = int(eid)
+    except (TypeError, ValueError):
+        return 0
+    if eid_int in _HIGH_RISK_EIDS:
+        return 2
+    if eid_int in _MEDIUM_RISK_EIDS:
+        return 1
+    return 0
+
 
