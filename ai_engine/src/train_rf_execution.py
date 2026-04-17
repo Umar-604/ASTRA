@@ -329,3 +329,9 @@ def train(
 
     bar_m = {"Accuracy": acc, "F1 (attack)": float(f1), "F1 (macro)": float(f1_m), "MCC": mcc}
     if not np.isnan(auc):
+        bar_m["ROC-AUC"] = auc
+    save_metrics_bar_png(bar_m, bar_png, title="Random Forest — hold-out metrics")
+    save_feature_importance_png(importances, feature_names, imp_png,
+                                title="Random Forest — top 25 feature importances")
+
+    results_payload = {
