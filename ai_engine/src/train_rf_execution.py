@@ -42,3 +42,12 @@ from sklearn.model_selection import StratifiedKFold, train_test_split
 from src.eval_plots import save_metrics_bar_png, save_pr_curve_png, save_roc_curve_png
 
 
+# ────────────────────────────────────────────────────────────────────
+# Feature engineering
+# ────────────────────────────────────────────────────────────────────
+
+SUSPICIOUS_TOKENS = (
+    "mimikatz", "psexec", "rundll32", "regsvr32", "powershell -enc",
+    "encodedcommand", "downloadstring", "invoke-expression", "certutil",
+    "mshta", "wmic", "procdump", "vssadmin", "shadowcopy",
+)
