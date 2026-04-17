@@ -346,3 +346,11 @@ def train(
             "n_splits": n_splits, "folds": cv_results,
             "mean_f1_macro": cv_f1m_m, "mean_mcc": cv_mcc_m, "mean_auc": cv_auc_m,
         },
+        "holdout": {
+            "accuracy": acc, "precision_attack": float(prec), "recall_attack": float(rec),
+            "f1_attack": float(f1), "f1_macro": float(f1_m), "mcc": mcc, "auc": auc if not np.isnan(auc) else None,
+            "confusion_matrix": cm_arr.tolist(),
+            "classification_report": report_dict,
+        },
+        "top_features": [{"feature": feature_names[i], "importance": float(importances[i])} for i in top_idx],
+    }
