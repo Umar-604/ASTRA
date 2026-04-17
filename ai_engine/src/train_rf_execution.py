@@ -417,3 +417,11 @@ def main() -> None:
         rows = load_jsonl(path)
         benign_rows.extend(rows)
         print(f"  Loaded {len(rows)} benign rows from {path.name}")
+
+    result = train(attack_rows, benign_rows, Path(args.outdir), seed=args.seed, cv_splits=args.cv_splits)
+    print("\nDone.")
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == "__main__":
+    main()
