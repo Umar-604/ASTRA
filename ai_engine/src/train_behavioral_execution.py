@@ -321,3 +321,18 @@ class BehavioralEncoders:
         m = self.freq_maps.get(col) or {}
         return float(m.get(value, 0.0))
 
+    def transform_row(self, rec: Mapping[str, Any]) -> Dict[str, float]:
+        bp = behavioral_parts(rec)
+        row: Dict[str, float] = {
+            "freq_process_basename": self._freq("process_basename", str(bp["process_basename"])),
+            "freq_parent_basename": self._freq("parent_basename", str(bp["parent_basename"])),
+        }
+        for key in self.feature_columns:
+            if key in row:
+                continue
+            if key in bp:
+                row[key] = float(bp[key])
+            else:
+                row[key] = 0.0
+        return row
+
