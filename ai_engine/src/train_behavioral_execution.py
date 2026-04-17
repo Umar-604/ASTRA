@@ -397,4 +397,27 @@ def _save_confusion_matrix_png(cm: np.ndarray, path: Path, title: str) -> None:
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
 
+def _fold_metrics(y_true: np.ndarray, y_pred: np.ndarray, proba: np.ndarray) -> Dict[str, float]:
+    acc = float(accuracy_score(y_true, y_pred))
+    prec, rec, f1, _ = precision_recall_fscore_support(
+        y_true, y_pred, average="binary", pos_label=1, zero_division=0
+    )
+    prec_m, rec_m, f1_m, _ = precision_recall_fscore_support(
+        y_true, y_pred, average="macro", zero_division=0
+    )
+    mcc = float(matthews_corrcoef(y_true, y_pred))
+    try:
+        auc = float(roc_auc_score(y_true, proba))
+    except ValueError:
+        auc = float("nan")
+    return {
+        "accuracy": acc,
+        "precision_attack": float(prec),
+        "recall_attack": float(rec),
+        "f1_attack": float(f1),
+        "f1_macro": float(f1_m),
+        "mcc": mcc,
+        "roc_auc": auc,
+    }
+
 
