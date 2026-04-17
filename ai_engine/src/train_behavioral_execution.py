@@ -303,3 +303,7 @@ def behavioral_parts(rec: Mapping[str, Any]) -> Dict[str, Any]:
 class BehavioralEncoders:
     """Frequency encoding for process/parent basenames only (fit on training data per split)."""
 
+    def __init__(self) -> None:
+        self.freq_maps: Dict[str, Dict[str, float]] = {}
+        self.feature_columns: List[str] = list(BEHAVIORAL_FEATURE_COLUMNS)
+
