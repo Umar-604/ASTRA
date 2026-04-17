@@ -267,3 +267,7 @@ def behavioral_parts(rec: Mapping[str, Any]) -> Dict[str, Any]:
     source_img = (rec.get("SourceImage") or "").lower()
     source_bn = basename_lower(source_img) if source_img else "unknown"
 
+    channel = str(rec.get("Channel") or "").lower()
+    acct = str(rec.get("AccountName") or rec.get("SubjectUserName") or "").strip().upper()
+    logon_type = str(rec.get("LogonType") or "")
+
