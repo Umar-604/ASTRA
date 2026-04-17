@@ -305,3 +305,10 @@ def train(
     print(f"  True normal(0)       {tn:>6}           {fp:>6}")
     print(f"  True attack(1)       {fn:>6}           {tp:>6}")
     print(f"\n{report_txt}")
+
+    # ── Feature importance ──
+    importances = model.feature_importances_
+    top_idx = np.argsort(importances)[::-1][:15]
+    print("Top 15 features:")
+    for rank, idx in enumerate(top_idx, 1):
+        print(f"  {rank:>2}. {feature_names[idx]:>40s}  {importances[idx]:.4f}")
