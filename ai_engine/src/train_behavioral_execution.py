@@ -514,3 +514,8 @@ def train_pipeline(
         title="Behavioral LightGBM — CV metrics by fold",
     )
 
+    enc = BehavioralEncoders()
+    enc.fit(train_rows)
+    X_train, feat_names = enc.transform_matrix(train_rows)
+    X_test, _ = enc.transform_matrix(test_rows)
+
