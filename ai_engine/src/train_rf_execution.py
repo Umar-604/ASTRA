@@ -229,3 +229,19 @@ def train(
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=seed, stratify=y
     )
+
+    # ── Cross-validation ──
+    n_splits = min(cv_splits, int((y_train == 0).sum()), int((y_train == 1).sum()))
+    if n_splits < 2:
+        n_splits = 2
+    skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=seed)
+    cv_results: List[Dict[str, float]] = []
+
+    print(f"\n=== Stratified {n_splits}-fold CV ===")
+    for fold_i, (tr_idx, va_idx) in enumerate(skf.split(X_train, y_train)):
+        X_f_tr, X_f_va = X_train[tr_idx], X_train[va_idx]
+        y_f_tr, y_f_va = y_train[tr_idx], y_train[va_idx]
+        clf_f = RandomForestClassifier(
+            n_estimators=300, random_state=seed + fold_i,
+            class_weight="balanced_subsample", n_jobs=-1, min_samples_leaf=2,
+        )
