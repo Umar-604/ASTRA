@@ -74,3 +74,10 @@ def _to_int(v: Any, default: int = 0) -> int:
 
 def _basename(path: str) -> str:
     return path.replace("\\", "/").strip().lower().split("/")[-1] if path else ""
+
+
+def _in_system_dir(path: str) -> int:
+    p = path.lower().replace("\\", "/")
+    return 1 if ("/windows/system32/" in p or "/windows/syswow64/" in p) else 0
+
+
