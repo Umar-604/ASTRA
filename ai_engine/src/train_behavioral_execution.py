@@ -421,3 +421,33 @@ def _fold_metrics(y_true: np.ndarray, y_pred: np.ndarray, proba: np.ndarray) -> 
     }
 
 
+def train_pipeline(
+    attack_rows: List[Dict[str, Any]],
+    benign_rows: List[Dict[str, Any]],
+    out_dir: Path,
+    test_size: float,
+    seed: int,
+    cv_splits: int = 5,
+    use_smote: bool = False,
+) -> Dict[str, Any]:
+    rows, y_list = combine_attack_benign_shuffle(attack_rows, benign_rows, seed)
+    y = np.array(y_list, dtype=np.int32)
+    n_attack = int((y == 1).sum())
+    n_benign = int((y == 0).sum())
+
+    idx = np.arange(len(rows))
+    idx_train, idx_test = train_test_split(
+        idx, test_size=test_size, random_state=seed, stratify=y
+    )
+    train_rows = [rows[i] for i in idx_train]
+    test_rows = [rows[i] for i in idx_test]
+    y_train, y_test = y[idx_train], y[idx_test]
+
+    pos_tr = int((y_train == 1).sum())
+    neg_tr = int((y_train == 0).sum())
+    n_splits = min(cv_splits, pos_tr, neg_tr)
+    if n_splits < 2:
+        raise RuntimeError(
+            "Stratified CV needs at least 2 samples per class in the training split; "
+            f"got attack={pos_tr}, benign={neg_tr}. Add more data or reduce --test-size."
+        )
