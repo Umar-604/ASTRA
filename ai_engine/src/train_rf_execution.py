@@ -383,3 +383,15 @@ def main() -> None:
     default_out = Path(__file__).resolve().parents[1] / "saved_models"
 
     # Fall back to old defaults if re-labeled data doesn't exist
+    if not default_attack.exists():
+        default_attack = root / "dataset" / "MachineLearningCVE" / "Execution2.json"
+    if not default_benign.exists():
+        default_benign = root / "dataset" / "MachineLearningCVE" / "benign.jsonl"
+
+    p = argparse.ArgumentParser(description="Train Random Forest on endpoint event data (v2)")
+    p.add_argument("--attack", action="append", default=[], help="JSONL attack file(s)")
+    p.add_argument("--benign", action="append", default=[], help="JSONL benign file(s)")
+    p.add_argument("--outdir", default=str(default_out))
+    p.add_argument("--seed", type=int, default=42)
+    p.add_argument("--cv-splits", type=int, default=5, dest="cv_splits")
+    args = p.parse_args()
