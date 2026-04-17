@@ -61,3 +61,16 @@ SUSPICIOUS_GA = frozenset([
     "0x1fffff", "0x101000", "0x101541", "0x1478", "0x1410",
     "0x143a", "0x1438", "0x1010",
 ])
+
+
+def _to_int(v: Any, default: int = 0) -> int:
+    try:
+        if isinstance(v, str) and v.lower().startswith("0x"):
+            return int(v, 16)
+        return int(v)
+    except Exception:
+        return default
+
+
+def _basename(path: str) -> str:
+    return path.replace("\\", "/").strip().lower().split("/")[-1] if path else ""
