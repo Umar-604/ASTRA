@@ -358,4 +358,11 @@ def combine_attack_benign_shuffle(
     y_out = [t[1] for t in combined]
     return rows_out, y_out
 
+def lgbm_scale_pos_weight(y: np.ndarray) -> float:
+    neg = int((y == 0).sum())
+    pos = int((y == 1).sum())
+    if pos == 0:
+        return 1.0
+    return neg / pos
+
 
