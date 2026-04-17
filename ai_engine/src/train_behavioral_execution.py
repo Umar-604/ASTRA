@@ -254,3 +254,11 @@ def behavioral_parts(rec: Mapping[str, Any]) -> Dict[str, Any]:
     spawn_markers = ("cmd.exe", "powershell.exe", "pwsh.exe")
     process_spawns_cmd_or_powershell = 1 if any(m in parent_l for m in spawn_markers) else 0
 
+    pls = proc_l.strip()
+    pal = parent_l.strip()
+    indicator_unc_process = 1 if pls.startswith("\\\\") else 0
+    indicator_unc_parent = 1 if pal.startswith("\\\\") else 0
+    indicator_psexec_remote = 1 if ("psexec" in hay or "psexesvc" in hay) else 0
+    indicator_wmic = 1 if ("wmic" in hay or pls.endswith("\\wmic.exe") or pal.endswith("\\wmic.exe")) else 0
+    indicator_winrm_winrs = 1 if ("winrm" in hay or "winrs" in hay) else 0
+
