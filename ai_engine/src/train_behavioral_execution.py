@@ -519,3 +519,14 @@ def train_pipeline(
     X_train, feat_names = enc.transform_matrix(train_rows)
     X_test, _ = enc.transform_matrix(test_rows)
 
+    smote_applied = False
+    if use_smote and _HAS_SMOTE:
+        minority_count = min(int((y_train == 0).sum()), int((y_train == 1).sum()))
+        k = min(5, minority_count - 1) if minority_count > 1 else 1
+        if minority_count >= 2:
+            smote = _SMOTE(random_state=seed, k_neighbors=k)
+            X_train, y_train = smote.fit_resample(X_train, y_train)
+            smote_applied = True
+            print(f"\n  SMOTE applied: {len(y_train)} samples (attack={int((y_train==1).sum())}, benign={int((y_train==0).sum())})")
+    elif use_smote and not _HAS_SMOTE:
+        print("  WARNING: --smote requested but imblearn not installed; skipping.")
