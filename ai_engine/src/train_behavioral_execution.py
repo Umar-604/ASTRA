@@ -271,3 +271,14 @@ def behavioral_parts(rec: Mapping[str, Any]) -> Dict[str, Any]:
     acct = str(rec.get("AccountName") or rec.get("SubjectUserName") or "").strip().upper()
     logon_type = str(rec.get("LogonType") or "")
 
+    return {
+        "process_basename": basename_lower(proc),
+        "parent_basename": basename_lower(parent),
+        "granted_access": granted,
+        "process_is_wmiprvse": process_is_wmiprvse,
+        "process_spawns_cmd_or_powershell": process_spawns_cmd_or_powershell,
+        "indicator_unc_process": indicator_unc_process,
+        "indicator_unc_parent": indicator_unc_parent,
+        "indicator_psexec_remote": indicator_psexec_remote,
+        "indicator_wmic": indicator_wmic,
+        "indicator_winrm_winrs": indicator_winrm_winrs,
