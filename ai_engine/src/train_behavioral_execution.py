@@ -244,3 +244,9 @@ def behavioral_parts(rec: Mapping[str, Any]) -> Dict[str, Any]:
     parent_l = parent.lower()
     hay = f"{proc_l} {parent_l}"
 
+    ga = rec.get("GrantedAccess")
+    if ga is None or ga == "":
+        ga = rec.get("granted_access")
+    granted = _to_int(ga)
+    ga_str = str(ga) if ga is not None else ""
+
