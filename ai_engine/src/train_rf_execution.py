@@ -409,3 +409,11 @@ def main() -> None:
         rows = load_jsonl(path)
         attack_rows.extend(rows)
         print(f"  Loaded {len(rows)} attack rows from {path.name}")
+
+    benign_rows: List[Dict[str, Any]] = []
+    for path in benign_paths:
+        if not path.is_file():
+            raise SystemExit(f"Benign file not found: {path}")
+        rows = load_jsonl(path)
+        benign_rows.extend(rows)
+        print(f"  Loaded {len(rows)} benign rows from {path.name}")
