@@ -41,3 +41,14 @@ from src.eval_plots import (
     save_pr_curve_png,
     save_roc_curve_png,
 )
+
+from sklearn.ensemble import IsolationForest
+from sklearn.metrics import (
+    ConfusionMatrixDisplay,
+    accuracy_score,
+    classification_report,
+    confusion_matrix,
+    matthews_corrcoef,
+    precision_recall_fscore_support,
+    roc_auc_score,
+)
