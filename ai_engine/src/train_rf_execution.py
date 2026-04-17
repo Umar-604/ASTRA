@@ -81,3 +81,28 @@ def _in_system_dir(path: str) -> int:
     return 1 if ("/windows/system32/" in p or "/windows/syswow64/" in p) else 0
 
 
+
+
+
+def _in_system_dir(path: str) -> int:
+    p = path.lower().replace("\\", "/")
+    return 1 if ("/windows/system32/" in p or "/windows/syswow64/" in p) else 0
+
+
+def extract_features(rec: Dict[str, Any]) -> Dict[str, Any]:
+    """Extract rich features from a single Sysmon/Security event."""
+    event_id = _to_int(rec.get("EventID"))
+    granted_access = _to_int(rec.get("GrantedAccess"))
+    ga_str = str(rec.get("GrantedAccess") or "").strip().lower()
+
+    img = str(rec.get("Image") or rec.get("SourceImage") or rec.get("ProcessName") or rec.get("Application") or "").lower()
+    tgt = str(rec.get("TargetImage") or rec.get("TargetFilename") or "").lower()
+    parent = str(rec.get("ParentImage") or "").lower()
+    cmd = str(rec.get("CommandLine") or rec.get("Message") or rec.get("Payload") or "").lower()
+    channel = str(rec.get("Channel") or "").lower()
+    acct = str(rec.get("AccountName") or rec.get("SubjectUserName") or "").strip().upper()
+    calltrace = str(rec.get("CallTrace") or "")
+
+    img_bn = _basename(img)
+    tgt_bn = _basename(tgt)
+    parent_bn = _basename(parent)
