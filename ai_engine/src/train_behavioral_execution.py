@@ -250,3 +250,7 @@ def behavioral_parts(rec: Mapping[str, Any]) -> Dict[str, Any]:
     granted = _to_int(ga)
     ga_str = str(ga) if ga is not None else ""
 
+    process_is_wmiprvse = 1 if "wmiprvse" in proc_l else 0
+    spawn_markers = ("cmd.exe", "powershell.exe", "pwsh.exe")
+    process_spawns_cmd_or_powershell = 1 if any(m in parent_l for m in spawn_markers) else 0
+
