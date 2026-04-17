@@ -245,3 +245,20 @@ def train(
             n_estimators=300, random_state=seed + fold_i,
             class_weight="balanced_subsample", n_jobs=-1, min_samples_leaf=2,
         )
+        clf_f.fit(X_f_tr, y_f_tr)
+        proba_f = clf_f.predict_proba(X_f_va)[:, 1]
+        pred_f = (proba_f >= 0.5).astype(int)
+        acc_f = float(accuracy_score(y_f_va, pred_f))
+        p_f, r_f, f1_f, _ = precision_recall_fscore_support(y_f_va, pred_f, average="binary", pos_label=1, zero_division=0)
+        _, _, f1m_f, _ = precision_recall_fscore_support(y_f_va, pred_f, average="macro", zero_division=0)
+        mcc_f = float(matthews_corrcoef(y_f_va, pred_f))
+        try:
+            auc_f = float(roc_auc_score(y_f_va, proba_f))
+        except ValueError:
+            auc_f = float("nan")
+        cv_results.append({"fold": fold_i + 1, "acc": acc_f, "prec": float(p_f), "rec": float(r_f),
+                           "f1": float(f1_f), "f1_macro": float(f1m_f), "mcc": mcc_f, "auc": auc_f})
+        auc_s = f"{auc_f:.4f}" if not np.isnan(auc_f) else "n/a"
+        print(f"  Fold {fold_i+1}: acc={acc_f:.4f} P={p_f:.4f} R={r_f:.4f} F1={f1_f:.4f} F1m={f1m_f:.4f} MCC={mcc_f:.4f} AUC={auc_s}")
+
+    def
