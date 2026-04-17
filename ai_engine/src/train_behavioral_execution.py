@@ -343,3 +343,19 @@ class BehavioralEncoders:
         return X, cols
 
 
+def combine_attack_benign_shuffle(
+    attack: List[Dict[str, Any]],
+    benign: List[Dict[str, Any]],
+    seed: int,
+) -> Tuple[List[Dict[str, Any]], List[int]]:
+    """Full attack + benign, one list, shuffled before any train/test split."""
+    if not attack or not benign:
+        raise RuntimeError("Need non-empty attack and benign JSONL inputs.")
+    rng = random.Random(seed)
+    combined: List[Tuple[Dict[str, Any], int]] = [(r, 1) for r in attack] + [(r, 0) for r in benign]
+    rng.shuffle(combined)
+    rows_out = [t[0] for t in combined]
+    y_out = [t[1] for t in combined]
+    return rows_out, y_out
+
+
