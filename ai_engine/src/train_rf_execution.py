@@ -215,3 +215,17 @@ def train(
     rng.shuffle(combined)
     all_rows = [t[0] for t in combined]
     y = np.array([t[1] for t in combined], dtype=np.int32)
+
+    n_attack = int((y == 1).sum())
+    n_benign = int((y == 0).sum())
+    print(f"  Dataset: {len(y)} rows (attack={n_attack}, benign={n_benign})")
+
+    feat_dicts = [extract_features(r) for r in all_rows]
+    vec = DictVectorizer(sparse=True)
+    X = vec.fit_transform(feat_dicts)
+    feature_names = list(vec.get_feature_names_out())
+    print(f"  Features after DictVectorizer: {X.shape[1]}")
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=seed, stratify=y
+    )
