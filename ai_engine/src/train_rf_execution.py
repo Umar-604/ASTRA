@@ -370,3 +370,16 @@ def train(
     print(f"\nSaved model: {pkl_path}")
     print(f"Saved results: {results_json_path}")
     return {"accuracy": acc, "f1_macro": float(f1_m), "mcc": mcc, "auc": auc}
+
+
+# ────────────────────────────────────────────────────────────────────
+# CLI
+# ────────────────────────────────────────────────────────────────────
+
+def main() -> None:
+    root = Path(__file__).resolve().parents[2]
+    default_attack = root / "dataset" / "MachineLearningCVE" / "attack_relabeled.jsonl"
+    default_benign = root / "dataset" / "MachineLearningCVE" / "benign_combined.jsonl"
+    default_out = Path(__file__).resolve().parents[1] / "saved_models"
+
+    # Fall back to old defaults if re-labeled data doesn't exist
