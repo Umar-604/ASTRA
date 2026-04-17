@@ -262,3 +262,8 @@ def behavioral_parts(rec: Mapping[str, Any]) -> Dict[str, Any]:
     indicator_wmic = 1 if ("wmic" in hay or pls.endswith("\\wmic.exe") or pal.endswith("\\wmic.exe")) else 0
     indicator_winrm_winrs = 1 if ("winrm" in hay or "winrs" in hay) else 0
 
+    target_img = (rec.get("TargetImage") or "").lower()
+    target_bn = basename_lower(target_img) if target_img else "unknown"
+    source_img = (rec.get("SourceImage") or "").lower()
+    source_bn = basename_lower(source_img) if source_img else "unknown"
+
