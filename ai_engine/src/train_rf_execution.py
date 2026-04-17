@@ -354,3 +354,14 @@ def train(
         },
         "top_features": [{"feature": feature_names[i], "importance": float(importances[i])} for i in top_idx],
     }
+    with results_json_path.open("w", encoding="utf-8") as f:
+        json.dump(results_payload, f, indent=2, default=str)
+
+    model_obj = {
+        "model": model, "vectorizer": vec, "feature_names": feature_names,
+        "model_type": "rf_v2",
+        "training_stats": {
+            "n_attack": n_attack, "n_benign": n_benign,
+            "accuracy": acc, "f1_macro": float(f1_m), "mcc": mcc, "auc": auc,
+        },
+    }
