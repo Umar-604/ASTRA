@@ -140,4 +140,10 @@ def basename_lower(path: str) -> str:
     name = p.split("/")[-1] if p else "unknown"
     return name if name else "unknown"
 
+# ---------------------------------------------------------------------------
+# Process-behavior features only (no EventID / channel / account / logon leakage)
+# ---------------------------------------------------------------------------
 
+FREQ_BASENAME_KEYS = ("process_basename", "parent_basename")
+
+# Fixed column order for LightGBM / IF / disk artifacts
