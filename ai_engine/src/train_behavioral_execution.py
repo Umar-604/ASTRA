@@ -336,3 +336,10 @@ class BehavioralEncoders:
                 row[key] = 0.0
         return row
 
+    def transform_matrix(self, records: Sequence[Mapping[str, Any]]) -> Tuple[np.ndarray, List[str]]:
+        cols = self.feature_columns
+        rows = [self.transform_row(r) for r in records]
+        X = np.array([[rows[i][c] for c in cols] for i in range(len(rows))], dtype=np.float64)
+        return X, cols
+
+
