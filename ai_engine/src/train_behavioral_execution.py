@@ -112,3 +112,19 @@ def _first_str(rec: Mapping[str, Any], *keys: str) -> Optional[str]:
     return None
 
 
+def primary_process_path(rec: Mapping[str, Any]) -> str:
+    v = _first_str(
+        rec,
+        "ProcessName",
+        "Image",
+        "image",
+        "SourceImage",
+        "source_image",
+        "TargetImage",
+        "target_image",
+        "Application",
+        "application",
+    )
+    return v if v is not None else "unknown"
+
+
