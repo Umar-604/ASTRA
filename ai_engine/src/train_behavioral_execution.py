@@ -187,3 +187,7 @@ _SUSPICIOUS_GA = frozenset([
     "0x143a", "0x1438", "0x1010",
 ])
 
+_HIGH_RISK_EIDS = frozenset([1, 3, 4104, 800, 4103, 5857])
+_MEDIUM_RISK_EIDS = frozenset([10, 7, 11, 12, 13, 4688, 4689])
+
+
