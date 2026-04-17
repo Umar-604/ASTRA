@@ -451,3 +451,11 @@ def train_pipeline(
             "Stratified CV needs at least 2 samples per class in the training split; "
             f"got attack={pos_tr}, benign={neg_tr}. Add more data or reduce --test-size."
         )
+
+    skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=seed)
+    cv_fold_rows: List[Dict[str, Any]] = []
+    for fold_i, (tr_idx, va_idx) in enumerate(skf.split(np.zeros(len(y_train)), y_train)):
+        fold_train = [train_rows[i] for i in tr_idx]
+        fold_val = [train_rows[i] for i in va_idx]
+        y_ft, y_fv = y_train[tr_idx], y_train[va_idx]
+
