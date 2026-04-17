@@ -335,3 +335,14 @@ def train(
                                 title="Random Forest — top 25 feature importances")
 
     results_payload = {
+        "model_type": "RandomForestClassifier (v2 — proper labels)",
+        "labeling": "heuristic_relabeling (prepare_behavioral_data.py)",
+        "data": {
+            "n_attack": n_attack, "n_benign": n_benign,
+            "features": int(X.shape[1]),
+            "train_size": int(len(y_train)), "test_size": int(len(y_test)),
+        },
+        "cross_validation": {
+            "n_splits": n_splits, "folds": cv_results,
+            "mean_f1_macro": cv_f1m_m, "mean_mcc": cv_mcc_m, "mean_auc": cv_auc_m,
+        },
