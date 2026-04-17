@@ -200,3 +200,18 @@ def save_feature_importance_png(
     fig.tight_layout()
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+
+
+def train(
+    attack_rows: List[Dict[str, Any]],
+    benign_rows: List[Dict[str, Any]],
+    out_dir: Path,
+    seed: int = 42,
+    cv_splits: int = 5,
+) -> Dict[str, Any]:
+    import random
+    rng = random.Random(seed)
+    combined = [(r, 1) for r in attack_rows] + [(r, 0) for r in benign_rows]
+    rng.shuffle(combined)
+    all_rows = [t[0] for t in combined]
+    y = np.array([t[1] for t in combined], dtype=np.int32)
