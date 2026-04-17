@@ -488,3 +488,12 @@ def train_pipeline(
     cv_mean_f1m, cv_std_f1m = _agg("f1_macro")
     cv_mean_mcc, cv_std_mcc = _agg("mcc")
 
+    print("\n=== Stratified K-fold CV (training split only; behavioral features) ===")
+    print(f"Folds: {n_splits} (requested up to {cv_splits})")
+    for r in cv_fold_rows:
+        auc_s = "n/a" if math.isnan(r["roc_auc"]) else f"{r['roc_auc']:.4f}"
+        print(
+            f"  Fold {int(r['fold'])}: acc={r['accuracy']:.4f} "
+            f"P={r['precision_attack']:.4f} R={r['recall_attack']:.4f} "
+            f"F1={r['f1_attack']:.4f} F1m={r['f1_macro']:.4f} MCC={r['mcc']:.4f} AUC={auc_s}"
+        )
