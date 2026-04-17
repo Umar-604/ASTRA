@@ -81,3 +81,21 @@ def load_jsonl(path: Path) -> List[Dict[str, Any]]:
     return rows
 
 
+# ---------------------------------------------------------------------------
+# Field helpers (missing → "unknown" or 0; never drop rows)
+# ---------------------------------------------------------------------------
+
+def _to_int(val: Any, default: int = 0) -> int:
+    if val is None or val == "":
+        return default
+    if isinstance(val, str) and val.lower().startswith("0x"):
+        try:
+            return int(val, 16)
+        except ValueError:
+            return default
+    try:
+        return int(val)
+    except (TypeError, ValueError):
+        return default
+
+
