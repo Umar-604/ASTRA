@@ -128,3 +128,6 @@ def primary_process_path(rec: Mapping[str, Any]) -> str:
     return v if v is not None else "unknown"
 
 
+def parent_process_path(rec: Mapping[str, Any]) -> str:
+    v = _first_str(rec, "ParentImage", "parent_image", "ParentProcessName")
+    return v if v is not None else "unknown"
