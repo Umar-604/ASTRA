@@ -213,4 +213,15 @@ def _event_id_risk_tier(eid: Any) -> int:
         return 1
     return 0
 
+def _count_calltrace_dlls(rec: Mapping[str, Any]) -> int:
+    ct = rec.get("CallTrace") or ""
+    if not ct:
+        return 0
+    dlls = set()
+    for part in str(ct).split("|"):
+        dll = part.split("+")[0].replace("\\", "/").strip().lower().split("/")[-1]
+        if dll:
+            dlls.add(dll)
+    return len(dlls)
+
 
