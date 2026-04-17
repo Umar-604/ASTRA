@@ -177,3 +177,8 @@ BEHAVIORAL_FEATURE_COLUMNS: List[str] = [
 ]
 
 
+_SENSITIVE_TARGETS = frozenset([
+    "lsass.exe", "csrss.exe", "winlogon.exe", "services.exe",
+    "smss.exe", "wininit.exe",
+])
+
