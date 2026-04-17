@@ -99,3 +99,16 @@ def _to_int(val: Any, default: int = 0) -> int:
         return default
 
 
+def _first_str(rec: Mapping[str, Any], *keys: str) -> Optional[str]:
+    for key in keys:
+        if key not in rec:
+            continue
+        v = rec.get(key)
+        if v is None:
+            continue
+        s = str(v).strip()
+        if s:
+            return s
+    return None
+
+
