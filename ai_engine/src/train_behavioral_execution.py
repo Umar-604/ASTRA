@@ -530,3 +530,11 @@ def train_pipeline(
             print(f"\n  SMOTE applied: {len(y_train)} samples (attack={int((y_train==1).sum())}, benign={int((y_train==0).sum())})")
     elif use_smote and not _HAS_SMOTE:
         print("  WARNING: --smote requested but imblearn not installed; skipping.")
+
+    X_train_df = pd.DataFrame(X_train, columns=feat_names)
+    X_test_df = pd.DataFrame(X_test, columns=feat_names)
+
+    spw = lgbm_scale_pos_weight(y_train)
+    clf = build_behavioral_lgbm(seed, spw)
+    clf.fit(X_train_df, y_train)
+
