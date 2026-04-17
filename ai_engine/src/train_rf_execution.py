@@ -98,3 +98,13 @@ def extract_features(rec: Dict[str, Any]) -> Dict[str, Any]:
     img_bn = _basename(img)
     tgt_bn = _basename(tgt)
     parent_bn = _basename(parent)
+
+    hay = f"{img} {tgt} {parent} {cmd}"
+    suspicious_token_count = sum(1 for tok in SUSPICIOUS_TOKENS if tok in hay)
+
+    ct_dlls = set()
+    if calltrace:
+        for part in calltrace.split("|"):
+            dll = part.split("+")[0].replace("\\", "/").strip().lower().split("/")[-1]
+            if dll:
+                ct_dlls.add(dll)
