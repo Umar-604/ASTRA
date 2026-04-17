@@ -274,3 +274,15 @@ def train(
           f"F1m={cv_f1m_m:.4f}±{cv_f1m_s:.4f} MCC={cv_mcc_m:.4f}±{cv_mcc_s:.4f} AUC={cv_auc_m:.4f}±{cv_auc_s:.4f}")
 
     # ── Final model on full training data ──
+    model = RandomForestClassifier(
+        n_estimators=300, random_state=seed,
+        class_weight="balanced_subsample", n_jobs=-1, min_samples_leaf=2,
+    )
+    model.fit(X_train, y_train)
+
+    proba = model.predict_proba(X_test)[:, 1]
+    pred = (proba >= 0.5).astype(int)
+    acc = float(accuracy_score(y_test, pred))
+    prec, rec, f1, _ = precision_recall_fscore_support(y_test, pred, average="binary", pos_label=1, zero_division=0)
+    prec_m, rec_m, f1_m, _ = precision_recall_fscore_support(y_test, pred, average="macro", zero_division=0)
+    mcc = float(matthews_corrcoef(y_test, pred))
