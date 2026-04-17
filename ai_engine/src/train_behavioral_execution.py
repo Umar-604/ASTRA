@@ -464,3 +464,12 @@ def train_pipeline(
         X_ft, fn = enc_fold.transform_matrix(fold_train)
         X_fv, _ = enc_fold.transform_matrix(fold_val)
 
+        spw_f = lgbm_scale_pos_weight(y_ft)
+        clf_f = build_behavioral_lgbm(seed + fold_i, spw_f)
+        clf_f.fit(pd.DataFrame(X_ft, columns=fn), y_ft)
+        proba_f = clf_f.predict_proba(pd.DataFrame(X_fv, columns=fn))[:, 1]
+        pred_f = (proba_f >= 0.5).astype(np.int32)
+        m = _fold_metrics(y_fv, pred_f, proba_f)
+        m["fold"] = fold_i + 1
+        cv_fold_rows.append(m)
+
