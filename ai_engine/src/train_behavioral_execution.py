@@ -131,3 +131,13 @@ def primary_process_path(rec: Mapping[str, Any]) -> str:
 def parent_process_path(rec: Mapping[str, Any]) -> str:
     v = _first_str(rec, "ParentImage", "parent_image", "ParentProcessName")
     return v if v is not None else "unknown"
+
+
+def basename_lower(path: str) -> str:
+    if path == "unknown":
+        return "unknown"
+    p = path.replace("\\", "/").strip().lower()
+    name = p.split("/")[-1] if p else "unknown"
+    return name if name else "unknown"
+
+
