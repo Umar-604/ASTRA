@@ -459,3 +459,8 @@ def train_pipeline(
         fold_val = [train_rows[i] for i in va_idx]
         y_ft, y_fv = y_train[tr_idx], y_train[va_idx]
 
+        enc_fold = BehavioralEncoders()
+        enc_fold.fit(fold_train)
+        X_ft, fn = enc_fold.transform_matrix(fold_train)
+        X_fv, _ = enc_fold.transform_matrix(fold_val)
+
