@@ -365,3 +365,8 @@ def train(
             "accuracy": acc, "f1_macro": float(f1_m), "mcc": mcc, "auc": auc,
         },
     }
+    pkl_path = out_dir / "endpoint_model_rf.pkl"
+    joblib.dump(model_obj, pkl_path)
+    print(f"\nSaved model: {pkl_path}")
+    print(f"Saved results: {results_json_path}")
+    return {"accuracy": acc, "f1_macro": float(f1_m), "mcc": mcc, "auc": auc}
