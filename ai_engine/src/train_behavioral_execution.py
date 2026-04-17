@@ -56,3 +56,8 @@ from sklearn.metrics import (
 from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.preprocessing import StandardScaler
 
+try:
+    from imblearn.over_sampling import SMOTE as _SMOTE
+    _HAS_SMOTE = True
+except ImportError:
+    _HAS_SMOTE = False
