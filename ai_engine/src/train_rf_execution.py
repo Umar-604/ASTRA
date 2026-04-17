@@ -108,3 +108,38 @@ def extract_features(rec: Dict[str, Any]) -> Dict[str, Any]:
             dll = part.split("+")[0].replace("\\", "/").strip().lower().split("/")[-1]
             if dll:
                 ct_dlls.add(dll)
+
+    return {
+        # ── Numeric features ──
+        "event_id": event_id,
+        "granted_access": granted_access,
+        "log_granted_access": math.log1p(granted_access),
+        "source_pid": _to_int(rec.get("SourceProcessId") or rec.get("ProcessId")),
+        # ── Risk tier features ──
+        "event_id_risk": 2 if event_id in {1, 3, 4104, 800, 4103, 5857} else (1 if event_id in {10, 7, 11, 12, 13, 4688} else 0),
+        "ga_risk_tier": 3 if ga_str in SUSPICIOUS_GA else (1 if ga_str == "0x1000" else (2 if granted_access > 0 else 0)),
+        # ── Binary indicators ──
+        "has_powershell": 1 if "powershell" in hay else 0,
+        "has_cmd_exe": 1 if "cmd.exe" in hay else 0,
+        "has_encoded_command": 1 if ("encodedcommand" in cmd or " -enc " in cmd) else 0,
+        "has_download_exec": 1 if ("downloadstring" in cmd or "invoke-expression" in cmd) else 0,
+        "targets_lsass": 1 if "lsass" in tgt else 0,
+        "target_is_sensitive": 1 if tgt_bn in SENSITIVE_TARGETS else 0,
+        "suspicious_token_count": suspicious_token_count,
+        "is_sysmon": 1 if "sysmon" in channel else 0,
+        "account_is_system": 1 if acct in ("SYSTEM", "LOCAL SERVICE", "NETWORK SERVICE") else 0,
+        "process_in_system_dir": _in_system_dir(img),
+        "has_parent": 1 if parent and parent != "unknown" else 0,
+        "has_calltrace": 1 if calltrace else 0,
+        "calltrace_dll_count": len(ct_dlls),
+        "has_script_content": 1 if (rec.get("Payload") or rec.get("ScriptBlockText")) else 0,
+        "has_file_hash": 1 if rec.get("Hashes") else 0,
+        "source_target_same": 1 if (img_bn and img_bn == tgt_bn) else 0,
+        "is_remote_logon": 1 if str(rec.get("LogonType") or "") in ("3", "10") else 0,
+        # ── Categorical features (DictVectorizer will one-hot encode) ──
+        "image_bin": img_bn or "unknown",
+        "target_bin": tgt_bn or "unknown",
+        "parent_bin": parent_bn or "unknown",
+        "channel": channel or "unknown",
+        "category": str(rec.get("Category") or "unknown").lower()[:60],
+    }
