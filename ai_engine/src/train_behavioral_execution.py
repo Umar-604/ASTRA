@@ -236,3 +236,11 @@ def _process_path_depth(path: str) -> int:
     return len([s for s in path.replace("\\", "/").split("/") if s])
 
 
+def behavioral_parts(rec: Mapping[str, Any]) -> Dict[str, Any]:
+    """Extract all behavioral features from a single event record."""
+    proc = primary_process_path(rec)
+    parent = parent_process_path(rec)
+    proc_l = proc.lower()
+    parent_l = parent.lower()
+    hay = f"{proc_l} {parent_l}"
+
