@@ -179,3 +179,24 @@ def _save_confusion_matrix_png(cm: np.ndarray, path: Path, title: str) -> None:
     fig.tight_layout()
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+
+
+def save_feature_importance_png(
+    importances: np.ndarray,
+    feature_names: List[str],
+    path: Path,
+    top_k: int = 25,
+    title: str = "Feature Importance",
+) -> None:
+    indices = np.argsort(importances)[::-1][:top_k]
+    fig, ax = plt.subplots(figsize=(10, 7))
+    names = [feature_names[i] for i in indices]
+    vals = importances[indices]
+    ax.barh(range(len(names)), vals[::-1], color="#4C72B0")
+    ax.set_yticks(range(len(names)))
+    ax.set_yticklabels(names[::-1], fontsize=9)
+    ax.set_xlabel("Importance (Gini)")
+    ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
