@@ -81,14 +81,6 @@ def _in_system_dir(path: str) -> int:
     return 1 if ("/windows/system32/" in p or "/windows/syswow64/" in p) else 0
 
 
-
-
-
-def _in_system_dir(path: str) -> int:
-    p = path.lower().replace("\\", "/")
-    return 1 if ("/windows/system32/" in p or "/windows/syswow64/" in p) else 0
-
-
 def extract_features(rec: Dict[str, Any]) -> Dict[str, Any]:
     """Extract rich features from a single Sysmon/Security event."""
     event_id = _to_int(rec.get("EventID"))
