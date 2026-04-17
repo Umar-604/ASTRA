@@ -307,3 +307,13 @@ class BehavioralEncoders:
         self.freq_maps: Dict[str, Dict[str, float]] = {}
         self.feature_columns: List[str] = list(BEHAVIORAL_FEATURE_COLUMNS)
 
+    def fit(self, raw_rows: Sequence[Mapping[str, Any]]) -> None:
+        self.freq_maps = {}
+        for key in FREQ_BASENAME_KEYS:
+            counts: Counter[str] = Counter()
+            for r in raw_rows:
+                bp = behavioral_parts(r)
+                counts[str(bp[key])] += 1
+            total = max(len(raw_rows), 1)
+            self.freq_maps[key] = {k: math.log1p(c) / math.log1p(total) for k, c in counts.items()}
+
