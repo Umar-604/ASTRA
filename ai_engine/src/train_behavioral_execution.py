@@ -506,3 +506,11 @@ def train_pipeline(
         f"AUC={cv_mean_auc:.4f}±{cv_std_auc:.4f}"
     )
 
+    out_dir.mkdir(parents=True, exist_ok=True)
+    cv_plot_path = out_dir / "behavioral_cv_metrics_by_fold.png"
+    save_cv_metrics_bar_png(
+        cv_fold_rows,
+        cv_plot_path,
+        title="Behavioral LightGBM — CV metrics by fold",
+    )
+
