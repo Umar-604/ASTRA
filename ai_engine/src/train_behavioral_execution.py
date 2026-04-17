@@ -282,3 +282,21 @@ def behavioral_parts(rec: Mapping[str, Any]) -> Dict[str, Any]:
         "indicator_psexec_remote": indicator_psexec_remote,
         "indicator_wmic": indicator_wmic,
         "indicator_winrm_winrs": indicator_winrm_winrs,
+        # ── v2 features ──
+        "event_id_risk_tier": _event_id_risk_tier(rec.get("EventID")),
+        "granted_access_risk_tier": _ga_risk_tier(ga_str),
+        "target_is_sensitive": 1 if target_bn in _SENSITIVE_TARGETS else 0,
+        "source_target_same": 1 if (source_bn != "unknown" and source_bn == target_bn) else 0,
+        "calltrace_dll_count": _count_calltrace_dlls(rec),
+        "process_in_system_dir": _process_in_system_dir(proc),
+        "process_path_depth": _process_path_depth(proc),
+        "channel_is_sysmon": 1 if "sysmon" in channel else 0,
+        "account_is_system": 1 if acct in ("SYSTEM", "LOCAL SERVICE", "NETWORK SERVICE") else 0,
+        "has_script_content": 1 if (rec.get("Payload") or rec.get("ScriptBlockText")) else 0,
+        "has_file_hash": 1 if rec.get("Hashes") else 0,
+        "log_granted_access": math.log1p(granted),
+        "has_parent_process": 0 if parent == "unknown" else 1,
+        "is_remote_logon": 1 if logon_type in ("3", "10") else 0,
+    }
+
+
