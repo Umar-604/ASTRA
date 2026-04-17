@@ -182,3 +182,8 @@ _SENSITIVE_TARGETS = frozenset([
     "smss.exe", "wininit.exe",
 ])
 
+_SUSPICIOUS_GA = frozenset([
+    "0x1fffff", "0x101000", "0x101541", "0x1478", "0x1410",
+    "0x143a", "0x1438", "0x1010",
+])
+
