@@ -317,3 +317,7 @@ class BehavioralEncoders:
             total = max(len(raw_rows), 1)
             self.freq_maps[key] = {k: math.log1p(c) / math.log1p(total) for k, c in counts.items()}
 
+    def _freq(self, col: str, value: str) -> float:
+        m = self.freq_maps.get(col) or {}
+        return float(m.get(value, 0.0))
+
