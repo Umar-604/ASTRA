@@ -147,3 +147,33 @@ def basename_lower(path: str) -> str:
 FREQ_BASENAME_KEYS = ("process_basename", "parent_basename")
 
 # Fixed column order for LightGBM / IF / disk artifacts
+BEHAVIORAL_FEATURE_COLUMNS: List[str] = [
+    # ── original process-behavior features ──
+    "freq_process_basename",
+    "freq_parent_basename",
+    "granted_access",
+    "process_is_wmiprvse",
+    "process_spawns_cmd_or_powershell",
+    "indicator_unc_process",
+    "indicator_unc_parent",
+    "indicator_psexec_remote",
+    "indicator_wmic",
+    "indicator_winrm_winrs",
+    # ── expanded features (v2) ──
+    "event_id_risk_tier",
+    "granted_access_risk_tier",
+    "target_is_sensitive",
+    "source_target_same",
+    "calltrace_dll_count",
+    "process_in_system_dir",
+    "process_path_depth",
+    "channel_is_sysmon",
+    "account_is_system",
+    "has_script_content",
+    "has_file_hash",
+    "log_granted_access",
+    "has_parent_process",
+    "is_remote_logon",
+]
+
+
