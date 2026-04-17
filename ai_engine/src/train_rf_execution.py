@@ -261,4 +261,16 @@ def train(
         auc_s = f"{auc_f:.4f}" if not np.isnan(auc_f) else "n/a"
         print(f"  Fold {fold_i+1}: acc={acc_f:.4f} P={p_f:.4f} R={r_f:.4f} F1={f1_f:.4f} F1m={f1m_f:.4f} MCC={mcc_f:.4f} AUC={auc_s}")
 
-    def
+    def _mean_std(key: str):
+        vals = [r[key] for r in cv_results if not (isinstance(r[key], float) and np.isnan(r[key]))]
+        return (float(np.mean(vals)), float(np.std(vals))) if vals else (float("nan"), float("nan"))
+
+    cv_acc_m, cv_acc_s = _mean_std("acc")
+    cv_f1_m, cv_f1_s = _mean_std("f1")
+    cv_f1m_m, cv_f1m_s = _mean_std("f1_macro")
+    cv_mcc_m, cv_mcc_s = _mean_std("mcc")
+    cv_auc_m, cv_auc_s = _mean_std("auc")
+    print(f"  Mean: acc={cv_acc_m:.4f}±{cv_acc_s:.4f} F1={cv_f1_m:.4f}±{cv_f1_s:.4f} "
+          f"F1m={cv_f1m_m:.4f}±{cv_f1m_s:.4f} MCC={cv_mcc_m:.4f}±{cv_mcc_s:.4f} AUC={cv_auc_m:.4f}±{cv_auc_s:.4f}")
+
+    # ── Final model on full training data ──
