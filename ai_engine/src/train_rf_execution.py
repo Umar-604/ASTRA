@@ -51,3 +51,13 @@ SUSPICIOUS_TOKENS = (
     "encodedcommand", "downloadstring", "invoke-expression", "certutil",
     "mshta", "wmic", "procdump", "vssadmin", "shadowcopy",
 )
+
+SENSITIVE_TARGETS = frozenset([
+    "lsass.exe", "csrss.exe", "winlogon.exe", "services.exe",
+    "smss.exe", "wininit.exe",
+])
+
+SUSPICIOUS_GA = frozenset([
+    "0x1fffff", "0x101000", "0x101541", "0x1478", "0x1410",
+    "0x143a", "0x1438", "0x1010",
+])
