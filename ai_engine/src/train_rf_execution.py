@@ -321,3 +321,11 @@ def train(
     bar_png = out_dir / "endpoint_model_rf_metrics_bar.png"
     imp_png = out_dir / "endpoint_model_rf_feature_importance.png"
     results_json_path = out_dir / "endpoint_model_rf_results.json"
+
+    _save_confusion_matrix_png(cm_arr, cm_png, "Random Forest — hold-out confusion matrix")
+    if len(np.unique(y_test)) > 1:
+        save_roc_curve_png(y_test, proba, roc_png, title="Random Forest — ROC (hold-out)")
+        save_pr_curve_png(y_test, proba, pr_png, title="Random Forest — Precision–Recall (hold-out)")
+
+    bar_m = {"Accuracy": acc, "F1 (attack)": float(f1), "F1 (macro)": float(f1_m), "MCC": mcc}
+    if not np.isnan(auc):
