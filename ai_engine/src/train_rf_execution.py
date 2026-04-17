@@ -395,3 +395,17 @@ def main() -> None:
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--cv-splits", type=int, default=5, dest="cv_splits")
     args = p.parse_args()
+
+    attack_paths = [Path(x) for x in args.attack] if args.attack else [default_attack]
+    benign_paths = [Path(x) for x in args.benign] if args.benign else [default_benign]
+
+    print("Training Random Forest endpoint model (v2 — proper labels)")
+    print("=" * 60)
+
+    attack_rows: List[Dict[str, Any]] = []
+    for path in attack_paths:
+        if not path.is_file():
+            raise SystemExit(f"Attack file not found: {path}")
+        rows = load_jsonl(path)
+        attack_rows.extend(rows)
+        print(f"  Loaded {len(rows)} attack rows from {path.name}")
