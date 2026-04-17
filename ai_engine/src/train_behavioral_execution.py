@@ -384,3 +384,17 @@ def build_behavioral_lgbm(seed: int, scale_pos_weight: float) -> LGBMClassifier:
     )
 
 
+def _save_confusion_matrix_png(cm: np.ndarray, path: Path, title: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig, ax = plt.subplots(figsize=(5.5, 4.5))
+    disp = ConfusionMatrixDisplay(
+        confusion_matrix=cm,
+        display_labels=["Normal (0)", "Attack (1)"],
+    )
+    disp.plot(ax=ax, cmap="Blues", colorbar=True, values_format="d")
+    ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
