@@ -230,3 +230,9 @@ def _process_in_system_dir(path: str) -> int:
     return 1 if ("/windows/system32/" in p or "/windows/syswow64/" in p or p.startswith("c:/windows/")) else 0
 
 
+def _process_path_depth(path: str) -> int:
+    if path == "unknown":
+        return 0
+    return len([s for s in path.replace("\\", "/").split("/") if s])
+
+
