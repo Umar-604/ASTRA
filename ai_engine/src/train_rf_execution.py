@@ -286,3 +286,22 @@ def train(
     prec, rec, f1, _ = precision_recall_fscore_support(y_test, pred, average="binary", pos_label=1, zero_division=0)
     prec_m, rec_m, f1_m, _ = precision_recall_fscore_support(y_test, pred, average="macro", zero_division=0)
     mcc = float(matthews_corrcoef(y_test, pred))
+    try:
+        auc = float(roc_auc_score(y_test, proba))
+    except ValueError:
+        auc = float("nan")
+    cm_arr = confusion_matrix(y_test, pred, labels=[0, 1])
+    report_txt = classification_report(y_test, pred, digits=4, zero_division=0)
+    report_dict = classification_report(y_test, pred, digits=4, zero_division=0, output_dict=True)
+
+    print(f"\n=== Random Forest — hold-out test ===")
+    print(f"Accuracy:        {acc:.4f}")
+    print(f"F1 (attack):     {float(f1):.4f}")
+    print(f"F1 (macro):      {float(f1_m):.4f}")
+    print(f"MCC:             {mcc:.4f}")
+    print(f"ROC-AUC:         {auc:.4f}" if not np.isnan(auc) else "ROC-AUC: n/a")
+    tn, fp, fn, tp = int(cm_arr[0, 0]), int(cm_arr[0, 1]), int(cm_arr[1, 0]), int(cm_arr[1, 1])
+    print(f"\nConfusion matrix:")
+    print(f"  True normal(0)       {tn:>6}           {fp:>6}")
+    print(f"  True attack(1)       {fn:>6}           {tp:>6}")
+    print(f"\n{report_txt}")
