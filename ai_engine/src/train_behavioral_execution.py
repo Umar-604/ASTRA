@@ -479,3 +479,9 @@ def train_pipeline(
             return float("nan"), float("nan")
         return float(np.mean(vals)), float(np.std(vals))
 
+    cv_mean_acc, cv_std_acc = _agg("accuracy")
+    cv_mean_prec, cv_std_prec = _agg("precision_attack")
+    cv_mean_rec, cv_std_rec = _agg("recall_attack")
+    cv_mean_f1, cv_std_f1 = _agg("f1_attack")
+    cv_mean_auc, cv_std_auc = _agg("roc_auc")
+
