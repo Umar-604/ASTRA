@@ -485,3 +485,6 @@ def train_pipeline(
     cv_mean_f1, cv_std_f1 = _agg("f1_attack")
     cv_mean_auc, cv_std_auc = _agg("roc_auc")
 
+    cv_mean_f1m, cv_std_f1m = _agg("f1_macro")
+    cv_mean_mcc, cv_std_mcc = _agg("mcc")
+
