@@ -1010,3 +1010,6 @@ def main() -> None:
             )
         benign_rows.extend(load_jsonl(path))
 
+    if not attack_rows or not benign_rows:
+        raise SystemExit("Need non-empty attack and benign JSONL inputs.")
+
