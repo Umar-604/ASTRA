@@ -841,3 +841,18 @@ def train_pipeline(
             "confusion_matrix_png": str(cm_png_path.resolve()),
         },
     }
+    with meta_path.open("w", encoding="utf-8") as f:
+        json.dump(meta, f, indent=2, default=str)
+
+    return {
+        "meta_path": str(meta_path),
+        "results_json_path": str(results_json_path),
+        "confusion_matrix_png": str(cm_png_path),
+        "encoders_path": str(enc_path),
+        "lightgbm_path": str(lgbm_path),
+        "isolation_forest_path": str(if_path),
+        "top_feature_importance": top_features,
+        "cv_mean_accuracy": cv_mean_acc,
+    }
+
+
