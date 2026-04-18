@@ -1026,3 +1026,6 @@ def main() -> None:
     print("Training complete.")
     print(json.dumps(result, indent=2))
 
+
+if __name__ == "__main__":
+    main()
