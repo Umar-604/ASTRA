@@ -893,3 +893,14 @@ def encode_with_state(records: Sequence[Mapping[str, Any]], encoder_state: Mappi
 class BehavioralDetector:
     """Loads saved artifacts; returns verdict, LGBM confidence, IF anomaly score, top features."""
 
+    def __init__(self, out_dir: Path) -> None:
+        out_dir = Path(out_dir)
+        self.encoder_state: Mapping[str, Any] = joblib.load(out_dir / "encoders.pkl")
+        lgbm_bundle = joblib.load(out_dir / "lightgbm_model.pkl")
+        if_bundle = joblib.load(out_dir / "isolation_forest.pkl")
+        self.clf: LGBMClassifier = lgbm_bundle["model"]
+        self.feature_names: List[str] = lgbm_bundle["feature_names"]
+        self.importance: Dict[str, float] = lgbm_bundle.get("feature_importance", {})
+        self.iforest: IsolationForest = if_bundle["model"]
+        self.scaler: StandardScaler = if_bundle["scaler"]
+
