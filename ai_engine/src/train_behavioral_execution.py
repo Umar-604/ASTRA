@@ -989,3 +989,9 @@ def main() -> None:
         )
         raise SystemExit(2)
 
+    attack_rows: List[Dict[str, Any]] = []
+    for path in attack_paths:
+        if not path.is_file():
+            raise SystemExit(f"Attack file not found: {path}")
+        attack_rows.extend(load_jsonl(path))
+
