@@ -785,3 +785,25 @@ def train_pipeline(
         "Behavioral LightGBM — held-out test confusion matrix",
     )
 
+    encoder_state = {
+        "freq_maps": enc.freq_maps,
+        "feature_columns": feat_names,
+    }
+    joblib.dump(encoder_state, enc_path)
+    joblib.dump(
+        {
+            "model": clf,
+            "model_type": "lgbm",
+            "feature_names": feat_names,
+            "scale_pos_weight": spw,
+            "feature_importance": importance,
+            "encoder": encoder_state,
+            "training_stats": {
+                "cv_mean_accuracy": cv_mean_acc,
+                "cv_mean_f1_attack": cv_mean_f1,
+                "holdout_accuracy": acc,
+                "holdout_roc_auc": auc_json,
+            },
+        },
+        lgbm_path,
+    )
