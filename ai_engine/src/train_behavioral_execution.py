@@ -577,3 +577,9 @@ def train_pipeline(
     importance = dict(zip(feat_names, clf.feature_importances_.astype(float).tolist()))
     top_features = sorted(importance.items(), key=lambda kv: kv[1], reverse=True)[:15]
 
+    cm_arr = confusion_matrix(y_test, pred, labels=[0, 1])
+    cm_list = cm_arr.tolist()
+    acc = float(accuracy_score(y_test, pred))
+    prec, rec, f1, _ = precision_recall_fscore_support(
+        y_test, pred, average="binary", pos_label=1, zero_division=0
+    )
