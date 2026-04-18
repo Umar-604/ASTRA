@@ -751,3 +751,14 @@ def train_pipeline(
             "confusion_matrix_note": "rows=true [normal, attack], cols=pred [normal, attack]; [[TN, FP], [FN, TP]]",
             "classification_report": report_dict,
             "top_feature_importance": [{"feature": k, "importance": v} for k, v in top_features],
+        },
+        "isolation_forest": {
+            "trained_on": if_trained_on,
+            "test_anomaly_score_summary": {
+                "mean": float(np.mean(ano_test)),
+                "std": float(np.std(ano_test)),
+                "min": float(np.min(ano_test)),
+                "max": float(np.max(ano_test)),
+                "mean_attack_class": float(np.mean(ano_test[y_test == 1])),
+                "mean_normal_class": float(np.mean(ano_test[y_test == 0])),
+            },
