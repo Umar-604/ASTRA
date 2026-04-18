@@ -712,3 +712,14 @@ def train_pipeline(
             "mcc": cv_mean_mcc,
             "roc_auc": cv_mean_auc,
         },
+        "std": {
+            "accuracy": cv_std_acc,
+            "precision_attack": cv_std_prec,
+            "recall_attack": cv_std_rec,
+            "f1_attack": cv_std_f1,
+            "f1_macro": cv_std_f1m,
+            "mcc": cv_std_mcc,
+            "roc_auc": cv_std_auc,
+        },
+    }
+
