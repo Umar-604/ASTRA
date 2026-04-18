@@ -923,3 +923,15 @@ class BehavioralDetector:
         }
 
 
+def _resolve_input_path(path: Path, repo_root: Path) -> Path:
+    """Resolve JSONL path: cwd-relative, then repo-root-relative."""
+    path = path.expanduser()
+    if path.is_file():
+        return path.resolve()
+    if not path.is_absolute():
+        alt = (repo_root / path).resolve()
+        if alt.is_file():
+            return alt
+    return path.resolve() if path.exists() else path
+
+
