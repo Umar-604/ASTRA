@@ -595,3 +595,13 @@ def train_pipeline(
     )
     report_txt = classification_report(y_test, pred, digits=4, zero_division=0)
 
+    tn, fp, fn, tp = int(cm_arr[0, 0]), int(cm_arr[0, 1]), int(cm_arr[1, 0]), int(cm_arr[1, 1])
+    if auc_json is None:
+        auc_line = "n/a"
+    else:
+        auc_line = f"{float(auc):.4f}"
+    prec_m, rec_m, f1_m, _ = precision_recall_fscore_support(
+        y_test, pred, average="macro", zero_division=0
+    )
+    mcc = float(matthews_corrcoef(y_test, pred))
+
