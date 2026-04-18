@@ -723,3 +723,17 @@ def train_pipeline(
         },
     }
 
+    results_payload: Dict[str, Any] = {
+        "model": "LightGBM behavioral v2 (expanded features)",
+        "feature_columns": list(BEHAVIORAL_FEATURE_COLUMNS),
+        "smote_applied": smote_applied,
+        "test_size": float(test_size),
+        "random_seed": seed,
+        "data": {
+            "n_attack_loaded": len(attack_rows),
+            "n_benign_loaded": len(benign_rows),
+            "n_attack_combined": n_attack,
+            "n_benign_combined": n_benign,
+            "train_rows": int(len(y_train)),
+            "test_rows": int(len(y_test)),
+        },
