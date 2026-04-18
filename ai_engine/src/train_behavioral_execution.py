@@ -1008,3 +1008,5 @@ def main() -> None:
                 f"  cp {example} {default_benign}\n"
                 "Production data: dataset/MachineLearningCVE/BENIGN.txt or scripts/export_benign_jsonl.ps1 (Windows)."
             )
+        benign_rows.extend(load_jsonl(path))
+
