@@ -807,3 +807,13 @@ def train_pipeline(
         },
         lgbm_path,
     )
+    joblib.dump(
+        {
+            "model": ifor,
+            "scaler": scaler,
+            "feature_names": feat_names,
+            "trained_on": if_trained_on,
+        },
+        if_path,
+    )
+
