@@ -538,3 +538,6 @@ def train_pipeline(
     clf = build_behavioral_lgbm(seed, spw)
     clf.fit(X_train_df, y_train)
 
+    proba = clf.predict_proba(X_test_df)[:, 1]
+    pred = (proba >= 0.5).astype(np.int32)
+
