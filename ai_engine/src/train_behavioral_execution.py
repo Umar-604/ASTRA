@@ -658,3 +658,13 @@ def train_pipeline(
         y_max=1.15 if auc_json is not None else 1.05,
     )
 
+    ano_normal = ano_test[y_test == 0]
+    ano_attack = ano_test[y_test == 1]
+    if len(ano_normal) and len(ano_attack):
+        save_iforest_score_distribution(
+            ano_normal,
+            ano_attack,
+            iforest_dist_path,
+            title="Isolation Forest — anomaly scores (hold-out test)",
+        )
+
