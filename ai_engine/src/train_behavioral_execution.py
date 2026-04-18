@@ -562,3 +562,7 @@ def train_pipeline(
         random_state=seed,
         contamination=contamination_val,
         n_jobs=-1,
+    )
+    ifor.fit(X_if_fit)
+    print(f"\n  Isolation Forest trained on: {if_trained_on} ({X_if_fit.shape[0]} samples, contamination={contamination_val})")
+
