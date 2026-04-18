@@ -636,3 +636,16 @@ def train_pipeline(
     iforest_dist_path = out_dir / "behavioral_iforest_score_distribution.png"
     lgbm_learning_path = out_dir / "behavioral_lgbm_learning_curve.png"
 
+    if len(np.unique(y_test)) > 1:
+        save_roc_curve_png(
+            y_test, proba, roc_png_path, title="Behavioral LightGBM — ROC (hold-out)"
+        )
+        save_pr_curve_png(
+            y_test, proba, pr_png_path, title="Behavioral LightGBM — Precision–Recall (hold-out)"
+        )
+    holdout_metrics = {
+        "Accuracy": acc,
+        "Precision": float(prec),
+        "Recall": float(rec),
+        "F1": float(f1),
+    }
