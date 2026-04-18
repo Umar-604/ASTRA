@@ -649,3 +649,12 @@ def train_pipeline(
         "Recall": float(rec),
         "F1": float(f1),
     }
+    if auc_json is not None:
+        holdout_metrics["ROC-AUC"] = float(auc)
+    save_metrics_bar_png(
+        holdout_metrics,
+        metrics_bar_path,
+        title="Behavioral LightGBM — hold-out metrics",
+        y_max=1.15 if auc_json is not None else 1.05,
+    )
+
