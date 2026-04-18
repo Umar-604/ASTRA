@@ -975,3 +975,171 @@ def main() -> None:
     if not benign_paths and default_benign.is_file():
         benign_paths = [default_benign.resolve()]
 
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
+    if not benign_paths:
+        print(
+            "ERROR: No benign JSONL provided.\n"
+            "  • Pass:  --benign /path/to/normal_events.jsonl\n"
+            "  • Or create (see dataset/MachineLearningCVE/BENIGN.txt):\n"
+            f"      {default_benign}\n"
+            "  • On Windows, generate from live logs (Admin PowerShell, from repo root):\n"
+            "      .\\scripts\\export_benign_jsonl.ps1 -OutFile dataset\\MachineLearningCVE\\benign.jsonl\n"
+            "Attack rows come from --attack (default: Execution2.json → label 1).\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        )
+        raise SystemExit(2)
+
