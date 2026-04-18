@@ -555,3 +555,10 @@ def train_pipeline(
         n_attack_train = int((y_train == 1).sum())
         contamination_val = max(0.01, min(0.5, n_attack_train / max(1, len(y_train))))
         if_trained_on = "all_train_semi_supervised"
+    ifor = IsolationForest(
+        n_estimators=300,
+        max_samples=min(512, X_if_fit.shape[0]),
+        max_features=min(1.0, max(0.5, 8 / max(1, X_if_fit.shape[1]))),
+        random_state=seed,
+        contamination=contamination_val,
+        n_jobs=-1,
