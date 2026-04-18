@@ -566,3 +566,8 @@ def train_pipeline(
     ifor.fit(X_if_fit)
     print(f"\n  Isolation Forest trained on: {if_trained_on} ({X_if_fit.shape[0]} samples, contamination={contamination_val})")
 
+    def anomaly_scores(X: np.ndarray) -> np.ndarray:
+        Xs = scaler.transform(X)
+        raw = ifor.score_samples(Xs)
+        return -raw.astype(np.float64)
+
