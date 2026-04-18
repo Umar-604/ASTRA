@@ -1013,3 +1013,16 @@ def main() -> None:
     if not attack_rows or not benign_rows:
         raise SystemExit("Need non-empty attack and benign JSONL inputs.")
 
+    out_dir = Path(args.outdir)
+    result = train_pipeline(
+        attack_rows,
+        benign_rows,
+        out_dir,
+        test_size=args.test_size,
+        seed=args.seed,
+        cv_splits=args.cv_splits,
+        use_smote=args.smote,
+    )
+    print("Training complete.")
+    print(json.dumps(result, indent=2))
+
