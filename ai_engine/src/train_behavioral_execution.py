@@ -583,3 +583,13 @@ def train_pipeline(
     prec, rec, f1, _ = precision_recall_fscore_support(
         y_test, pred, average="binary", pos_label=1, zero_division=0
     )
+    try:
+        auc = float(roc_auc_score(y_test, proba))
+    except ValueError:
+        auc = float("nan")
+    auc_json: Any = auc
+    if isinstance(auc, float) and math.isnan(auc):
+        auc_json = None
+    report_dict = classification_report(
+        y_test, pred, digits=4, zero_division=0, output_dict=True
+    )
