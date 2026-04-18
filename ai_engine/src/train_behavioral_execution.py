@@ -574,3 +574,6 @@ def train_pipeline(
     X_test_np, _ = enc.transform_matrix(test_rows)
     ano_test = anomaly_scores(X_test_np)
 
+    importance = dict(zip(feat_names, clf.feature_importances_.astype(float).tolist()))
+    top_features = sorted(importance.items(), key=lambda kv: kv[1], reverse=True)[:15]
+
