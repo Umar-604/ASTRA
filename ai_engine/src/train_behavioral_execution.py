@@ -961,3 +961,17 @@ def main() -> None:
             "dataset/MachineLearningCVE/benign.jsonl when that file exists."
         ),
     )
+    p.add_argument("--outdir", default=str(default_out), help="Output directory for pkl artifacts")
+    p.add_argument("--test-size", type=float, default=0.2, dest="test_size")
+    p.add_argument("--cv-splits", type=int, default=5, dest="cv_splits", help="Stratified K-fold folds (capped by class counts in train split)")
+    p.add_argument("--smote", action="store_true", default=False, help="Apply SMOTE oversampling to minority class")
+    p.add_argument("--seed", type=int, default=42)
+    args = p.parse_args()
+
+    attack_paths = (
+        [_resolve_input_path(Path(x), root) for x in args.attack] if args.attack else [default_attack]
+    )
+    benign_paths = [_resolve_input_path(Path(x), root) for x in args.benign]
+    if not benign_paths and default_benign.is_file():
+        benign_paths = [default_benign.resolve()]
+
