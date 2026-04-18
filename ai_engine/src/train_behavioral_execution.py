@@ -885,3 +885,11 @@ def encode_with_state(records: Sequence[Mapping[str, Any]], encoder_state: Mappi
     return X, cols
 
 
+# ---------------------------------------------------------------------------
+# Astra-facing inference (load once, score many)
+# ---------------------------------------------------------------------------
+
+
+class BehavioralDetector:
+    """Loads saved artifacts; returns verdict, LGBM confidence, IF anomaly score, top features."""
+
