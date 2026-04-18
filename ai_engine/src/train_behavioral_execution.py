@@ -941,3 +941,23 @@ def main() -> None:
     default_benign = root / "dataset" / "MachineLearningCVE" / "benign.jsonl"
     default_out = Path(__file__).resolve().parents[1] / "saved_models"
 
+    p = argparse.ArgumentParser(
+        description="Train behavioral LGBM + IsolationForest (real labels only).",
+        epilog=(
+            "Provide benign JSONL via --benign, or create:\n"
+            f"  {default_benign}\n"
+            "Example from ai_engine:\n"
+            "  python -m src.train_behavioral_execution --benign ../dataset/MachineLearningCVE/benign.jsonl"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    p.add_argument("--attack", action="append", default=[], help="JSONL file(s) labeled attack (1). Repeatable.")
+    p.add_argument(
+        "--benign",
+        action="append",
+        default=[],
+        help=(
+            "JSONL file(s) labeled benign (0). Repeatable. If omitted, uses "
+            "dataset/MachineLearningCVE/benign.jsonl when that file exists."
+        ),
+    )
