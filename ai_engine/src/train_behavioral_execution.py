@@ -776,3 +776,12 @@ def train_pipeline(
             "lgbm_learning_curve_png": str(lgbm_learning_path.resolve()),
         },
     }
+    with results_json_path.open("w", encoding="utf-8") as f:
+        json.dump(results_payload, f, indent=2, default=str)
+
+    _save_confusion_matrix_png(
+        cm_arr,
+        cm_png_path,
+        "Behavioral LightGBM — held-out test confusion matrix",
+    )
+
