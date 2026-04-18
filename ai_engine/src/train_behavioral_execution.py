@@ -623,3 +623,16 @@ def train_pipeline(
     print("\nClassification report:")
     print(report_txt)
 
+    out_dir.mkdir(parents=True, exist_ok=True)
+    enc_path = out_dir / "encoders.pkl"
+    lgbm_path = out_dir / "lightgbm_model.pkl"
+    if_path = out_dir / "isolation_forest.pkl"
+    meta_path = out_dir / "behavioral_training_meta.json"
+    results_json_path = out_dir / "behavioral_training_results.json"
+    cm_png_path = out_dir / "behavioral_confusion_matrix.png"
+    roc_png_path = out_dir / "behavioral_roc_curve.png"
+    pr_png_path = out_dir / "behavioral_precision_recall_curve.png"
+    metrics_bar_path = out_dir / "behavioral_holdout_metrics_bar.png"
+    iforest_dist_path = out_dir / "behavioral_iforest_score_distribution.png"
+    lgbm_learning_path = out_dir / "behavioral_lgbm_learning_curve.png"
+
