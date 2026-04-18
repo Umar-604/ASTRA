@@ -856,3 +856,8 @@ def train_pipeline(
     }
 
 
+def encode_with_state(records: Sequence[Mapping[str, Any]], encoder_state: Mapping[str, Any]) -> Tuple[np.ndarray, List[str]]:
+    """Transform rows using plain encoder state dict (pickle-safe across runtimes)."""
+    freq_maps = encoder_state.get("freq_maps") or {}
+    cols = list(encoder_state.get("feature_columns") or BEHAVIORAL_FEATURE_COLUMNS)
+
