@@ -762,3 +762,17 @@ def train_pipeline(
                 "mean_attack_class": float(np.mean(ano_test[y_test == 1])),
                 "mean_normal_class": float(np.mean(ano_test[y_test == 0])),
             },
+        },
+        "artifacts": {
+            "results_json": str(results_json_path.resolve()),
+            "confusion_matrix_png": str(cm_png_path.resolve()),
+            "roc_curve_png": str(roc_png_path.resolve()) if len(np.unique(y_test)) > 1 else None,
+            "precision_recall_png": str(pr_png_path.resolve()) if len(np.unique(y_test)) > 1 else None,
+            "holdout_metrics_bar_png": str(metrics_bar_path.resolve()),
+            "cv_metrics_png": str(cv_plot_path.resolve()),
+            "iforest_score_distribution_png": str(iforest_dist_path.resolve())
+            if len(ano_normal) and len(ano_attack)
+            else None,
+            "lgbm_learning_curve_png": str(lgbm_learning_path.resolve()),
+        },
+    }
