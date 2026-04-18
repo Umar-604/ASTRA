@@ -904,3 +904,22 @@ class BehavioralDetector:
         self.iforest: IsolationForest = if_bundle["model"]
         self.scaler: StandardScaler = if_bundle["scaler"]
 
+    def predict_record(self, rec: Mapping[str, Any], top_k: int = 8) -> Dict[str, Any]:
+        X, _ = encode_with_state([dict(rec)], self.encoder_state)
+        X_df = pd.DataFrame(X, columns=self.feature_names)
+        proba_attack = float(self.clf.predict_proba(X_df)[0, 1])
+        pred_cls = int(self.clf.predict(X_df)[0])
+        verdict = "attack" if pred_cls == 1 else "normal"
+        Xs = self.scaler.transform(X)
+        ano = float(-self.iforest.score_samples(Xs)[0])
+        top = sorted(self.importance.items(), key=lambda kv: kv[1], reverse=True)[:top_k]
+        top_features = [{"feature": k, "importance": v} for k, v in top]
+        return {
+            "ai_verdict": verdict,
+            "confidence_score": proba_attack,
+            "anomaly_score": ano,
+            "predicted_class": pred_cls,
+            "top_features": top_features,
+        }
+
+
