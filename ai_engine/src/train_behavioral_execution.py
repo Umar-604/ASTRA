@@ -995,3 +995,16 @@ def main() -> None:
             raise SystemExit(f"Attack file not found: {path}")
         attack_rows.extend(load_jsonl(path))
 
+    benign_rows: List[Dict[str, Any]] = []
+    for path in benign_paths:
+        if not path.is_file():
+            example = root / "dataset" / "MachineLearningCVE" / "benign.smoke.example.jsonl"
+            raise SystemExit(
+                "Benign file not found:\n"
+                f"  {path}\n"
+                "`benign.jsonl` is never committed — you create it (real normal events from your environment).\n"
+                f"Suggested location:\n  {default_benign}\n"
+                "Quick pipeline check (NOT a real baseline):\n"
+                f"  cp {example} {default_benign}\n"
+                "Production data: dataset/MachineLearningCVE/BENIGN.txt or scripts/export_benign_jsonl.ps1 (Windows)."
+            )
