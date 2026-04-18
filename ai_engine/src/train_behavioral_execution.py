@@ -571,3 +571,6 @@ def train_pipeline(
         raw = ifor.score_samples(Xs)
         return -raw.astype(np.float64)
 
+    X_test_np, _ = enc.transform_matrix(test_rows)
+    ano_test = anomaly_scores(X_test_np)
+
