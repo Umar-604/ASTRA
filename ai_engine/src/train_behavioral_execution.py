@@ -861,3 +861,27 @@ def encode_with_state(records: Sequence[Mapping[str, Any]], encoder_state: Mappi
     freq_maps = encoder_state.get("freq_maps") or {}
     cols = list(encoder_state.get("feature_columns") or BEHAVIORAL_FEATURE_COLUMNS)
 
+    def _freq(col: str, value: str) -> float:
+        m = freq_maps.get(col) or {}
+        return float(m.get(value, 0.0))
+
+    rows = []
+    for rec in records:
+        bp = behavioral_parts(rec)
+        row: Dict[str, float] = {
+            "freq_process_basename": _freq("process_basename", str(bp["process_basename"])),
+            "freq_parent_basename": _freq("parent_basename", str(bp["parent_basename"])),
+        }
+        for key in cols:
+            if key in row:
+                continue
+            if key in bp:
+                row[key] = float(bp[key])
+            else:
+                row[key] = 0.0
+        rows.append(row)
+
+    X = np.array([[rows[i][c] for c in cols] for i in range(len(rows))], dtype=np.float64)
+    return X, cols
+
+
