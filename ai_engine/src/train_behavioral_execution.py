@@ -699,3 +699,16 @@ def train_pipeline(
     except Exception as e:
         print(f"⚠️  Skipped LGBM learning curve plot: {e}")
 
+    cv_summary = {
+        "n_splits": n_splits,
+        "requested_splits": cv_splits,
+        "folds": cv_fold_rows,
+        "mean": {
+            "accuracy": cv_mean_acc,
+            "precision_attack": cv_mean_prec,
+            "recall_attack": cv_mean_rec,
+            "f1_attack": cv_mean_f1,
+            "f1_macro": cv_mean_f1m,
+            "mcc": cv_mean_mcc,
+            "roc_auc": cv_mean_auc,
+        },
