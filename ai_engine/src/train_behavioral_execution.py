@@ -605,3 +605,21 @@ def train_pipeline(
     )
     mcc = float(matthews_corrcoef(y_test, pred))
 
+    print("\n=== LightGBM — held-out test (not used in CV) ===")
+    print(f"Accuracy:                     {acc:.4f}")
+    print(f"Precision (attack, class 1):  {float(prec):.4f}")
+    print(f"Recall (attack, class 1):     {float(rec):.4f}")
+    print(f"F1 (attack, class 1):         {float(f1):.4f}")
+    print(f"F1 (macro, both classes):     {float(f1_m):.4f}")
+    print(f"MCC (Matthews):               {mcc:.4f}")
+    print(f"ROC-AUC:                      {auc_line}")
+    if smote_applied:
+        print(f"SMOTE:                        applied")
+    print("\nConfusion matrix  rows=true label, cols=predicted")
+    print("                  Pred normal(0)  Pred attack(1)")
+    print(f"  True normal(0)       {tn:>6}           {fp:>6}")
+    print(f"  True attack(1)       {fn:>6}           {tp:>6}")
+    print("  (TN, FP / FN, TP)")
+    print("\nClassification report:")
+    print(report_txt)
+
