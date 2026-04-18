@@ -546,3 +546,12 @@ def train_pipeline(
     if n_benign_train < 2:
         raise RuntimeError("Need at least 2 benign training rows for IsolationForest + scaler.")
     scaler = StandardScaler()
+    if n_benign_train >= 200:
+        X_if_fit = scaler.fit_transform(X_train[benign_mask_train])
+        if_trained_on = "benign_train_only"
+        contamination_val: Any = "auto"
+    else:
+        X_if_fit = scaler.fit_transform(X_train)
+        n_attack_train = int((y_train == 1).sum())
+        contamination_val = max(0.01, min(0.5, n_attack_train / max(1, len(y_train))))
+        if_trained_on = "all_train_semi_supervised"
