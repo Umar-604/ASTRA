@@ -935,3 +935,9 @@ def _resolve_input_path(path: Path, repo_root: Path) -> Path:
     return path.resolve() if path.exists() else path
 
 
+def main() -> None:
+    root = Path(__file__).resolve().parents[2]
+    default_attack = root / "dataset" / "MachineLearningCVE" / "Execution2.json"
+    default_benign = root / "dataset" / "MachineLearningCVE" / "benign.jsonl"
+    default_out = Path(__file__).resolve().parents[1] / "saved_models"
+
