@@ -593,3 +593,5 @@ def train_pipeline(
     report_dict = classification_report(
         y_test, pred, digits=4, zero_division=0, output_dict=True
     )
+    report_txt = classification_report(y_test, pred, digits=4, zero_division=0)
+
