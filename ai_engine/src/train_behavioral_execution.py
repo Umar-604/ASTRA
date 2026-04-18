@@ -668,3 +668,26 @@ def train_pipeline(
             title="Isolation Forest — anomaly scores (hold-out test)",
         )
 
+    # Learning curve: extra fit on a train/val split from training data only (does not change saved model).
+    try:
+        ix_sub = np.arange(len(X_train_df))
+        ix_tr, ix_va, _, _ = train_test_split(
+            ix_sub, y_train, test_size=0.12, random_state=seed, stratify=y_train
+        )
+        X_tr_c = X_train_df.iloc[ix_tr]
+        X_va_c = X_train_df.iloc[ix_va]
+        y_tr_c = y_train[ix_tr]
+        y_va_c = y_train[ix_va]
+        spw_c = lgbm_scale_pos_weight(y_tr_c)
+        clf_curve = build_behavioral_lgbm(seed + 777, spw_c)
+        eval_hist: Dict[str, Any] = {}
+        clf_curve.fit(
+            X_tr_c,
+            y_tr_c,
+            eval_set=[(X_va_c, y_va_c)],
+            eval_metric=["binary_logloss", "auc"],
+            callbacks=[
+                lgb.early_stopping(stopping_rounds=100, verbose=False),
+                lgb.record_evaluation(eval_hist),
+            ],
+        )
