@@ -541,3 +541,8 @@ def train_pipeline(
     proba = clf.predict_proba(X_test_df)[:, 1]
     pred = (proba >= 0.5).astype(np.int32)
 
+    benign_mask_train = y_train == 0
+    n_benign_train = int(benign_mask_train.sum())
+    if n_benign_train < 2:
+        raise RuntimeError("Need at least 2 benign training rows for IsolationForest + scaler.")
+    scaler = StandardScaler()
