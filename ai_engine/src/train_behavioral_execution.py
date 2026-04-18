@@ -817,3 +817,27 @@ def train_pipeline(
         if_path,
     )
 
+    meta = {
+        "n_attack_loaded": len(attack_rows),
+        "n_benign_loaded": len(benign_rows),
+        "n_attack_combined": n_attack,
+        "n_benign_combined": n_benign,
+        "train_size": int(len(y_train)),
+        "test_size": int(len(y_test)),
+        "cv_splits": n_splits,
+        "cv_mean_accuracy": cv_mean_acc,
+        "cv_std_accuracy": cv_std_acc,
+        "scale_pos_weight": spw,
+        "feature_names": feat_names,
+        "top_feature_importance": top_features,
+        "lgbm_holdout_accuracy": acc,
+        "lgbm_holdout_roc_auc": auc_json,
+        "confusion_matrix": cm_list,
+        "artifacts": {
+            "encoders": str(enc_path.resolve()),
+            "lightgbm": str(lgbm_path.resolve()),
+            "isolation_forest": str(if_path.resolve()),
+            "results_json": str(results_json_path.resolve()),
+            "confusion_matrix_png": str(cm_png_path.resolve()),
+        },
+    }
