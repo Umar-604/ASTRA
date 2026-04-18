@@ -691,3 +691,11 @@ def train_pipeline(
                 lgb.record_evaluation(eval_hist),
             ],
         )
+        save_lightgbm_eval_plot(
+            eval_hist,
+            lgbm_learning_path,
+            title="LightGBM — validation metrics vs iteration (train subset)",
+        )
+    except Exception as e:
+        print(f"⚠️  Skipped LGBM learning curve plot: {e}")
+
