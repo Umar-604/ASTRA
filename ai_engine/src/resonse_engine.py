@@ -689,3 +689,8 @@ class ResponseEngine:
             cmd = "iptables -P OUTPUT ACCEPT && iptables -P INPUT ACCEPT"
         elif system == "darwin":
             cmd = "pfctl -d"
+        elif system == "windows":
+            cmd = "netsh advfirewall set allprofiles state off"
+        else:
+            cmd = None
+        return {"status": "ok" if cmd else "error", "command": cmd, "message": "host unisolation command prepared" if cmd else "unsupported OS"}
