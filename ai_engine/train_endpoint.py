@@ -597,3 +597,6 @@ else:
                 'model_type': self.model_type,
                 'training_stats': self.training_stats
             }
+metadata_path = os.path.join(output_dir, f"endpoint_model_{self.model_type}{('_' + suffix) if suffix else ''}_metadata.pkl")
+            with open(metadata_path, 'wb') as f:
+                joblib.dump(metadata, f)
