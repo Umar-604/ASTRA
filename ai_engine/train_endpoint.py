@@ -505,3 +505,7 @@ anomaly_rate=anomaly_rate,
                     threshold_method=threshold_metadata.get("threshold_method"),
                     threshold_percentile=threshold_metadata.get("threshold_percentile"),
                 )
+ if _HAS_MATPLOTLIB:
+                    print(f"      plot saved       : {plot_path}")
+
+            out = {
