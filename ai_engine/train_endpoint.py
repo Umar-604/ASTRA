@@ -364,4 +364,7 @@ def _plot_ae_reconstruction_distribution(
         all_mse = []
         if mse_train_benign is not None and len(mse_train_benign) > 0:
             all_mse.extend(mse_train_benign.ravel().tolist())
-        all_mse.extend(mse_val_benign.ravel().tolist())
+        all_mse.extend(mse_val_benign.ravel().tolist()) all_mse = np.array(all_mse)
+        min_mse = max(1e-10, np.min(all_mse[all_mse > 0])) if np.any(all_mse > 0) else 1e-10
+        x_max = selected_threshold * 1.2
+        x_grid = np.logspace(np.log10(min_mse), np.log10(x_max + 1e-10), 200)
