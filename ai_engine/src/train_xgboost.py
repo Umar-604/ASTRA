@@ -163,3 +163,11 @@ def load_sampled_csv(
     else:
         y_enc = y.values
     return X, y_enc
+
+
+def train_xgboost_classifier(
+    X_train: pd.DataFrame,
+    y_train: np.ndarray,
+    X_val: pd.DataFrame,
+    y_val: np.ndarray,
+    sample_weights: Optional[np.ndarray] = None,
