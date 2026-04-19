@@ -77,3 +77,9 @@ feature_cols = [
         c for c in df.columns
         if c != label_col and pd.api.types.is_numeric_dtype(df[c])
     ]
+if drop_port:
+        port_cols = [c for c in feature_cols if "port" in c.lower()]
+        if port_cols:
+            print(f"  Dropping leaky port feature(s): {port_cols}")
+            feature_cols = [c for c in feature_cols if c not in port_cols]
+
