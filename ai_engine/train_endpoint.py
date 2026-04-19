@@ -369,3 +369,6 @@ def _plot_ae_reconstruction_distribution(
         x_max = selected_threshold * 1.2
         x_grid = np.logspace(np.log10(min_mse), np.log10(x_max + 1e-10), 200)
 
+   "axes.facecolor": "#fafafa",
+            "figure.facecolor": "white",
+        })
