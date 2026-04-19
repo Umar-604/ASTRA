@@ -833,3 +833,8 @@ class ResponseEngine:
     def _hash_event(event: Dict[str, Any]) -> str:
         blob = json.dumps(event, sort_keys=True, separators=(",", ":")).encode("utf-8")
         return hashlib.sha256(blob).hexdigest()
+
+    @staticmethod
+    def _hash_response(actions: List[Dict[str, Any]]) -> str:
+        blob = json.dumps(actions, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        return hashlib.sha256(blob).hexdigest()
