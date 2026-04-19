@@ -54,3 +54,29 @@ func validateEventSchema(body []byte) error {
     }
     return nil
 }
+
+func main() {
+    // Load .env if present (non-fatal)
+    _ = godotenv.Load()
+
+    // Log JWT verifier configuration summary (do not print secrets)
+    alg := strings.ToUpper(strings.TrimSpace(os.Getenv("JWT_ALG")))
+    if alg == "" {
+        alg = "HS256"
+    }
+    if alg == "HS256" {
+        sec := os.Getenv("JWT_SECRET")
+        log.Printf("jwt: alg=%s secret_len=%d", alg, len(sec))
+    } else if alg == "RS256" {
+        pk := os.Getenv("JWT_PUBLIC_KEY")
+        pkFile := os.Getenv("JWT_PUBLIC_KEY_FILE")
+        src := "none"
+        if pk != "" {
+            src = "env:JWT_PUBLIC_KEY"
+        } else if pkFile != "" {
+            src = "env:JWT_PUBLIC_KEY_FILE"
+        }
+        log.Printf("jwt: alg=%s public_key_source=%s", alg, src)
+    } else {
+        log.Printf("jwt: alg=%s (unsupported, defaulting to HS256 in verifier)", alg)
+    }
