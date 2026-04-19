@@ -643,3 +643,10 @@ class ResponseEngine:
         elif system == "windows":
             cmd = f'netstat -ano | findstr "{ip_address}"'
         else:
+            cmd = None
+        return {
+            "status": "ok" if cmd else "error",
+            "ip_address": ip_address,
+            "command": cmd,
+            "message": "connection termination command prepared" if cmd else "unsupported OS",
+        }
