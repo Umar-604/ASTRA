@@ -261,3 +261,15 @@ def main():
 
     plot_dir = Path(args.out).parent / "xgboost_training_plots"
     plot_dir.mkdir(parents=True, exist_ok=True)
+
+    label_encoder: Optional[LabelEncoder] = None
+
+    if args.legacy:
+        print("Loading data (legacy random sampling)...")
+        X, y = load_sampled_csv(
+            path=args.data,
+            label_col=args.label_col,
+            sample_frac=args.sample_frac,
+            max_rows=args.max_rows,
+            chunksize=args.chunksize,
+        )
