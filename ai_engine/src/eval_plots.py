@@ -262,3 +262,4 @@ def save_iforest_score_distribution(
     title: str = "Isolation Forest anomaly scores (test set)",
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    fig, ax = plt.subplots(figsize=(7, 4.5))
