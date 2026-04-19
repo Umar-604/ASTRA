@@ -174,3 +174,6 @@ print(f"   Extracted {X.shape[1]} features from {X.shape[0]} samples (canonical 
         """Train Isolation Forest model"""
         print("🌲 Training Isolation Forest...")
         
+ # Use only benign samples for training (unsupervised)
+        benign_mask = y_train == 0
+        X_benign = X_train[benign_mask]
