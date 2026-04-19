@@ -249,3 +249,5 @@ title: str = "Isolation Forest anomaly scores (test set)",
  ax.set_title(title)
     ax.legend()
     fig.tight_layout()
+ fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
