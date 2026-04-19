@@ -136,3 +136,11 @@ ax.legend(loc="lower right", fontsize=8)
     fig.tight_layout()
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+def save_learning_curve_png(
+    epochs: Sequence[int],
+    train_values: Sequence[float],
+    val_values: Optional[Sequence[float]],
+    path: Path,
+    y_label: str,
+    title: str = "Learning curve",
+) -> None:
