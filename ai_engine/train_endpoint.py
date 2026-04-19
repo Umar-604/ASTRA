@@ -101,3 +101,6 @@ self._train_autoencoder(X_train_scaled, y_train, plot_dir=plot_dir)
                 "threshold_candidates", "threshold_metadata", "model_version", "fp_rate_benign_val",
             ):
                 if k in metrics:
+
+}
+                    self.training_stats[k] = metrics[k]
