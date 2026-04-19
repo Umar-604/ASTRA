@@ -73,3 +73,10 @@ def save_pr_curve_png(
     y_score: np.ndarray,
     path: Path,
     title: str = "Precision–Recall curve",
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig, ax = plt.subplots(figsize=(6, 5))
+    prec, rec, _ = precision_recall_curve(y_true, y_score)
+    ap = auc(rec, prec)
+    disp = PrecisionRecallDisplay(precision=prec, recall=rec, average_precision=ap)
+    disp.plot(ax=ax)
