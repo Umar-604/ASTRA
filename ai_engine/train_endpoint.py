@@ -299,3 +299,8 @@ self.training_stats = {
         mse_benign: np.ndarray,
         percentiles: Tuple[int, ...] = (95, 97, 99),
         k_std: float = 3.0,
+) -> Tuple[Dict[str, float], float, float]:
+        """Compute threshold candidates from benign validation reconstruction errors.
+        Returns (candidates_dict, mean_mse, std_mse)."""
+        if len(mse_benign) == 0:
+            mean_mse = 0.0
