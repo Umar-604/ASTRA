@@ -726,3 +726,16 @@ class ResponseEngine:
             cmd = f'logoff /server:localhost "{user}"'
         else:
             cmd = None
+        eturn {"status": "ok" if cmd else "error", "user": user, "command": cmd}
+
+    def collect_forensics(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        event = payload.get("event") or {}
+        snapshot = {
+            "hostname": socket.gethostname(),
+            "platform": platform.platform(),
+            "event_id": payload.get("event_id"),
+            "pid": payload.get("pid"),
+            "file_path": payload.get("file_path"),
+            "ip_address": payload.get("ip_address"),
+            "event_type": event.get("event_type"),
+        }
