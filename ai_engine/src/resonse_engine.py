@@ -35,3 +35,11 @@ def _normalize_confidence(value: float | int | None) -> float:
         return max(0.0, min(v * 100.0, 100.0))
     return max(0.0, min(v, 100.0))
 
+def _extract_hosts_from_url(raw: str) -> Set[str]:
+    """Pull hostname tokens out of a URL or `host:port` string."""
+    candidates: Set[str] = set()
+    s = raw.strip()
+    if not s:
+        return candidates
+    try:
+        from urllib.parse import urlparse  # local import keeps top tidy
