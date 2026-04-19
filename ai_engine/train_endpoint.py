@@ -89,4 +89,8 @@ self._train_autoencoder(X_train_scaled, y_train, plot_dir=plot_dir)
         else:
             raise ValueError(f"Unknown model type: {self.model_type}")
         if output_dir is None:
-            output_dir = settings.MODEL_DIR
+            output_dir = settings.MODEL_DIR # Evaluate model (for AE, pass output_dir and train data for threshold plot + FP minimization)
+        if self.model_type == "autoencoder":
+            metrics = self._evaluate_model(
+                X_test_scaled, y_test,
+                output_dir=output_dir,
