@@ -563,3 +563,11 @@ class ResponseEngine:
         qname = f"{datetime.now().strftime('%Y%m%d%H%M%S')}_{src.name}"
         dst = Path(self.config.quarantine_dir) / qname
         try:
+            shutil.move(str(src), str(dst))
+            return {
+                "status": "ok",
+                "file_path": str(src),
+                "quarantine_path": str(dst),
+                "rollback_action": "restore_file",
+                "rollback_payload": {"from_path": str(dst), "to_path": str(src)},
+            }
