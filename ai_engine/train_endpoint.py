@@ -165,3 +165,8 @@ features = extract_endpoint_behavioral_features(events)
 assert X.shape[1] == len(self.feature_names), (
             f"Feature count mismatch: X has {X.shape[1]} columns, feature_names has {len(self.feature_names)}"
         )
+print(f"   Extracted {X.shape[1]} features from {X.shape[0]} samples (canonical order)")
+        print(f"   Window size: {expected_window_events} events")
+        print(f"   Label distribution: {np.bincount(y)}")
+        
+        return X, y
