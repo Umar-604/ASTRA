@@ -103,6 +103,10 @@ self._train_autoencoder(X_train_scaled, y_train, plot_dir=plot_dir)
  print(f"   Anomaly threshold: {metrics.get('anomaly_threshold', 0):.6f}")
         else:
             print(f"   Test AUC: {metrics.get('auc', 0):.3f}")
+  return {
+            "model_type": self.model_type,
+            "feature_count": len(self.feature_names),
+            "metrics": metrics,
 
         else:
             metrics = self._evaluate_model(X_test_scaled, y_test)
