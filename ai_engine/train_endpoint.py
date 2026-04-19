@@ -551,3 +551,10 @@ elif self.model_type == "lstm":
             average="binary",
             zero_division=0,
         )
+ print(f"   Accuracy : {accuracy:.3f}")
+        print(f"   Precision: {precision:.3f}")
+        print(f"   Recall   : {recall:.3f}")
+        print(f"   F1-score : {f1:.3f}")
+        print(f"   AUC      : {auc:.3f}")
+        print("   Confusion matrix [[TN, FP], [FN, TP]]:")
+        print(f"      {cm.tolist()}")
