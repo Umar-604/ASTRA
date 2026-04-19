@@ -317,3 +317,11 @@ def main():
     proba = model.predict_proba(X_hold)
     n_classes = int(proba.shape[1])
     pred = model.predict(X_hold)
+
+    acc = float(accuracy_score(y_hold, pred))
+    prec_mac, rec_mac, f1_mac, _ = precision_recall_fscore_support(
+        y_hold, pred, average="macro", zero_division=0
+    )
+    prec_wt, rec_wt, f1_wt, _ = precision_recall_fscore_support(
+        y_hold, pred, average="weighted", zero_division=0
+    )
