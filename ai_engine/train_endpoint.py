@@ -609,3 +609,7 @@ out_path_display = (
 def main():
     """Main training function"""
     import argparse
+parser = argparse.ArgumentParser(description="Train endpoint behavioral model")
+    parser.add_argument("--data", required=True, help="Path to training data (JSON or CSV)")
+    parser.add_argument("--model", choices=["isolation_forest", "autoencoder", "lstm"], 
+                       default="isolation_forest", help="Model type to train")
