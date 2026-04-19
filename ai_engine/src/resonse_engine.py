@@ -282,3 +282,16 @@ class ResponseEngine:
     - Action execution and rollback hooks are separated from decision logic.
     - AUTO_RESPONSE=False logs recommendations without executing side effects.
     """
+
+    def __init__(self, config: Optional[EngineConfig] = None):
+        self.config = config or EngineConfig.from_env()
+        # Local dev often uses self-signed certs for gateway HTTPS.
+        if not self.config.blockchain_verify_tls:
+            urllib3.disable_warnings(InsecureRequestWarning)
+        self.decision_engine = DecisionEngine()
+        self._rollback_handlers: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
+            "unblock_ip": self.unblock_ip,
+            "restore_file": self.restore_file,
+            "resume_process": self.resume_process,
+            "unisolate_host": self.unisolate_host,
+        }
