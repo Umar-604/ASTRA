@@ -469,3 +469,6 @@ def _evaluate_model(
                 y_train = np.asarray(y_train).ravel()
                 train_benign_mask = y_train == 0
                 if np.any(train_benign_mask):
+ rec_train = self.model.predict(X_train[train_benign_mask])
+                    mse_train_benign = np.mean(np.power(X_train[train_benign_mask] - rec_train, 2), axis=1)
+
