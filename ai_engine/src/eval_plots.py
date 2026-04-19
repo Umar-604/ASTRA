@@ -157,3 +157,9 @@ ax.legend()
     fig.tight_layout()
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+def save_lightgbm_eval_plot(eval_result: Dict[str, Any], path: Path, title: str = "LightGBM training / validation") -> None:
+    """Plot metrics from lgb.record_evaluation (valid_0 contains binary_logloss, auc, etc.)."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    valid_key = "valid_0" if "valid_0" in eval_result else next((k for k in eval_result if k.startswith("valid")), None)
+    if not valid_key or not eval_result.get(valid_key):
+        return
