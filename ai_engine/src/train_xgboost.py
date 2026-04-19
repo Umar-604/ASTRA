@@ -89,3 +89,15 @@ if drop_port:
     print(f"\n  Raw class distribution ({len(class_counts)} classes, {len(df):,} total):")
     for cls, cnt in class_counts.items():
         print(f"    {cls:40s}: {cnt:>10,}")
+
+        sampled_indices: List[int] = []
+    for cls, cnt in class_counts.items():
+        cls_idx = df.index[df[label_col] == cls].tolist()
+        if cnt <= min_per_class:
+            sampled_indices.extend(cls_idx)
+        elif cnt <= max_majority:
+            target = max(min_per_class, int(cnt * sample_frac_medium))
+            target = min(target, cnt)
+            rng = np.random.RandomState(42)
+            sampled_indices.extend(rng.choice(cls_idx, size=target, replace=False).tolist())
+        else:
