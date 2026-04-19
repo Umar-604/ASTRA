@@ -195,3 +195,8 @@ def _train_autoencoder(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir:
 # Train strictly on benign windows only (label=0)
         benign_mask = y_train == 0
         X_benign = X_train[benign_mask]
+input_dim = X_benign.shape[1]
+        encoding_dim = max(32, input_dim // 4)
+        reg = L2(1e-5)
+        drop = 0.3
+        
