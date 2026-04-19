@@ -605,3 +605,4 @@ out_path_display = (
             if self.model_type == 'isolation_forest'
             else keras_path
         )
+        print(f"💾 Model saved to: {out_path_display}")
