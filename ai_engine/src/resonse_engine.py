@@ -333,3 +333,12 @@ class ResponseEngine:
         When True, endpoint-bound actions must be dispatched to the agent via NATS
         rather than executed server-side (where the PID/file_path/firewall rules do not exist).
         """
+
+        ev = payload.get("event") or {}
+        target = str(ev.get("platform") or "").strip().lower()
+        if not target:
+            return False
+        host = platform.system().strip().lower()
+        host_norm = self._HOST_PLATFORM_NORMALIZED.get(host, host)
+        target_norm = self._HOST_PLATFORM_NORMALIZED.get(target, target)
+        return target_norm != host_norm
