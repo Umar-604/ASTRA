@@ -543,3 +543,8 @@ class ResponseEngine:
         if psutil is None:
             return {"status": "error", "error": "psutil not available"}
         try:
+            psutil.Process(pid).resume()
+            return {"status": "ok", "pid": pid}
+        except Exception as exc:
+            return {"status": "error", "error": str(exc), "pid": pid}
+
