@@ -607,3 +607,9 @@ class ResponseEngine:
             return {"status": "skipped", "reason": "trusted hash", "file_hash": file_hash}
         path = Path(self.config.blocked_hashes_path)
         existing = set()
+        if path.exists():
+            existing = {ln.strip().lower() for ln in path.read_text(encoding="utf-8").splitlines() if ln.strip()}
+        if file_hash not in existing:
+            with path.open("a", encoding="utf-8") as f:
+                f.write(file_hash + "\n")
+        return {"status": "ok", "file_hash": file_hash, "blocked_hashes_path": str(path)}
