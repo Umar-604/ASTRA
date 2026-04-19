@@ -171,3 +171,20 @@ def train_xgboost_classifier(
     X_val: pd.DataFrame,
     y_val: np.ndarray,
     sample_weights: Optional[np.ndarray] = None,
+
+     n_labels = len(np.unique(y_train))
+    eval_metrics = ["mlogloss", "merror"] if n_labels > 2 else ["logloss", "error"]
+    model = XGBClassifier(
+        n_estimators=400,
+        max_depth=6,
+        learning_rate=0.07,
+        subsample=0.9,
+        colsample_bytree=0.9,
+        tree_method="hist",
+        eval_metric=eval_metrics,
+        n_jobs=-1,
+        min_child_weight=5,
+        gamma=0.1,
+        reg_alpha=0.05,
+        reg_lambda=1.0,
+    )
