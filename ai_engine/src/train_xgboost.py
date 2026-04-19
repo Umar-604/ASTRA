@@ -83,3 +83,9 @@ if drop_port:
             print(f"  Dropping leaky port feature(s): {port_cols}")
             feature_cols = [c for c in feature_cols if c not in port_cols]
 
+    
+    
+     class_counts = df[label_col].value_counts()
+    print(f"\n  Raw class distribution ({len(class_counts)} classes, {len(df):,} total):")
+    for cls, cnt in class_counts.items():
+        print(f"    {cls:40s}: {cnt:>10,}")
