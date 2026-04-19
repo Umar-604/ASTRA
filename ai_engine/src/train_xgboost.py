@@ -193,3 +193,8 @@ def train_xgboost_classifier(
         "eval_set": [(X_train, y_train), (X_val, y_val)],
         "verbose": False,
     }
+
+    if sample_weights is not None:
+        fit_params["sample_weight"] = sample_weights
+    model.fit(X_train, y_train, **fit_params)
+    return model
