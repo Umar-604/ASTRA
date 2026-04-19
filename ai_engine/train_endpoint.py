@@ -136,3 +136,8 @@ print("📊 Loading and preparing data...")
             # Load from CSV file
             df = pd.read_csv(data_path)
             data = df.to_dict('records')
+ else:
+            raise ValueError("Unsupported file format. Use .json or .csv")
+        
+        print(f"   Loaded {len(data)} records")
+        
