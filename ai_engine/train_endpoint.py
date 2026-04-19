@@ -574,3 +574,12 @@ elif self.model_type == "lstm":
         
  # Save model
         model_path = os.path.join(output_dir, f"endpoint_model_{self.model_type}.pkl")
+ if self.model_type in ["isolation_forest"]:
+            # Save sklearn model
+            joblib.dump({
+                'model': self.model,
+                'scaler': self.scaler,
+                'feature_names': self.feature_names,
+                'model_type': self.model_type,
+                'training_stats': self.training_stats
+            }, model_path)
