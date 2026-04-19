@@ -401,3 +401,9 @@ mse_v = np.maximum(mse_val_benign.ravel(), min_mse)
             bin_edges = np.logspace(np.log10(min_mse), np.log10(x_max + 1e-10), 50)
             if mse_train_benign is not None and len(mse_train_benign) > 0:
                 mse_t = np.maximum(mse_train_benign.ravel(), min_mse)
+ ax.hist(mse_t, bins=bin_edges, alpha=0.5, label="Train (benign)", color=train_color, density=True, histtype="stepfilled")
+            mse_v = np.maximum(mse_val_benign.ravel(), min_mse)
+            ax.hist(mse_v, bins=bin_edges, alpha=0.5, label="Validation (benign)", color=val_color, density=True, histtype="stepfilled")
+        # P95 and P97: thin, light dashed; P99: thick solid black
+        p95_val = candidates.get("p95")
+        p97_val = candidates.get("p97")
