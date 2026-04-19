@@ -571,3 +571,12 @@ class ResponseEngine:
                 "rollback_action": "restore_file",
                 "rollback_payload": {"from_path": str(dst), "to_path": str(src)},
             }
+        except PermissionError:
+            return {"status": "error", "error": "permission denied", "file_path": str(src)}
+
+    def restore_file(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        src = Path(self._require_path(payload.get("from_path")))
+        dst = Path(self._require_path(payload.get("to_path")))
+        if not src.exists():
+            return {"status": "error", "error": "quarantined file missing", "from_path": str(src)}
+        try:
