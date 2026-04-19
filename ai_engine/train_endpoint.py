@@ -189,3 +189,6 @@ self.model = IsolationForest(
             "contamination": 0.1,
             "n_estimators": 100
         }
+def _train_autoencoder(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | None = None):
+        """Train Autoencoder model: deeper architecture with L2 and dropout regularization."""
+        print("🔧 Training Autoencoder (deep, regularized)...")
