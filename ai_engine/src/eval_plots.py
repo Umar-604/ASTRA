@@ -181,3 +181,8 @@ axes = [axes]
     fig.tight_layout()
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+def save_xgboost_evals_plot(evals_result: Dict[str, Any], path: Path, title: str = "XGBoost training metrics") -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    val = evals_result.get("validation_0") or next(iter(evals_result.values()), {})
+    if not val:
+        return
