@@ -104,3 +104,7 @@ if drop_port:
              rng = np.random.RandomState(42)
             sampled_indices.extend(rng.choice(cls_idx, size=max_majority, replace=False).tolist())
 
+    df_sampled = df.loc[sampled_indices].reset_index(drop=True)
+
+    X = df_sampled[feature_cols].replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    y_raw = df_sampled[label_col]
