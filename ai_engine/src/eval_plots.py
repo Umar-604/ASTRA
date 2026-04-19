@@ -91,3 +91,7 @@ def save_metrics_bar_png(
     path: Path,
     title: str = "Hold-out metrics",
     y_max: float = 1.05,
+) -> None:
+    """Bar chart for scores in [0,1] such as accuracy, precision, recall, F1, ROC-AUC."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    names = list(metrics.keys())
