@@ -68,3 +68,6 @@ def __init__(self, model_type: str = "isolation_forest"):
 # Load and prepare data
         X, y = self._load_and_prepare_data(data_path)
         
+ # Split data (stratify only when both classes present)
+        stratify_arg = y if len(np.unique(y)) > 1 else None
+        X_train, X_test, y_train, y_test = train_test_split(
