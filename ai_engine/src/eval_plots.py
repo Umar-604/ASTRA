@@ -201,3 +201,8 @@ fig.suptitle(title)
     fig.tight_layout()
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+def save_keras_history_png(
+    history: Mapping[str, Sequence[float]],
+    path: Path,
+    title: str = "Training history",
+) -> None:
