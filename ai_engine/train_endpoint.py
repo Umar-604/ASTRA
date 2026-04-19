@@ -177,3 +177,8 @@ print(f"   Extracted {X.shape[1]} features from {X.shape[0]} samples (canonical 
  # Use only benign samples for training (unsupervised)
         benign_mask = y_train == 0
         X_benign = X_train[benign_mask]
+self.model = IsolationForest(
+            contamination=0.1,  # Expected proportion of outliers
+            random_state=42,
+            n_estimators=100
+        )
