@@ -618,3 +618,6 @@ parser = argparse.ArgumentParser(description="Train endpoint behavioral model")
  # Train model
     trainer = EndpointModelTrainer(model_type=args.model)
     results = trainer.train(args.data, args.output)
+print("\n🎉 Training completed successfully!")
+    print(f"Results: {results}")
+
