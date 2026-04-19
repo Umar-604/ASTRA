@@ -309,3 +309,7 @@ std_mse = 1.0
             return candidates, mean_mse, std_mse
         mean_mse = float(np.mean(mse_benign))
         std_mse = float(np.std(mse_benign)) or 1e-9
+  candidates: Dict[str, float] = {}
+        for p in percentiles:
+            candidates[f"p{p}"] = float(np.percentile(mse_benign, p))
+        candidates["mean_k_std"] = mean_mse + k_std * std_mse
