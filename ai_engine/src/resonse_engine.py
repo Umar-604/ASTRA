@@ -513,3 +513,11 @@ class ResponseEngine:
         if psutil is None:
             return {"status": "error", "error": "psutil not available"}
         try:
+            proc = psutil.Process(pid)
+            proc.kill()
+            return {"status": "ok", "pid": pid}
+        except psutil.NoSuchProcess:
+            return {"status": "error", "error": "process not found", "pid": pid}
+        except psutil.AccessDenied:
+            return {"status": "error", "error": "permission denied", "pid": pid}
+
