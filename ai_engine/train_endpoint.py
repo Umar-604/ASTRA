@@ -286,3 +286,7 @@ def _train_lstm(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | 
                     title="Endpoint LSTM — training",
                 )
 
+self.training_stats = {
+            "training_samples": len(X_train),
+            "input_dim": input_dim,
+            "lstm_units": lstm_units,
