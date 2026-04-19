@@ -53,3 +53,17 @@ def _extract_hosts_from_url(raw: str) -> Set[str]:
     except Exception:
         pass
     return candidates
+
+def _resolve_to_ips(host: str) -> Set[str]:
+    """Resolve a hostname to its IPv4/IPv6 literals plus echo the host itself.
+
+    DNS failure is non-fatal — we simply return the literal so downstream
+    string-comparison whitelisting still works for IPs given as IPs.
+    """
+    out: Set[str] = {host}
+    try:
+        infos = socket.getaddrinfo(host, None)
+        for info in infos:
+            ip = info[4][0]
+            if ip:
+                out.add(ip)
