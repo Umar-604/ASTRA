@@ -548,3 +548,11 @@ class ResponseEngine:
         except Exception as exc:
             return {"status": "error", "error": str(exc), "pid": pid}
 
+    def quarantine_file(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if self._is_remote_target(payload):
+            return self._dispatch_to_endpoint(
+                "quarantine_file",
+                payload,
+                {"file_path": "file_path"},
+                rollback_action="restore_file",
+            )
