@@ -225,3 +225,9 @@ def save_keras_history_png(
         if train_k in h:
             ax.plot(range(1, len(h[train_k]) + 1), h[train_k], label=f"Train {ylabel.lower()}")
         if val_k in h:
+ax.plot(range(1, len(h[val_k]) + 1), h[val_k], label=f"Val {ylabel.lower()}")
+        ax.set_xlabel("Epoch")
+        ax.set_ylabel(ylabel)
+        ax.set_title(f"{title} — {ylabel}")
+        ax.legend()
+        ax.grid(True, alpha=0.3)
