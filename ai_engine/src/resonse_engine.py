@@ -295,3 +295,20 @@ class ResponseEngine:
             "resume_process": self.resume_process,
             "unisolate_host": self.unisolate_host,
         }
+
+        self._action_handlers: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
+            "log_only": self.log_only,
+            "alert_monitor": self.alert_monitor,
+            "kill_process": self.kill_process,
+            "suspend_process": self.suspend_process,
+            "quarantine_file": self.quarantine_file,
+            "delete_file": self.delete_file,
+            "block_ip": self.block_ip,
+            "terminate_connection": self.terminate_connection,
+            "isolate_host": self.isolate_host,
+            "unisolate_host": self.unisolate_host,
+            "lock_user": self.lock_user,
+            "force_logout": self.force_logout,
+            "block_file_hash": self.block_file_hash,
+            "collect_forensics": self.collect_forensics,
+        }
