@@ -621,3 +621,5 @@ parser = argparse.ArgumentParser(description="Train endpoint behavioral model")
 print("\n🎉 Training completed successfully!")
     print(f"Results: {results}")
 
+if __name__ == "__main__":
+    main()
