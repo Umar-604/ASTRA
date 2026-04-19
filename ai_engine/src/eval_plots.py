@@ -266,3 +266,4 @@ def save_iforest_score_distribution(
     ax.hist(scores_normal, bins=40, alpha=0.6, label="Normal (0)", density=True)
     ax.hist(scores_attack, bins=40, alpha=0.6, label="Attack (1)", density=True)
     ax.set_xlabel("Anomaly score (higher = more anomalous)")
+    ax.set_ylabel("Density")
