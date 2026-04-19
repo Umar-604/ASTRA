@@ -421,3 +421,13 @@ class ResponseEngine:
                     {"reason": "dry-run mode", "payload": payload},
                     triggered_by=triggered_by,
                 )
+                outputs.append(rec.__dict__)
+                continue
+            if self.config.manual_approval and not bool(event.get("manual_approved")) and action_name not in {"log_only", "alert_monitor"}:
+                rec = self._record(
+                    event_id,
+                    action_name,
+                    "pending_approval",
+                    {"reason": "manual approval required"},
+                    triggered_by=triggered_by,
+                )
