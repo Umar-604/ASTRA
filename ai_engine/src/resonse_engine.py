@@ -910,3 +910,17 @@ class ResponseEngine:
                 if str(obj.get("event_id")) == event_id:
                     out.append(obj)
         return out
+    def _should_skip_due_to_whitelist(self, event: Dict[str, Any]) -> str | None:
+        # Inspect both the canonical top-level fields AND the raw `event_data`
+        # blob the agent shipped. Process telemetry routinely carries the
+        # interpreter (e.g. python.exe) in `file_path`/`image` and the actual
+        # script name only in `command_line` — without the latter we can never
+        # whitelist agent self-traffic.
+        event_data = event.get("event_data") if isinstance(event.get("event_data"), dict) else {}
+
+        process_keys = (
+            "process_name", "image", "file_path", "process_path",
+            "command_line", "process_command_line", "CommandLine",
+            "parent_image", "parent_command_line", "ParentCommandLine",
+            "Image",
+        )
