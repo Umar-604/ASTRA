@@ -64,3 +64,7 @@ def save_roc_curve_png(
     roc_auc = auc(fpr, tpr)
     disp = RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_auc, estimator_name="Model")
     disp.plot(ax=ax)
+ ax.set_title(f"{title}\nAUC = {roc_auc:.4f}")
+    fig.tight_layout()
+    fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
