@@ -223,3 +223,41 @@ importances = model.feature_importances_
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
 
+
+def main():
+    ap = argparse.ArgumentParser(description="Train XGBoost on cicids_merged.csv (improved pipeline)")
+    ap.add_argument("--data", default="dataset/MachineLearningCVE/cicids_merged.csv")
+    ap.add_argument("--label-col", default=" Label")
+    ap.add_argument("--out", default="ai_engine/saved_models/xgboost_model.pkl")
+    ap.add_argument("--drop-port", action="store_true", default=False,
+                    help="Remove Destination Port feature to test leakage impact")
+    ap.add_argument("--min-per-class", type=int, default=500, dest="min_per_class",
+                    help="Minimum samples per class (rare classes kept in full)")
+    ap.add_argument("--max-majority", type=int, default=50_000, dest="max_majority",
+                    help="Cap for the largest class (BENIGN)")
+    ap.add_argument("--sample-frac-medium", type=float, default=0.15, dest="sample_frac_medium",
+                    help="Sampling fraction for medium-size classes")
+    ap.add_argument("--no-class-weight", action="store_true", default=False, dest="no_class_weight",
+                    help="Disable balanced class weights")
+    # Legacy arguments (kept for backward compatibility)
+    ap.add_argument("--sample-frac", type=float, default=0.02)
+    ap.add_argument("--max-rows", type=int, default=300_000)
+    ap.add_argument("--chunksize", type=int, default=150_000)
+    ap.add_argument("--legacy", action="store_true", default=False,
+                    help="Use the original 2%% random sampling (for comparison)")
+    args = ap.parse_args()
+
+    print("Training XGBoost on CICIDS merged CSV (improved pipeline)")
+    print("=" * 60)
+    print(f"  Data:           {args.data}")
+    print(f"  Label column:   {args.label_col}")
+    print(f"  Drop port:      {args.drop_port}")
+    print(f"  Class weights:  {'disabled' if args.no_class_weight else 'balanced'}")
+    if args.legacy:
+        print(f"  Mode:           LEGACY (random {args.sample_frac*100:.0f}% sampling)")
+    else:
+        print(f"  Mode:           STRATIFIED (min={args.min_per_class}, max={args.max_majority})")
+    print()
+
+    plot_dir = Path(args.out).parent / "xgboost_training_plots"
+    plot_dir.mkdir(parents=True, exist_ok=True)
