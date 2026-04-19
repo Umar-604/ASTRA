@@ -237,3 +237,7 @@ Path(plot_dir) / "endpoint_autoencoder_loss_curve.png",
                 )
             except Exception as _e:
                 print(f"⚠️  Could not save AE loss curve plot: {_e}")
+self.training_stats = {
+            "training_samples": len(X_benign),
+            "input_dim": input_dim,
+            "encoding_dim": encoding_dim,
