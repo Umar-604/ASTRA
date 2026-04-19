@@ -585,3 +585,10 @@ class ResponseEngine:
             return {"status": "ok", "from_path": str(src), "to_path": str(dst)}
         except Exception as exc:
             return {"status": "error", "error": str(exc)}
+
+    def delete_file(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if self._is_remote_target(payload):
+            return self._dispatch_to_endpoint("delete_file", payload, {"file_path": "file_path"})
+        file_path = self._require_path(payload.get("file_path"))
+        p = Path(file_path)
+        if not p.exists():
