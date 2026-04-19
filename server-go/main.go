@@ -112,3 +112,10 @@ func main() {
             http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
             return
         }
+
+        // JWT: expect header X-Auth-Token
+        token := r.Header.Get("X-Auth-Token")
+        if token == "" {
+            http.Error(w, "missing token", http.StatusUnauthorized)
+            return
+        }
