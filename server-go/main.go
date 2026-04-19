@@ -175,3 +175,10 @@ func main() {
             log.Printf("proxy TLS verification for AI_ENGINE_URL is DISABLED (AI_ENGINE_INSECURE_SKIP_VERIFY=true)")
         }
     }
+    proxy.Director = func(r *http.Request) {
+        r.URL.Scheme = target.Scheme
+        r.URL.Host = target.Host
+        r.Host = target.Host
+    }
+    // Catch-all: proxy GET /events/{id}, /alerts, /auth, /hosts, /audit, /ui, etc. to AI engine
+    http.HandleFunc("/", proxy.ServeHTTP)
