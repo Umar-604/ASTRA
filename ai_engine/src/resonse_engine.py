@@ -408,3 +408,16 @@ class ResponseEngine:
                 "confidence": _normalize_confidence(event.get("confidence")),
                 "actions": outputs,
             }
+        
+        for action_name, payload in actions:
+            payload = {**payload, "event_id": event_id}
+            if action_name == "suspend_process" and not self.config.suspend_in_medium_band:
+                continue
+            if self.config.dry_run and action_name not in {"log_only", "alert_monitor"}:
+                rec = self._record(
+                    event_id,
+                    action_name,
+                    "simulated",
+                    {"reason": "dry-run mode", "payload": payload},
+                    triggered_by=triggered_by,
+                )
