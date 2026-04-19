@@ -251,3 +251,9 @@ def _train_lstm(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | 
         X_reshaped = X_train.reshape(X_train.shape[0], 1, X_train.shape[1])
   input_dim = X_train.shape[1]
         lstm_units = 64
+ # Build LSTM model
+        input_layer = Input(shape=(1, input_dim))
+        lstm_layer = LSTM(lstm_units, return_sequences=True)(input_layer)
+        lstm_layer = Dropout(0.2)(lstm_layer)
+        lstm_layer = LSTM(lstm_units // 2)(lstm_layer)
+        lstm_layer = Dropout(0.2)(lstm_layer)
