@@ -170,3 +170,14 @@ def save_lightgbm_eval_plot(eval_result: Dict[str, Any], path: Path, title: str 
     n = min(len(keys), 3)
     fig, axes = plt.subplots(1, n, figsize=(5 * n, 4))
     if n == 1:
+axes = [axes]
+    for ax, mkey in zip(axes, keys[:n]):
+        series = metrics_dict[mkey]
+        ax.plot(range(1, len(series) + 1), series, lw=2)
+        ax.set_title(mkey)
+        ax.set_xlabel("Boosting iteration")
+        ax.grid(True, alpha=0.3)
+    fig.suptitle(title)
+    fig.tight_layout()
+    fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
