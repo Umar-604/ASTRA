@@ -22,3 +22,9 @@ from sklearn.metrics import (
     roc_curve,
 )
 
+def save_confusion_matrix_png(
+    cm: np.ndarray,
+    path: Path,
+    title: str,
+    display_labels: Tuple[str, str] = ("Negative (0)", "Positive (1)"),
+) -> None:
