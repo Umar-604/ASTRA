@@ -538,3 +538,8 @@ class ResponseEngine:
         except psutil.AccessDenied:
             return {"status": "error", "error": "permission denied", "pid": pid}
 
+    def resume_process(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        pid = self._require_int(payload.get("pid"), "pid")
+        if psutil is None:
+            return {"status": "error", "error": "psutil not available"}
+        try:
