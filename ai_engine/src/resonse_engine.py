@@ -138,3 +138,8 @@ class EngineConfig:
         # Same logic for the EDR agent's own process name/path — the engine
         # must not order the agent to kill itself even if its beacon thread
         # crosses a behavioural threshold.
+        for env_var in ("RESPONSE_PROTECTED_AGENT_PROCESSES", "EDR_AGENT_PROCESS_NAMES"):
+            for proc in str(os.getenv(env_var, "")).split(","):
+                p = proc.strip().lower()
+                if p:
+                    trusted_processes.add(p)
