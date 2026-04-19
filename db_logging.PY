@@ -42,3 +42,8 @@ def _ensure_engine(dsn: Optional[str] = None) -> Optional["Engine"]:
         _dsn = dsn or _get_dsn()
         if not _dsn:
             return None
+        try:
+            _ENGINE = create_engine(_dsn, pool_pre_ping=True)
+            return _ENGINE
+        except Exception:
+            return None
