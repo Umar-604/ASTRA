@@ -796,3 +796,17 @@ class ResponseEngine:
                     "response_body": body,
                 },
             )
+            return rec.__dict__
+        except Exception as exc:
+            rec = self._record(
+                event_id,
+                "log_to_blockchain",
+                "error",
+                {
+                    "error": str(exc),
+                    "event_hash": event_hash,
+                    "response_hash": response_hash,
+                    "bundle_hash": bundle_hash,
+                },
+            )
+            return rec.__dict__
