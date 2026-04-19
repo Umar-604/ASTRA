@@ -35,3 +35,8 @@ from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.regularizers import L2
 from .config import settings
 from .features.endpoint_behavioral import (
+ extract_endpoint_behavioral_features,
+    get_canonical_feature_order,
+    validate_feature_dict,
+)
+
