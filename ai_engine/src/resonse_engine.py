@@ -442,3 +442,11 @@ class ResponseEngine:
                     {"reason": "AUTO_RESPONSE disabled"},
                     triggered_by=triggered_by,
                 )
+
+                outputs.append(rec.__dict__)
+                continue
+            handler = self._action_handlers.get(action_name)
+            if not handler:
+                rec = self._record(event_id, action_name, "error", {"error": "unknown action"}, triggered_by=triggered_by)
+                outputs.append(rec.__dict__)
+                continue
