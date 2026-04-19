@@ -600,3 +600,8 @@ else:
 metadata_path = os.path.join(output_dir, f"endpoint_model_{self.model_type}{('_' + suffix) if suffix else ''}_metadata.pkl")
             with open(metadata_path, 'wb') as f:
                 joblib.dump(metadata, f)
+out_path_display = (
+            os.path.join(output_dir, f"endpoint_model_{self.model_type}.pkl")
+            if self.model_type == 'isolation_forest'
+            else keras_path
+        )
