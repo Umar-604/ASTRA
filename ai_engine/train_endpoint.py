@@ -416,4 +416,9 @@ mse_v = np.maximum(mse_val_benign.ravel(), min_mse)
             label=f"Threshold (P{threshold_percentile or 99})", zorder=10,
         )
         ax.set_xscale("log")
-        ax.set_xlim(min_mse, x_max)
+        ax.set_xlim(min_mse, x_max) ax.set_xlabel("Reconstruction error (MSE)", fontsize=20, color="#374151")
+        ax.set_ylabel("Density", fontsize=20, color="#374151")
+        ax.set_title(
+            "Normal behavior vs anomaly boundary",
+            fontsize=24, fontweight="600", color="#111827", pad=18,
+        )
