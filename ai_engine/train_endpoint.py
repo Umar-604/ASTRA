@@ -568,3 +568,7 @@ elif self.model_type == "lstm":
             "predictions": y_pred.tolist(),
             "probabilities": y_proba.tolist()
         }
+ def _save_model(self, output_dir: str):
+        """Save the trained model"""
+        os.makedirs(output_dir, exist_ok=True)
+        
