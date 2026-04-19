@@ -509,3 +509,8 @@ anomaly_rate=anomaly_rate,
                     print(f"      plot saved       : {plot_path}")
 
             out = {
+ "reconstruction_error_mean": mean_mse,
+                "reconstruction_error_std": std_mse,
+                "anomaly_threshold": threshold,
+                "k_std": k_std,
+                "anomaly_rate": anomaly_rate,
