@@ -482,3 +482,7 @@ class ResponseEngine:
                     rollback_payload=result.get("rollback_payload"),
                     triggered_by=triggered_by,
                 )
+
+                except Exception as exc:  # defensive catch
+                rec = self._record(event_id, action_name, "error", {"error": str(exc)}, triggered_by=triggered_by)
+            outputs.append(rec.__dict__)
