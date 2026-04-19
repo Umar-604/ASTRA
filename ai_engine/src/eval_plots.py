@@ -86,3 +86,8 @@ ax.set_title(f"{title}\nAP = {ap:.4f}")
     plt.close(fig)
 
 
+def save_metrics_bar_png(
+    metrics: Mapping[str, float],
+    path: Path,
+    title: str = "Hold-out metrics",
+    y_max: float = 1.05,
