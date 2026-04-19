@@ -970,3 +970,15 @@ class ResponseEngine:
         if system == "windows":
             return f'netsh advfirewall firewall add rule name="ASTRA_BLOCK_{ip}" dir=in action=block remoteip={ip}'
         return None
+    
+    @staticmethod
+    def _firewall_unblock_command(ip: str) -> Optional[str]:
+        system = platform.system().lower()
+        if system == "linux":
+            return f"iptables -D INPUT -s {ip} -j DROP"
+        if system == "darwin":
+            return f"pfctl -F rules # remove rule for {ip} manually if needed"
+        if system == "windows":
+            return f'netsh advfirewall firewall delete rule name="ASTRA_BLOCK_{ip}"'
+        return None
+
