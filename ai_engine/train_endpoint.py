@@ -314,3 +314,8 @@ std_mse = 1.0
             candidates[f"p{p}"] = float(np.percentile(mse_benign, p))
         candidates["mean_k_std"] = mean_mse + k_std * std_mse
         return candidates, mean_mse, std_mse
+def _select_ae_threshold(
+        self,
+        candidates: Dict[str, float],
+        strategy: str = "minimize_fp",
+        default_percentile: int = 99,
