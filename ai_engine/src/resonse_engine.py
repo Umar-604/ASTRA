@@ -854,3 +854,23 @@ class ResponseEngine:
         if not path:
             raise ValueError("file_path is required")
         return path
+    
+    def _record(
+        self,
+        event_id: str,
+        action: str,
+        status: str,
+        details: Dict[str, Any],
+        rollback_action: Optional[str] = None,
+        rollback_payload: Optional[Dict[str, Any]] = None,
+        triggered_by: str = "AI",
+    ) -> ActionRecord:
+        rec = ActionRecord(
+            timestamp=_utc_now(),
+            event_id=event_id,
+            action=action,
+            status=status,
+            details=details,
+            rollback_action=rollback_action,
+            rollback_payload=rollback_payload,
+        )
