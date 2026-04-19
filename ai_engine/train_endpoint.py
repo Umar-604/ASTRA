@@ -444,3 +444,9 @@ ax.tick_params(axis="both", labelsize=16, colors="#4B5563")
 fig.tight_layout()
         fig.savefig(output_path, dpi=300, bbox_inches="tight", facecolor="white", edgecolor="none")
         plt.close(fig)
+def _evaluate_model(
+        self,
+        X_test: np.ndarray,
+        y_test: np.ndarray,
+        output_dir: Optional[str] = None,
+        X_train: Optional[np.ndarray] = None,
