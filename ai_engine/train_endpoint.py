@@ -387,3 +387,11 @@ kde_t = gaussian_kde(mse_t, bw_method="scott")
                     ax.plot(x_grid, dens_t, color=train_color, linewidth=2.5, label="Train (benign)")
                 except Exception:
                     pass
+mse_v = np.maximum(mse_val_benign.ravel(), min_mse)
+            try:
+                kde_v = gaussian_kde(mse_v, bw_method="scott")
+                dens_v = np.maximum(kde_v(x_grid), 1e-12)
+                ax.fill_between(x_grid, dens_v, alpha=0.25, color=val_color)
+                ax.plot(x_grid, dens_v, color=val_color, linewidth=2.5, label="Validation (benign)")
+            except Exception:
+                pass
