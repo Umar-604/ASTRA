@@ -388,3 +388,10 @@ class ResponseEngine:
         if extra:
             result.update(extra)
         return result
+    
+    def process_event(self, event: Dict[str, Any]) -> Dict[str, Any]:
+        event_id = str(event.get("event_id") or f"evt-{int(datetime.now().timestamp())}")
+        event["event_id"] = event_id
+        actions, rule = self.decision_engine.decide(event)
+        outputs: List[Dict[str, Any]] = []
+        triggered_by = str(event.get("triggered_by") or "AI")
