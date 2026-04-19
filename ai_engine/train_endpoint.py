@@ -615,3 +615,6 @@ parser = argparse.ArgumentParser(description="Train endpoint behavioral model")
                        default="isolation_forest", help="Model type to train")
     parser.add_argument("--output", help="Output directory for model")
     args = parser.parse_args()
+ # Train model
+    trainer = EndpointModelTrainer(model_type=args.model)
+    results = trainer.train(args.data, args.output)
