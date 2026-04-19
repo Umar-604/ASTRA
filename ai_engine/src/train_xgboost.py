@@ -436,3 +436,21 @@ def main():
                 title="XGBoost — validation error per round",
             )
             break
+            
+            # ── Save ──────────────────────────────────────────────────────
+    out_path = Path(args.out)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    bundle = {
+        "model": model,
+        "label_encoder": label_encoder,
+        "feature_names": feature_names,
+        "n_classes": n_classes,
+        "metrics": {
+            "accuracy": acc,
+            "macro_f1": float(f1_mac),
+            "weighted_f1": float(f1_wt),
+            "mcc": mcc,
+            "roc_auc_weighted": auc_v,
+        },
+        "drop_port": args.drop_port,
+    }
