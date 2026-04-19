@@ -80,3 +80,14 @@ func main() {
     } else {
         log.Printf("jwt: alg=%s (unsupported, defaulting to HS256 in verifier)", alg)
     }
+
+    addr := ":9000"
+    if v := os.Getenv("GATEWAY_ADDR"); v != "" {
+        addr = v
+    }
+
+    pub, err := internal.NewPublisher()
+    if err != nil {
+        log.Fatalf("nats: %v", err)
+    }
+    defer pub.Close()
