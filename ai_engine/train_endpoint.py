@@ -412,3 +412,8 @@ mse_v = np.maximum(mse_val_benign.ravel(), min_mse)
         if p97_val is not None and min_mse <= p97_val <= x_max:
             ax.axvline(p97_val, color="#9ca3af", linestyle="--", linewidth=1, alpha=0.7, label="P97")
         ax.axvline(
+   selected_threshold, color="black", linestyle="-", linewidth=3.5,
+            label=f"Threshold (P{threshold_percentile or 99})", zorder=10,
+        )
+        ax.set_xscale("log")
+        ax.set_xlim(min_mse, x_max)
