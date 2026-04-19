@@ -209,3 +209,10 @@ class DecisionEngine:
             "file_hash": event.get("file_hash"),
             "event": event,
         }
+
+        # Registry monitor with missing telemetry should be less aggressive.
+        if event_source == "registry_monitor" and telemetry_incomplete:
+            confidence = max(0.0, confidence - 20.0)
+
+        if confidence < 60:
+            return [("log_only", payload)], "confidence<60"
