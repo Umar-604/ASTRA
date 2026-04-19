@@ -924,3 +924,13 @@ class ResponseEngine:
             "parent_image", "parent_command_line", "ParentCommandLine",
             "Image",
         )
+        candidates: List[str] = []
+        for src in (event, event_data):
+            for key in process_keys:
+                v = str(src.get(key) or "").strip().lower()
+                if not v:
+                    continue
+                candidates.append(v)
+                base = v.replace("\\", "/").rsplit("/", 1)[-1]
+                if base and base != v:
+                    candidates.append(base)
