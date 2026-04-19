@@ -130,3 +130,14 @@ func main() {
             http.Error(w, "content-type must be application/json", http.StatusUnsupportedMediaType)
             return
         }
+        // Read raw body (limit 5MB)
+        body, err := io.ReadAll(http.MaxBytesReader(w, r.Body, 5<<20))
+        if err != nil {
+            http.Error(w, "read error", http.StatusBadRequest)
+            return
+        }
+        // Validate (no mutation)
+        if err := validateEventSchema(body); err != nil {
+            http.Error(w, "invalid json", http.StatusBadRequest)
+            return
+        }
