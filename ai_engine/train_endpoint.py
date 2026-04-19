@@ -147,3 +147,8 @@ print("📊 Loading and preparing data...")
         if expected_window_events is not None:
             self.training_stats["window_events"] = expected_window_eventsfeatures_list = []
         labels = []
+ for i, record in enumerate(data):
+            events = record.get('events', [])
+            # Reject partial windows: only full windows go to the model
+            if expected_window_events is not None and len(events) != expected_window_events:
+                raise ValueError(
