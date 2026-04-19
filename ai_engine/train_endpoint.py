@@ -241,3 +241,6 @@ self.training_stats = {
             "training_samples": len(X_benign),
             "input_dim": input_dim,
             "encoding_dim": encoding_dim,
+ "epochs_trained": len(history.history['loss']),
+            "final_loss": float(history.history['loss'][-1]),
+        }
