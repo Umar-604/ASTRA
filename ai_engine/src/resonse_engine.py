@@ -774,3 +774,11 @@ class ResponseEngine:
                 timeout=self.config.request_timeout_sec,
                 verify=self.config.blockchain_verify_tls,
             )
+            status = "ok" if resp.ok else "error"
+            tx_id = None
+            body: Dict[str, Any] = {}
+            try:
+                body = resp.json() if resp.content else {}
+                tx_id = body.get("tx_id") or body.get("transaction_id") or body.get("id")
+            except Exception:
+                pass
