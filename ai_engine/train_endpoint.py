@@ -526,4 +526,8 @@ anomaly_rate=anomaly_rate,
         if self.model_type == "isolation_forest":
             # Isolation Forest returns -1 for outliers, 1 for inliers
             predictions = self.model.predict(X_test)
-            scores = self.model.score_samples(X_test)
+            scores = self.model.score_samples(X_test) # Convert to binary: -1 (outlier) -> 1 (anomaly), 1 (inlier) -> 0 (normal)
+            y_pred = (predictions == -1).astype(int)
+            
+            # Convert scores to probabilities (higher score = more normal)
+            y_proba = 1 - (scores - scores.min()) / (scores.max() - scores.min() + 1e-9)
