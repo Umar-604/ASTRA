@@ -96,6 +96,10 @@ self._train_autoencoder(X_train_scaled, y_train, plot_dir=plot_dir)
                 output_dir=output_dir, X_train=X_train_scaled, y_train=y_train,
             ) # Save model (metadata will include reconstruction stats and threshold metadata for AE)
         self._save_model(output_dir)
+ print(f"✅ Training completed!")
+        print(f"   Model: {self.model_type}")
+        print(f"   Features: {len(self.feature_names)}")
+        if self.model_type == "autoencoder":
 
         else:
             metrics = self._evaluate_model(X_test_scaled, y_test)
