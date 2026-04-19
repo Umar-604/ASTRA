@@ -269,3 +269,4 @@ def save_iforest_score_distribution(
     ax.set_ylabel("Density")
     ax.set_title(title)
     ax.legend()
+    fig.tight_layout()
