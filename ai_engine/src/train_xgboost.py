@@ -300,3 +300,13 @@ def main():
         X_tr, X_val, y_tr, y_val = train_test_split(
             X_model, y_model, test_size=0.12, random_state=42, stratify=y_model
         )
+        except ValueError:
+        X_tr, X_val, y_tr, y_val = train_test_split(
+            X_model, y_model, test_size=0.12, random_state=42
+        )
+
+    sample_weights = None
+    if not args.no_class_weight:
+        sample_weights = compute_sample_weight("balanced", y_tr)
+        print(f"  Balanced sample weights applied (range: {sample_weights.min():.3f} – {sample_weights.max():.3f})")
+
