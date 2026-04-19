@@ -556,3 +556,10 @@ class ResponseEngine:
                 {"file_path": "file_path"},
                 rollback_action="restore_file",
             )
+        file_path = self._require_path(payload.get("file_path"))
+        src = Path(file_path)
+        if not src.exists():
+            return {"status": "error", "error": "file not found", "file_path": str(src)}
+        qname = f"{datetime.now().strftime('%Y%m%d%H%M%S')}_{src.name}"
+        dst = Path(self.config.quarantine_dir) / qname
+        try:
