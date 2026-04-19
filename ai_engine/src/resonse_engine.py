@@ -968,3 +968,5 @@ class ResponseEngine:
         if system == "darwin":
             return f"echo 'block drop from {ip} to any' | pfctl -ef -"
         if system == "windows":
+            return f'netsh advfirewall firewall add rule name="ASTRA_BLOCK_{ip}" dir=in action=block remoteip={ip}'
+        return None
