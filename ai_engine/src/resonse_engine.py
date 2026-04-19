@@ -900,3 +900,13 @@ class ResponseEngine:
         out: List[Dict[str, Any]] = []
         with p.open("r", encoding="utf-8") as f:
             for line in f:
+                ine = line.strip()
+                if not line:
+                    continue
+                try:
+                    obj = json.loads(line)
+                except Exception:
+                    continue
+                if str(obj.get("event_id")) == event_id:
+                    out.append(obj)
+        return out
