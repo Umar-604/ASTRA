@@ -827,3 +827,9 @@ class ResponseEngine:
             rr = self._record(event_id, f"rollback:{action}", result.get("status", "ok"), result, triggered_by="manual")
             reverted.append(rr.__dict__)
         return reverted
+    
+    # ---------- Helpers ----------
+    @staticmethod
+    def _hash_event(event: Dict[str, Any]) -> str:
+        blob = json.dumps(event, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        return hashlib.sha256(blob).hexdigest()
