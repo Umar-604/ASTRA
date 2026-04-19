@@ -128,3 +128,34 @@ class PostgresLogHandler(logging.Handler):
                     "process", "message", "agent_id"
                 }},
             }
+
+            if text is None:
+                return
+            with self._engine.begin() as conn:  # type: ignore[union-attr]
+                conn.execute(
+                    text(
+                        """
+                        INSERT INTO app_logs (
+                            level, logger_name, message, pathname, func_name, line_no, process, thread, agent_id, extra
+                        ) VALUES (
+                            :level, :logger_name, :message, :pathname, :func_name, :line_no, :process, :thread, :agent_id,
+                            CAST(:extra AS JSONB)
+                        )
+                        """
+                    ),
+                    {
+                        "level": payload["level"],
+                        "logger_name": payload["logger_name"],
+                        "message": payload["message"],
+                        "pathname": payload["pathname"],
+                        "func_name": payload["func_name"],
+                        "line_no": payload["line_no"],
+                        "process": payload["process"],
+                        "thread": payload["thread"],
+                        "agent_id": payload["agent_id"],
+                        "extra": _safe_json(payload["extra"]),
+                    },
+                )
+        except Exception:
+            # Never raise from logging
+            pass
