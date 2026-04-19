@@ -450,3 +450,10 @@ class ResponseEngine:
                 rec = self._record(event_id, action_name, "error", {"error": "unknown action"}, triggered_by=triggered_by)
                 outputs.append(rec.__dict__)
                 continue
+
+            try:
+                result = handler(payload)
+                # Missing/non-applicable input should be visible but not treated as hard execution failure.
+                status = result.get("status", "ok")
+                err = str(result.get("error") or "").strip().lower()
+                if status == "error":
