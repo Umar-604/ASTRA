@@ -122,3 +122,14 @@ class EngineConfig:
         # is told to sever its own control channel. Operators can extend this
         # list via RESPONSE_GATEWAY_HOSTS=<comma-separated host or ip list>.
         gateway_candidates: Set[str] = set()
+
+        for env_var in ("ASTRA_GATEWAY", "ASTRA_SERVER", "GATEWAY_URL"):
+            raw = os.getenv(env_var, "").strip()
+            if raw:
+                gateway_candidates.update(_extract_hosts_from_url(raw))
+        for raw in str(os.getenv("RESPONSE_GATEWAY_HOSTS", "")).split(","):
+            host = raw.strip()
+            if host:
+                gateway_candidates.add(host)
+        for host in gateway_candidates:
+            trusted_ips.update(_resolve_to_ips(host))
