@@ -334,3 +334,11 @@ def main():
             auc_v = float(roc_auc_score(y_hold, proba, multi_class="ovr", average="weighted"))
     except ValueError:
         auc_v = float("nan")
+
+        print("\n=== Hold-out evaluation (20% stratified) ===")
+    if label_encoder is not None:
+        target_names = [str(c) for c in label_encoder.classes_]
+        print(classification_report(y_hold, pred, target_names=target_names, digits=4, zero_division=0))
+    else:
+        print(classification_report(y_hold, pred, digits=4, zero_division=0))
+
