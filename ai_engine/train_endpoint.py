@@ -330,3 +330,8 @@ def _select_ae_threshold(
                 "threshold_method": "percentile",
                 "threshold_percentile": default_percentile,
                 "candidates": candidates,
+ else:
+            threshold = candidates.get("mean_k_std", candidates.get("p99", 0.0))
+            metadata = {
+                "threshold_method": "mean_k_std",
+                "candidates": candidates,
