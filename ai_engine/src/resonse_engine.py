@@ -991,3 +991,11 @@ if __name__ == "__main__":
         "severity": "critical",
         "confidence": 97.2,
         "pid": 12345,
+        "file_path": "/tmp/suspicious.bin",
+        "file_hash": "a3f5f3f43d7ad93f9f4d45f2a7114ec40a65f8f8f3f5d8c3d33d04da0d19d3b2",
+        "ip_address": "185.199.108.153",
+        "user": "alice",
+        "playbook": "reverse_shell",
+        "triggered_by": "AI",
+    }
+    engine =
