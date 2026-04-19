@@ -631,3 +631,9 @@ class ResponseEngine:
             "rollback_payload": {"ip_address": ip_address} if cmd else None,
             "message": "command prepared/executed" if cmd else "unsupported OS for firewall block",
         }
+    def terminate_connection(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if self._is_remote_target(payload):
+            return self._dispatch_to_endpoint("terminate_connection", payload, {"ip_address": "ip_address"})
+        ip_address = str(payload.get("ip_address") or "").strip()
+        if not ip_address:
+            return {"status": "error", "error": "invalid ip"}
