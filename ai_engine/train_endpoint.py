@@ -97,3 +97,4 @@ self._train_autoencoder(X_train_scaled, y_train, plot_dir=plot_dir)
             )
         else:
             metrics = self._evaluate_model(X_test_scaled, y_test)
+            metrics = self._evaluate_model(X_test_scaled, y_test)
