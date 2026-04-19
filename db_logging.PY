@@ -25,3 +25,20 @@ def _get_dsn() -> Optional[str]:
     """
     dsn = os.getenv("POSTGRES_DSN") or os.getenv("DATABASE_URL")
     return dsn
+
+
+def _ensure_engine(dsn: Optional[str] = None) -> Optional["Engine"]:
+    """
+    Lazily create a shared SQLAlchemy engine.
+    """
+    global _ENGINE
+    if _ENGINE is not None:
+        return _ENGINE
+    if create_engine is None:
+        return None
+    with _ENGINE_LOCK:
+        if _ENGINE is not None:
+            return _ENGINE
+        _dsn = dsn or _get_dsn()
+        if not _dsn:
+            return None
