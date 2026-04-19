@@ -170,3 +170,7 @@ print(f"   Extracted {X.shape[1]} features from {X.shape[0]} samples (canonical 
         print(f"   Label distribution: {np.bincount(y)}")
         
         return X, y
+ def _train_isolation_forest(self, X_train: np.ndarray, y_train: np.ndarray):
+        """Train Isolation Forest model"""
+        print("🌲 Training Isolation Forest...")
+        
