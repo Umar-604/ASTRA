@@ -838,3 +838,12 @@ class ResponseEngine:
     def _hash_response(actions: List[Dict[str, Any]]) -> str:
         blob = json.dumps(actions, sort_keys=True, separators=(",", ":")).encode("utf-8")
         return hashlib.sha256(blob).hexdigest()
+
+    @staticmethod
+    def _require_int(value: Any, name: str) -> int:
+        if value is None:
+            raise ValueError(f"{name} is required")
+        try:
+            return int(value)
+        except Exception as exc:
+            raise ValueError(f"{name} must be an integer") from exc
