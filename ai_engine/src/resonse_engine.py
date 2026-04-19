@@ -580,3 +580,8 @@ class ResponseEngine:
         if not src.exists():
             return {"status": "error", "error": "quarantined file missing", "from_path": str(src)}
         try:
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(src), str(dst))
+            return {"status": "ok", "from_path": str(src), "to_path": str(dst)}
+        except Exception as exc:
+            return {"status": "error", "error": str(exc)}
