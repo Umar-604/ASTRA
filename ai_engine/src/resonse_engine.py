@@ -998,4 +998,6 @@ if __name__ == "__main__":
         "playbook": "reverse_shell",
         "triggered_by": "AI",
     }
-    engine =
+    engine = ResponseEngine()
+    print(json.dumps(engine.process_event(sample_event), indent=2))
+
