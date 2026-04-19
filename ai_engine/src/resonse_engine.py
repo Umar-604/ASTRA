@@ -719,3 +719,10 @@ class ResponseEngine:
         user = str(payload.get("user") or "").strip()
         if not user:
             return {"status": "error", "error": "user required"}
+         system = platform.system().lower()
+        if system in {"linux", "darwin"}:
+            cmd = f"pkill -KILL -u {user}"
+        elif system == "windows":
+            cmd = f'logoff /server:localhost "{user}"'
+        else:
+            cmd = None
