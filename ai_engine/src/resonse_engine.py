@@ -82,3 +82,21 @@ class ActionRecord:
     details: Dict[str, Any] = field(default_factory=dict)
     rollback_action: Optional[str] = None
     rollback_payload: Optional[Dict[str, Any]] = None
+
+
+@dataclass
+class EngineConfig:
+    auto_response: bool = True
+    manual_approval: bool = False
+    dry_run: bool = False
+    action_log_path: str = "logs/auto_response_actions.jsonl"
+    history_path: str = "logs/auto_response_history.jsonl"
+    quarantine_dir: str = "quarantine"
+    blocked_hashes_path: str = "logs/blocked_hashes.txt"
+    blockchain_api_url: Optional[str] = None
+    blockchain_verify_tls: bool = False
+    suspend_in_medium_band: bool = True
+    request_timeout_sec: int = 5
+    trusted_processes: Set[str] = field(default_factory=set)
+    trusted_ips: Set[str] = field(default_factory=set)
+    trusted_hashes: Set[str] = field(default_factory=set)
