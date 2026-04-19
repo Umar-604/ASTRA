@@ -223,3 +223,7 @@ input_dim = X_benign.shape[1]
             validation_split=0.2, callbacks=[early_stopping],
             verbose=0
         )
+self.model = autoencoder
+
+        if plot_dir:
+            try:
