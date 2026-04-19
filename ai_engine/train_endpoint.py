@@ -162,3 +162,6 @@ features = extract_endpoint_behavioral_features(events)
             labels.append(record.get('label', 0))  # 0 = benign, 1 = malicious
  X = np.array(features_list)
         y = np.array(labels)
+assert X.shape[1] == len(self.feature_names), (
+            f"Feature count mismatch: X has {X.shape[1]} columns, feature_names has {len(self.feature_names)}"
+        )
