@@ -472,3 +472,12 @@ def _evaluate_model(
  rec_train = self.model.predict(X_train[train_benign_mask])
                     mse_train_benign = np.mean(np.power(X_train[train_benign_mask] - rec_train, 2), axis=1)
 
+ k_std = float(os.environ.get("AE_THRESHOLD_K_STD", "3"))
+            percentiles = (95, 97, 99)
+            candidates, mean_mse, std_mse = self._compute_ae_threshold_candidates(
+                mse_val_benign, percentiles=percentiles, k_std=k_std
+            )
+            default_percentile = int(os.environ.get("AE_THRESHOLD_PERCENTILE", "99"))
+            threshold, threshold_metadata = self._select_ae_threshold(
+                candidates, strategy="minimize_fp", default_percentile=default_percentile
+            )
