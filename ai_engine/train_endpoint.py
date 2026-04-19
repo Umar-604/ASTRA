@@ -79,3 +79,7 @@ X_train_scaled = self.scaler.fit_transform(X_train)
         X_test_scaled = self.scaler.transform(X_test)
         
         plot_dir = str(output_dir if output_dir is not None else settings.MODEL_DIR)
+ # Train model
+        if self.model_type == "isolation_forest":
+            self._train_isolation_forest(X_train_scaled, y_train)
+        elif self.model_type == "autoencoder":
