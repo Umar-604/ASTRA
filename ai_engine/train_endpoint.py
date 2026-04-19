@@ -304,3 +304,8 @@ self.training_stats = {
         Returns (candidates_dict, mean_mse, std_mse)."""
         if len(mse_benign) == 0:
             mean_mse = 0.0
+std_mse = 1.0
+            candidates = {"p95": 0.0, "p97": 0.0, "p99": 0.0, "mean_k_std": 0.0}
+            return candidates, mean_mse, std_mse
+        mean_mse = float(np.mean(mse_benign))
+        std_mse = float(np.std(mse_benign)) or 1e-9
