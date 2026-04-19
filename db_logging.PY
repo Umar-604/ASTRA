@@ -159,3 +159,24 @@ class PostgresLogHandler(logging.Handler):
         except Exception:
             # Never raise from logging
             pass
+
+
+def attach_postgres_handler(
+    logger: logging.Logger,
+    dsn: Optional[str] = None,
+    level: int = logging.INFO,
+    set_formatter: bool = True,
+) -> Optional[PostgresLogHandler]:
+    """
+    Attach a PostgresLogHandler to the given logger if a DSN is available.
+    Returns the handler or None if not attached.
+    """
+    _dsn = dsn or _get_dsn()
+    if not _dsn:
+        return None
+    handler = PostgresLogHandler(dsn=_dsn, level=level)
+    if set_formatter:
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    return handler
