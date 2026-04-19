@@ -216,3 +216,12 @@ def save_keras_history_png(
         panels.append(("accuracy", "Accuracy"))
     if not panels:
         return
+ fig, axes = plt.subplots(1, len(panels), figsize=(6 * len(panels), 4.5))
+    if len(panels) == 1:
+        axes = [axes]
+    for ax, (metric_base, ylabel) in zip(axes, panels):
+        train_k = metric_base
+        val_k = f"val_{metric_base}"
+        if train_k in h:
+            ax.plot(range(1, len(h[train_k]) + 1), h[train_k], label=f"Train {ylabel.lower()}")
+        if val_k in h:
