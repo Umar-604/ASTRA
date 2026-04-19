@@ -325,3 +325,8 @@ def _select_ae_threshold(
         Returns (threshold_value, metadata dict)."""
         if strategy == "minimize_fp":
             key = f"p{default_percentile}"
+ threshold = candidates.get(key, candidates.get("p99", candidates["mean_k_std"]))
+            metadata = {
+                "threshold_method": "percentile",
+                "threshold_percentile": default_percentile,
+                "candidates": candidates,
