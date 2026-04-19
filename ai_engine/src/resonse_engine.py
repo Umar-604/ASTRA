@@ -267,3 +267,11 @@ class DecisionEngine:
                 ("isolate_host", payload),
                 ("collect_forensics", payload),
             ]
+        return [
+            ("block_ip", payload),
+            ("terminate_connection", payload),
+            ("kill_process", payload),
+            ("lock_user", payload),
+            ("force_logout", payload),
+            ("collect_forensics", payload),
+        ]
