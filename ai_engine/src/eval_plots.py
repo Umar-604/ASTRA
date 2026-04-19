@@ -95,3 +95,7 @@ def save_metrics_bar_png(
     """Bar chart for scores in [0,1] such as accuracy, precision, recall, F1, ROC-AUC."""
     path.parent.mkdir(parents=True, exist_ok=True)
     names = list(metrics.keys())
+ vals = [float(metrics[k]) for k in names]
+    fig, ax = plt.subplots(figsize=(max(6, len(names) * 1.2), 5))
+    colors = plt.cm.Set2(np.linspace(0, 1, len(names)))
+    bars = ax.bar(names, vals, color=colors)
