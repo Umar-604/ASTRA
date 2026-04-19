@@ -428,3 +428,10 @@ ax.tick_params(axis="both", labelsize=16, colors="#4B5563")
         ax.set_axisbelow(True)
         ax.legend(loc="upper right", fontsize=14, frameon=True, fancybox=False, framealpha=0.98, edgecolor="#e5e7eb")
         # Simplified annotation: Mean MSE, Threshold, FP rate — clean corner box
+ lines = []
+        if mean_mse is not None:
+            lines.append(f"Mean MSE: {mean_mse:.6f}")
+        lines.append(f"Threshold: {selected_threshold:.6f}")
+        if fp_rate_benign is not None:
+            lines.append(f"FP rate: {fp_rate_benign * 100:.2f}%")
+        if lines:
