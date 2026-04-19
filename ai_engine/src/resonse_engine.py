@@ -24,3 +24,14 @@ except Exception:  # pragma: no cover - optional in some environments
 
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def _normalize_confidence(value: float | int | None) -> float:
+    """Normalize confidence to 0..100 (accepts 0..1 or 0..100 inputs)."""
+    if value is None:
+        return 0.0
+    v = float(value)
+    if v <= 1.0:
+        return max(0.0, min(v * 100.0, 100.0))
+    return max(0.0, min(v, 100.0))
+
