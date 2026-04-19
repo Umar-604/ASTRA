@@ -342,3 +342,10 @@ def main():
     else:
         print(classification_report(y_hold, pred, digits=4, zero_division=0))
 
+    
+    print(f"Accuracy:       {acc:.4f}")
+    print(f"Macro F1:       {float(f1_mac):.4f}")
+    print(f"Weighted F1:    {float(f1_wt):.4f}")
+    print(f"MCC:            {mcc:.4f}")
+    print(f"ROC-AUC (wt):   {auc_v:.4f}" if not np.isnan(auc_v) else "ROC-AUC: n/a")
+
