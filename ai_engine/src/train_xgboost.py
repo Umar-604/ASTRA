@@ -349,3 +349,9 @@ def main():
     print(f"MCC:            {mcc:.4f}")
     print(f"ROC-AUC (wt):   {auc_v:.4f}" if not np.isnan(auc_v) else "ROC-AUC: n/a")
 
+    # ── Feature importance ────────────────────────────────────────
+    imp = model.feature_importances_
+    top_idx = np.argsort(imp)[::-1][:15]
+    print("\nTop 15 features by importance:")
+    for rank, idx in enumerate(top_idx, 1):
+        print(f"  {rank:>2}. {feature_names[idx]:>35s}  {imp[idx]:.4f}")
