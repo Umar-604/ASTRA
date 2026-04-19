@@ -265,3 +265,8 @@ def _train_lstm(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | 
         )
  # Train LSTM
         early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
+  history = model.fit(
+            X_reshaped, y_train,
+            epochs=100,
+            batch_size=32,
+            validation_split=0.2,
