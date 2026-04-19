@@ -126,3 +126,8 @@ self._train_autoencoder(X_train_scaled, y_train, plot_dir=plot_dir)
     
     def _load_and_prepare_data(self, data_path: str) -> Tuple[np.ndarray, np.ndarray]:
         """Load and prepare training data"""
+print("📊 Loading and preparing data...")
+        
+        if data_path.endswith('.json'):
+            # Load from JSON file
+            with open(data_path, 'r') as f:
