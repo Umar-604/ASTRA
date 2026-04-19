@@ -232,3 +232,8 @@ self.model = autoencoder
                 os.makedirs(plot_dir, exist_ok=True)
                 save_keras_history_png(
                     history.history,
+Path(plot_dir) / "endpoint_autoencoder_loss_curve.png",
+                    title="Endpoint autoencoder — training",
+                )
+            except Exception as _e:
+                print(f"⚠️  Could not save AE loss curve plot: {_e}")
