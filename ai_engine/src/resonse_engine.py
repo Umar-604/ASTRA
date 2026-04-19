@@ -143,3 +143,25 @@ class EngineConfig:
                 p = proc.strip().lower()
                 if p:
                     trusted_processes.add(p)
+
+
+                    # Sensible defaults: the standard ASTRA agent entry-points AND the
+        # second-order signatures of response actions the agent itself
+        # executes. Without these patterns the engine will see the cmd.exe
+        # subprocess the agent ran for `lock_user` / `block_ip` / `isolate_host`
+        # and flag it as malicious, dispatching another wave of responses.
+        trusted_processes.update({
+            "win_agent.py", "linux_agent.py", "mac_agent.py", "win_agent_v2.py",
+            # Response-action command signatures (substring-matched against
+            # process command_line in _should_skip_due_to_whitelist).
+            "net user ", "net.exe user ",                # lock_user (windows)
+            "logoff ",                                    # force_logout (windows)
+            "shutdown /l", "shutdown -l",                 # force_logout alternates
+            "netsh advfirewall firewall add rule name=\"astra_block_",  # block_ip
+            "netsh advfirewall firewall delete rule name=\"astra_block_",
+            "netsh advfirewall set allprofiles state on", # isolate_host (windows)
+            "iptables -a input -s",                       # block_ip (linux)
+            "iptables -d input -s",
+            "echo 'block drop from",                      # block_ip (macos pfctl)
+            "pfctl -ef -",                                # isolate_host (macos)
+        })
