@@ -663,3 +663,12 @@ class ResponseEngine:
             return self._dispatch_to_endpoint(
                 "isolate_host", payload, {}, rollback_action="unisolate_host"
             )
+        # Production implementations usually integrate with EDR/MDM APIs.
+        system = platform.system().lower()
+        if system == "linux":
+            cmd = "iptables -P OUTPUT DROP && iptables -P INPUT DROP"
+        elif system == "darwin":
+            cmd = "pfctl -e && pfctl -f /etc/pf.conf"
+        elif system == "windows":
+            cmd = "netsh advfirewall set allprofiles state on"
+        else:
