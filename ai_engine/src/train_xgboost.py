@@ -325,3 +325,12 @@ def main():
     prec_wt, rec_wt, f1_wt, _ = precision_recall_fscore_support(
         y_hold, pred, average="weighted", zero_division=0
     )
+
+    mcc = float(matthews_corrcoef(y_hold, pred))
+    try:
+        if n_classes == 2:
+            auc_v = float(roc_auc_score(y_hold, proba[:, 1]))
+        else:
+            auc_v = float(roc_auc_score(y_hold, proba, multi_class="ovr", average="weighted"))
+    except ValueError:
+        auc_v = float("nan")
