@@ -258,3 +258,4 @@ def save_keras_history_png(
 def save_iforest_score_distribution(
     scores_normal: np.ndarray,
     scores_attack: np.ndarray,
+    path: Path,
