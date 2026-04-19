@@ -292,3 +292,11 @@ def main():
         X_model, X_hold, y_model, y_hold = train_test_split(
             X, y, test_size=0.2, random_state=42, stratify=y
         )
+        except ValueError:
+        X_model, X_hold, y_model, y_hold = train_test_split(
+            X, y, test_size=0.2, random_state=42
+        )
+    try:
+        X_tr, X_val, y_tr, y_val = train_test_split(
+            X_model, y_model, test_size=0.12, random_state=42, stratify=y_model
+        )
