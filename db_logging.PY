@@ -84,3 +84,10 @@ def _ensure_table(engine: "Engine") -> None:
     except Exception:
         # Non-fatal: skip table ensure
         pass
+
+
+class PostgresLogHandler(logging.Handler):
+    """
+    Logging handler that writes log records to a PostgreSQL table (app_logs).
+    Safe-fails if DB is unavailable.
+    """
