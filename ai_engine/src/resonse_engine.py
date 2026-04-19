@@ -115,3 +115,10 @@ class EngineConfig:
         trusted_processes = {
             p.strip().lower() for p in str(os.getenv("RESPONSE_TRUSTED_PROCESSES", "")).split(",") if p.strip()
         }
+
+        # Auto-trust the agent's gateway endpoints. Without this, every agent
+        # heartbeat / event POST appears as a "suspicious outbound connection",
+        # the engine fires `block_ip` / `terminate_connection`, and the agent
+        # is told to sever its own control channel. Operators can extend this
+        # list via RESPONSE_GATEWAY_HOSTS=<comma-separated host or ip list>.
+        gateway_candidates: Set[str] = set()
