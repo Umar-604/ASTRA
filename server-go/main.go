@@ -152,3 +152,26 @@ func main() {
         w.WriteHeader(http.StatusOK)
         w.Write([]byte(`{"status":"success"}`))
     })
+
+    // Proxy UI/API paths to AI engine so GET /events/{id}, /alerts, /auth, /hosts, /audit, /ui work from one origin
+    aiEngineURL := os.Getenv("AI_ENGINE_URL")
+    if aiEngineURL == "" {
+        aiEngineURL = "http://127.0.0.1:8000"
+    }
+    if !strings.HasSuffix(aiEngineURL, "/") {
+        aiEngineURL += "/"
+    }
+    target, err := url.Parse(aiEngineURL)
+    if err != nil {
+        log.Fatalf("AI_ENGINE_URL invalid: %v", err)
+    }
+    proxy := httputil.NewSingleHostReverseProxy(target)
+    if target.Scheme == "https" {
+        insecure := strings.EqualFold(strings.TrimSpace(os.Getenv("AI_ENGINE_INSECURE_SKIP_VERIFY")), "true")
+        proxy.Transport = &http.Transport{
+            TLSClientConfig: &tls.Config{InsecureSkipVerify: insecure}, //nolint:gosec // controlled by env for self-signed deployments
+        }
+        if insecure {
+            log.Printf("proxy TLS verification for AI_ENGINE_URL is DISABLED (AI_ENGINE_INSECURE_SKIP_VERIFY=true)")
+        }
+    }
