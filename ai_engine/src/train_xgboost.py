@@ -377,3 +377,9 @@ def main():
         plot_dir / "netflow_xgboost_confusion_matrix.png",
         title="XGBoost (netflow) — hold-out confusion matrix",
     )
+    bar_m: Dict[str, float] = {
+        "Accuracy": acc,
+        "Macro F1": float(f1_mac),
+        "Weighted F1": float(f1_wt),
+        "MCC": mcc,
+    }
