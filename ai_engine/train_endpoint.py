@@ -246,4 +246,6 @@ self.training_stats = {
         }
 def _train_lstm(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | None = None):
         """Train LSTM model for sequence analysis"""
-        print("🧠 Training LSTM...")
+        print("🧠 Training LSTM...") # Reshape data for LSTM (samples, timesteps, features)
+        # For now, treat each sample as a single timestep
+        X_reshaped = X_train.reshape(X_train.shape[0], 1, X_train.shape[1])
