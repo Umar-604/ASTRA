@@ -58,3 +58,29 @@ def _ensure_table(engine: "Engine") -> None:
         return
     if text is None:
         return
+    try:
+        with engine.begin() as conn:
+            conn.execute(
+                text(
+                    """
+                    CREATE TABLE IF NOT EXISTS app_logs (
+                        id BIGSERIAL PRIMARY KEY,
+                        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                        level TEXT NOT NULL,
+                        logger_name TEXT NOT NULL,
+                        message TEXT NOT NULL,
+                        pathname TEXT,
+                        func_name TEXT,
+                        line_no INTEGER,
+                        process INTEGER,
+                        thread INTEGER,
+                        agent_id TEXT,
+                        extra JSONB
+                    );
+                    """
+                )
+            )
+        _TABLE_ENSURED = True
+    except Exception:
+        # Non-fatal: skip table ensure
+        pass
