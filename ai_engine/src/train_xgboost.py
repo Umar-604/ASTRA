@@ -55,3 +55,21 @@ def load_stratified_csv(
     chunksize: int = 300_000,
     drop_port: bool = False,
 ) -> Tuple[pd.DataFrame, np.ndarray, LabelEncoder]:
+    
+        """
+    Load CICIDS CSV with stratified sampling that guarantees rare classes
+    are fully represented while capping the majority class.
+
+    Strategy:
+      - Classes with fewer than min_per_class samples: keep ALL rows
+      - Classes with min_per_class..max_majority: sample sample_frac_medium
+        but guarantee at least min_per_class rows
+      - Classes above max_majority: cap at max_majority
+    """
+    label_chunks: List[pd.DataFrame] = []
+    for chunk in pd.read_csv(path, chunksize=chunksize, low_memory=False):
+        if label_col not in chunk.columns:
+            raise ValueError(f"Label column '{label_col}' not found in CSV")
+        label_chunks.append(chunk)
+
+    df = pd.concat(label_chunks, axis=0, ignore_index=True)
