@@ -453,3 +453,10 @@ def _evaluate_model(
     ) -> Dict[str, Any]:
         """Evaluate the trained model"""
         print("📈 Evaluating model...")
+ if self.model_type == "autoencoder":
+            # Autoencoder: evaluate via reconstruction error; threshold from benign validation to minimize FP
+            reconstructions = self.model.predict(X_test)
+            mse_all = np.mean(np.power(X_test - reconstructions, 2), axis=1)
+            y_test = np.asarray(y_test).ravel()
+            val_benign_mask = y_test == 0
+            val_anomaly_mask = y_test == 1
