@@ -847,3 +847,10 @@ class ResponseEngine:
             return int(value)
         except Exception as exc:
             raise ValueError(f"{name} must be an integer") from exc
+
+    @staticmethod
+    def _require_path(value: Any) -> str:
+        path = str(value or "").strip()
+        if not path:
+            raise ValueError("file_path is required")
+        return path
