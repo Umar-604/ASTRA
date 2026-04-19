@@ -101,3 +101,6 @@ if drop_port:
             rng = np.random.RandomState(42)
             sampled_indices.extend(rng.choice(cls_idx, size=target, replace=False).tolist())
         else:
+             rng = np.random.RandomState(42)
+            sampled_indices.extend(rng.choice(cls_idx, size=max_majority, replace=False).tolist())
+
