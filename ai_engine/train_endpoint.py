@@ -227,3 +227,8 @@ self.model = autoencoder
 
         if plot_dir:
             try:
+  from pathlib import Path
+                from src.eval_plots import save_keras_history_png
+                os.makedirs(plot_dir, exist_ok=True)
+                save_keras_history_png(
+                    history.history,
