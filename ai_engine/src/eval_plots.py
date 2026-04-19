@@ -107,4 +107,8 @@ ax.set_ylim(0, y_max)
     plt.xticks(rotation=25, ha="right")
     fig.tight_layout()
 fig.savefig(path, dpi=150, bbox_inches="tight")
-    plt.close(fig)
+    plt.close(fig)def save_cv_metrics_bar_png(
+    cv_fold_rows: Sequence[Mapping[str, Any]],
+    path: Path,
+    title: str = "Cross-validation metrics by fold",
+) -> None:
