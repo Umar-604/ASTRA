@@ -40,3 +40,5 @@ from .features.endpoint_behavioral import (
     validate_feature_dict,
 )
 
+# Optional matplotlib for AE threshold visualization
+try:
