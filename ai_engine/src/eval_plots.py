@@ -191,3 +191,9 @@ def save_xgboost_evals_plot(evals_result: Dict[str, Any], path: Path, title: str
     fig, axes = plt.subplots(1, n, figsize=(5 * n, 4))
     if n == 1:
         axes = [axes]
+ for ax, mkey in zip(axes, keys):
+        series = val[mkey]
+        ax.plot(range(1, len(series) + 1), series, lw=2)
+        ax.set_title(mkey)
+        ax.set_xlabel("Boosting round")
+        ax.grid(True, alpha=0.3)
