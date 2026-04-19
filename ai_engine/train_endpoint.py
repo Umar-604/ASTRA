@@ -480,4 +480,9 @@ def _evaluate_model(
             default_percentile = int(os.environ.get("AE_THRESHOLD_PERCENTILE", "99"))
             threshold, threshold_metadata = self._select_ae_threshold(
                 candidates, strategy="minimize_fp", default_percentile=default_percentile
-            )
+            )anomaly_rate = float((mse_all > threshold).mean())
+            fp_rate_benign = float((mse_val_benign > threshold).mean()) if len(mse_val_benign) > 0 else 0.0
+
+            print("   Autoencoder reconstruction error statistics (benign validation):")
+            print(f"      mean MSE        : {mean_mse:.6f}")
+            print(f"      std  MSE        : {std_mse:.6f}")
