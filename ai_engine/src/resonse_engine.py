@@ -657,3 +657,9 @@ class ResponseEngine:
             return {"status": "error", "error": "invalid ip"}
         cmd = self._firewall_unblock_command(ip_address)
         return {"status": "ok" if cmd else "error", "ip_address": ip_address, "command": cmd}
+
+    def isolate_host(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if self._is_remote_target(payload):
+            return self._dispatch_to_endpoint(
+                "isolate_host", payload, {}, rollback_action="unisolate_host"
+            )
