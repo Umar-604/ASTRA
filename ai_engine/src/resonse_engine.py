@@ -749,3 +749,14 @@ class ResponseEngine:
         response_hash = self._hash_response(actions)
         bundle_hash = hashlib.sha256(f"{event_hash}:{response_hash}".encode("utf-8")).hexdigest()
         if not self.config.blockchain_api_url:
+            rec = self._record(
+                event_id,
+                "log_to_blockchain",
+                "skipped",
+                {
+                    "reason": "BLOCKCHAIN_HASH_API_URL not configured",
+                    "event_hash": event_hash,
+                    "response_hash": response_hash,
+                    "bundle_hash": bundle_hash,
+                },
+            )
