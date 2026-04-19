@@ -273,3 +273,14 @@ def main():
             max_rows=args.max_rows,
             chunksize=args.chunksize,
         )
+
+        else:
+        print("Loading data (stratified min-guarantee sampling)...")
+        X, y, label_encoder = load_stratified_csv(
+            path=args.data,
+            label_col=args.label_col,
+            min_per_class=args.min_per_class,
+            max_majority=args.max_majority,
+            sample_frac_medium=args.sample_frac_medium,
+            drop_port=args.drop_port,
+        )
