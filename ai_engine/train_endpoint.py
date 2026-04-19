@@ -200,3 +200,10 @@ input_dim = X_benign.shape[1]
         reg = L2(1e-5)
         drop = 0.3
         
+ # Encoder: input -> Dense -> BN -> Dropout -> Dense -> Dropout -> bottleneck
+        input_layer = Input(shape=(input_dim,))
+        x = Dense(encoding_dim * 2, activation="relu", kernel_regularizer=reg)(input_layer)
+        x = BatchNormalization()(x)
+        x = Dropout(drop)(x)
+        x = Dense(encoding_dim, activation="relu", kernel_regularizer=reg)(x)
+        x = Dropout(drop)(x)
