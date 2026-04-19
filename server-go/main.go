@@ -147,3 +147,8 @@ func main() {
             http.Error(w, "publish failed", http.StatusServiceUnavailable)
             return
         }
+
+        w.Header().Set("Content-Type", "application/json")
+        w.WriteHeader(http.StatusOK)
+        w.Write([]byte(`{"status":"success"}`))
+    })
