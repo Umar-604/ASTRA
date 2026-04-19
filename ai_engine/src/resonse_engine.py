@@ -165,3 +165,22 @@ class EngineConfig:
             "echo 'block drop from",                      # block_ip (macos pfctl)
             "pfctl -ef -",                                # isolate_host (macos)
         })
+
+        return cls(
+            auto_response=auto,
+            manual_approval=manual,
+            dry_run=dry_run,
+            action_log_path=os.getenv("AUTO_RESPONSE_LOG_PATH", "logs/auto_response_actions.jsonl"),
+            history_path=os.getenv("AUTO_RESPONSE_HISTORY_PATH", "logs/auto_response_history.jsonl"),
+            quarantine_dir=os.getenv("QUARANTINE_DIR", "quarantine"),
+            blocked_hashes_path=os.getenv("BLOCKED_HASHES_PATH", "logs/blocked_hashes.txt"),
+            blockchain_api_url=chain,
+            blockchain_verify_tls=verify_tls,
+            suspend_in_medium_band=str(os.getenv("SUSPEND_IN_MEDIUM_BAND", "true")).lower() in {"1", "true", "yes", "on"},
+            request_timeout_sec=int(os.getenv("AUTO_RESPONSE_HTTP_TIMEOUT", "5")),
+            trusted_processes=trusted_processes,
+            trusted_ips=trusted_ips,
+            trusted_hashes={
+                p.strip().lower() for p in str(os.getenv("RESPONSE_TRUSTED_HASHES", "")).split(",") if p.strip()
+            },
+        )
