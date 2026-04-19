@@ -637,6 +637,7 @@ class ResponseEngine:
         ip_address = str(payload.get("ip_address") or "").strip()
         if not ip_address:
             return {"status": "error", "error": "invalid ip"}
+        system = platform.system().lower()
         if system in {"linux", "darwin"}:
             cmd = f"pkill -f {ip_address}"
         elif system == "windows":
