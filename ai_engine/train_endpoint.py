@@ -290,3 +290,6 @@ self.training_stats = {
             "training_samples": len(X_train),
             "input_dim": input_dim,
             "lstm_units": lstm_units,
+ "epochs_trained": len(history.history['loss']),
+            "final_loss": history.history['loss'][-1]
+        }
