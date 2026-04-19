@@ -54,3 +54,5 @@ try:
     _HAS_SCIPY_KDE = True
 except ImportError:
     _HAS_SCIPY_KDE = False
+class EndpointModelTrainer:
+    """Train behavioral models for endpoint events"""
