@@ -100,3 +100,10 @@ class EngineConfig:
     trusted_processes: Set[str] = field(default_factory=set)
     trusted_ips: Set[str] = field(default_factory=set)
     trusted_hashes: Set[str] = field(default_factory=set)
+    @classmethod
+    def from_env(cls) -> "EngineConfig":
+        auto = str(os.getenv("AUTO_RESPONSE", "true")).strip().lower() in {"1", "true", "yes", "on"}
+        manual = str(os.getenv("MANUAL_APPROVAL_MODE", "false")).strip().lower() in {"1", "true", "yes", "on"}
+        dry_run = str(os.getenv("AUTO_RESPONSE_DRY_RUN", "false")).strip().lower() in {"1", "true", "yes", "on"}
+        chain = os.getenv("BLOCKCHAIN_HASH_API_URL")
+        if not chain:
