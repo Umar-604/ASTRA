@@ -87,3 +87,4 @@ self._train_autoencoder(X_train_scaled, y_train, plot_dir=plot_dir)
         elif self.model_type == "lstm":
             self._train_lstm(X_train_scaled, y_train, plot_dir=plot_dir)
         else:
+            raise ValueError(f"Unknown model type: {self.model_type}")
