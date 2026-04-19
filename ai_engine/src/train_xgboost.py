@@ -157,3 +157,9 @@ def load_sampled_csv(
         X = X.iloc[:max_rows].reset_index(drop=True)
         y = y.iloc[:max_rows].reset_index(drop=True)
     if y.dtype == object or isinstance(y.iloc[0], str):
+
+        encoder = LabelEncoder()
+        y_enc = encoder.fit_transform(y.values)
+    else:
+        y_enc = y.values
+    return X, y_enc
