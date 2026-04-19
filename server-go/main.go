@@ -100,3 +100,9 @@ func main() {
         rb.RegisterRoutes(http.DefaultServeMux)
         log.Printf("response bridge: routes /api/response/commands and /api/response/ack registered")
     }
+
+    http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("Content-Type", "application/json")
+        w.WriteHeader(http.StatusOK)
+        w.Write([]byte(`{"status":"ok"}`))
+    })
