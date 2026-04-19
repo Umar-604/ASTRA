@@ -258,3 +258,12 @@ class DecisionEngine:
             "file_hash": event.get("file_hash"),
             "event": event,
         }
+
+        if playbook == "ransomware":
+            return [
+                ("kill_process", payload),
+                ("quarantine_file", payload),
+                ("block_file_hash", payload),
+                ("isolate_host", payload),
+                ("collect_forensics", payload),
+            ]
