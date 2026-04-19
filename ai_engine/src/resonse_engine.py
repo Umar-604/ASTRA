@@ -959,3 +959,12 @@ class ResponseEngine:
             return f"trusted hash: {file_hash}"
         return None
 
+
+    @staticmethod
+    def _firewall_block_command(ip: str) -> Optional[str]:
+        system = platform.system().lower()
+        if system == "linux":
+            return f"iptables -A INPUT -s {ip} -j DROP"
+        if system == "darwin":
+            return f"echo 'block drop from {ip} to any' | pfctl -ef -"
+        if system == "windows":
