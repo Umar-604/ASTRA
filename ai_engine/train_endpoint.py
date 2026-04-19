@@ -94,7 +94,9 @@ self._train_autoencoder(X_train_scaled, y_train, plot_dir=plot_dir)
             metrics = self._evaluate_model(
                 X_test_scaled, y_test,
                 output_dir=output_dir, X_train=X_train_scaled, y_train=y_train,
-            )
+            ) # Save model (metadata will include reconstruction stats and threshold metadata for AE)
+        self._save_model(output_dir)
+
         else:
             metrics = self._evaluate_model(X_test_scaled, y_test)
             metrics = self._evaluate_model(X_test_scaled, y_test) "reconstruction_error_mean", "reconstruction_error_std", "anomaly_threshold", "k_std", "anomaly_rate",
