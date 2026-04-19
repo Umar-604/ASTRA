@@ -782,3 +782,17 @@ class ResponseEngine:
                 tx_id = body.get("tx_id") or body.get("transaction_id") or body.get("id")
             except Exception:
                 pass
+
+            rec = self._record(
+                event_id,
+                "log_to_blockchain",
+                status,
+                {
+                    "http_status": resp.status_code,
+                    "tx_id": tx_id,
+                    "event_hash": event_hash,
+                    "response_hash": response_hash,
+                    "bundle_hash": bundle_hash,
+                    "response_body": body,
+                },
+            )
