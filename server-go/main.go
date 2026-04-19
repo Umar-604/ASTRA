@@ -141,3 +141,9 @@ func main() {
             http.Error(w, "invalid json", http.StatusBadRequest)
             return
         }
+        // Publish raw bytes
+        if err := pub.PublishRaw(body); err != nil {
+            log.Printf("publish error: %v", err)
+            http.Error(w, "publish failed", http.StatusServiceUnavailable)
+            return
+        }
