@@ -583,3 +583,10 @@ elif self.model_type == "lstm":
                 'model_type': self.model_type,
                 'training_stats': self.training_stats
             }, model_path)
+else:
+            # Save TensorFlow model using Keras format
+            # Allow caller to specify different filenames using env var suffix
+            suffix = os.environ.get('AE_NAME_SUFFIX', '').strip()
+            fname = f"endpoint_model_{self.model_type}{('_' + suffix) if suffix else ''}.keras"
+            keras_path = os.path.join(output_dir, fname)
+            self.model.save(keras_path)
