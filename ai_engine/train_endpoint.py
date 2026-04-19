@@ -464,3 +464,8 @@ def _evaluate_model(
             mse_val_anomaly = mse_all[val_anomaly_mask] if np.any(val_anomaly_mask) else None
 
             # Optional: train benign MSE for plot (if caller passed train data)
+ mse_train_benign = None
+            if X_train is not None and y_train is not None:
+                y_train = np.asarray(y_train).ravel()
+                train_benign_mask = y_train == 0
+                if np.any(train_benign_mask):
