@@ -572,3 +572,5 @@ elif self.model_type == "lstm":
         """Save the trained model"""
         os.makedirs(output_dir, exist_ok=True)
         
+ # Save model
+        model_path = os.path.join(output_dir, f"endpoint_model_{self.model_type}.pkl")
