@@ -372,3 +372,9 @@ def _plot_ae_reconstruction_distribution(
    "axes.facecolor": "#fafafa",
             "figure.facecolor": "white",
         })
+fig, ax = plt.subplots(figsize=(14, 8), facecolor="white")
+        ax.set_facecolor("#fafafa")
+        # Colorblind-friendly palette (Okabe–Ito–style): blue, orange
+        train_color, val_color = "#0173B2", "#DE8F05"
+        # KDE curves for train (benign) and validation (benign); display-only clamp for log scale
+        if _HAS_SCIPY_KDE:
