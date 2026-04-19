@@ -40,3 +40,17 @@ func validateEventSchema(body []byte) error {
             return &json.UnmarshalTypeError{Field: "data", Value: "must_be_object", Type: nil}
         }
     }
+    // metadata optional object
+    if m, ok := v["metadata"]; ok && m != nil {
+        if _, ok := m.(map[string]any); !ok {
+            return &json.UnmarshalTypeError{Field: "metadata", Value: "must_be_object", Type: nil}
+        }
+    }
+    // timestamp optional RFC3339
+    if ts, ok := v["timestamp"].(string); ok && strings.TrimSpace(ts) != "" {
+        if _, err := time.Parse(time.RFC3339, ts); err != nil {
+            return &json.UnmarshalTypeError{Field: "timestamp", Value: "invalid_rfc3339", Type: nil}
+        }
+    }
+    return nil
+}
