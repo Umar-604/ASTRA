@@ -457,3 +457,15 @@ class ResponseEngine:
                 status = result.get("status", "ok")
                 err = str(result.get("error") or "").strip().lower()
                 if status == "error":
+
+                    missing_map = {
+                        "kill_process": (payload.get("pid") is None, {"pid is required"}),
+                        "suspend_process": (payload.get("pid") is None, {"pid is required"}),
+                        "quarantine_file": (not payload.get("file_path"), {"file_path is required"}),
+                        "delete_file": (not payload.get("file_path"), {"file_path is required"}),
+                        "block_ip": (not payload.get("ip_address"), {"invalid ip"}),
+                        "terminate_connection": (not payload.get("ip_address"), {"invalid ip"}),
+                        "block_file_hash": (not payload.get("file_hash"), {"file_hash required"}),
+                        "lock_user": (not payload.get("user"), {"user required"}),
+                        "force_logout": (not payload.get("user"), {"user required"}),
+                    }
