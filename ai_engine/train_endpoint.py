@@ -258,3 +258,5 @@ def _train_lstm(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | 
         lstm_layer = LSTM(lstm_units // 2)(lstm_layer)
         lstm_layer = Dropout(0.2)(lstm_layer)
         output_layer = Dense(1, activation='sigmoid')(lstm_layer)
+ model = Model(input_layer, output_layer)
+        model.compile(
