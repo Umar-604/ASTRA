@@ -99,3 +99,10 @@ def save_metrics_bar_png(
     fig, ax = plt.subplots(figsize=(max(6, len(names) * 1.2), 5))
     colors = plt.cm.Set2(np.linspace(0, 1, len(names)))
     bars = ax.bar(names, vals, color=colors)
+ax.set_ylim(0, y_max)
+    ax.set_ylabel("Score")
+    ax.set_title(title)
+    for b, v in zip(bars, vals):
+        ax.text(b.get_x() + b.get_width() / 2, v + 0.02, f"{v:.3f}", ha="center", va="bottom", fontsize=10)
+    plt.xticks(rotation=25, ha="right")
+    fig.tight_layout()
