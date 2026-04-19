@@ -413,3 +413,26 @@ def main():
                 title="XGBoost — training loss per round",
             )
             break
+            
+            for err_key in ("merror", "error"):
+        train_series = (evals.get(train_key) or {}).get(err_key)
+        val_series = (evals.get(val_key) or {}).get(err_key)
+        if train_series and val_series:
+            save_learning_curve_png(
+                list(range(1, len(train_series) + 1)),
+                train_series,
+                val_series,
+                plot_dir / "netflow_xgboost_error_rate_curve.png",
+                y_label="Classification error",
+                title="XGBoost — train vs validation error rate",
+            )
+            break
+        elif train_series:
+            save_learning_curve_png(
+                list(range(1, len(train_series) + 1)),
+                train_series, None,
+                plot_dir / "netflow_xgboost_error_rate_curve.png",
+                y_label="Classification error",
+                title="XGBoost — validation error per round",
+            )
+            break
