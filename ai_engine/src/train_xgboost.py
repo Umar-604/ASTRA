@@ -355,3 +355,9 @@ def main():
     print("\nTop 15 features by importance:")
     for rank, idx in enumerate(top_idx, 1):
         print(f"  {rank:>2}. {feature_names[idx]:>35s}  {imp[idx]:.4f}")
+
+    save_feature_importance_png(
+        model, feature_names,
+        plot_dir / "netflow_xgboost_feature_importance.png",
+        title="XGBoost (netflow) — top 25 feature importances",
+    )
