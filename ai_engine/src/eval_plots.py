@@ -246,3 +246,6 @@ title: str = "Isolation Forest anomaly scores (test set)",
     ax.hist(scores_attack, bins=40, alpha=0.6, label="Attack (1)", density=True)
     ax.set_xlabel("Anomaly score (higher = more anomalous)")
     ax.set_ylabel("Density")
+ ax.set_title(title)
+    ax.legend()
+    fig.tight_layout()
