@@ -361,3 +361,13 @@ def main():
         plot_dir / "netflow_xgboost_feature_importance.png",
         title="XGBoost (netflow) — top 25 feature importances",
     )
+
+    # ── Plots ─────────────────────────────────────────────────────
+    evals = model.evals_result()
+    train_key = "validation_0"
+    val_key = "validation_1"
+
+    save_xgboost_evals_plot(
+        evals, plot_dir / "netflow_xgboost_learning_curve.png",
+        title="XGBoost (netflow) — validation metrics per boosting round",
+    )
