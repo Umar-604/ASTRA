@@ -891,3 +891,12 @@ class ResponseEngine:
             "triggered_by": triggered_by,
             "tx_id": (details or {}).get("tx_id"),
         }
+        return rec
+
+    def _load_history_for_event(self, event_id: str) -> List[Dict[str, Any]]:
+        p = Path(self.config.history_path)
+        if not p.exists():
+            return []
+        out: List[Dict[str, Any]] = []
+        with p.open("r", encoding="utf-8") as f:
+            for line in f:
