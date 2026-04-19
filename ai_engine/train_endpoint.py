@@ -273,3 +273,7 @@ def _train_lstm(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | 
  callbacks=[early_stopping],
             verbose=0
         )
+ self.model = model
+
+        if plot_dir:
+            try:
