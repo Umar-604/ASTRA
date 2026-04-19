@@ -335,3 +335,7 @@ def _select_ae_threshold(
             metadata = {
                 "threshold_method": "mean_k_std",
                 "candidates": candidates,
+     "candidates": candidates,
+            }
+        return threshold, metadata
+
