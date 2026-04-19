@@ -310,3 +310,10 @@ def main():
         sample_weights = compute_sample_weight("balanced", y_tr)
         print(f"  Balanced sample weights applied (range: {sample_weights.min():.3f} – {sample_weights.max():.3f})")
 
+    print("\nTraining XGBoost model (with train + validation eval sets)...")
+    model = train_xgboost_classifier(X_tr, y_tr, X_val, y_val, sample_weights=sample_weights)
+
+    # ── Evaluation ────────────────────────────────────────────────
+    proba = model.predict_proba(X_hold)
+    n_classes = int(proba.shape[1])
+    pred = model.predict(X_hold)
