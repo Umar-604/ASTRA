@@ -11,3 +11,8 @@ except Exception:  # pragma: no cover
     create_engine = None  # type: ignore
     Engine = Any  # type: ignore
     text = None  # type: ignore
+
+
+_ENGINE_LOCK = threading.Lock()
+_ENGINE: Optional["Engine"] = None
+_TABLE_ENSURED = False
