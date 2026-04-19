@@ -131,3 +131,8 @@ print("📊 Loading and preparing data...")
         if data_path.endswith('.json'):
             # Load from JSON file
             with open(data_path, 'r') as f:
+ data = json.load(f)
+        elif data_path.endswith('.csv'):
+            # Load from CSV file
+            df = pd.read_csv(data_path)
+            data = df.to_dict('records')
