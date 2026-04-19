@@ -351,3 +351,19 @@ class ResponseEngine:
         rollback_action: Optional[str] = None,
         extra: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
+        
+        """Build a `dispatched` result for endpoint-bound actions.
+
+        required: {friendly_name: payload_key} used for missing-field validation.
+                 Error messages preserve the existing strings so the
+                 `skipped_not_applicable` post-filter in process_event keeps working
+                 (e.g. "pid is required", "file_path is required", "invalid ip",
+                 "user required", "file_hash required").
+        """
+        err_msg_map = {
+            "pid": "pid is required",
+            "file_path": "file_path is required",
+            "ip_address": "invalid ip",
+            "user": "user required",
+            "file_hash": "file_hash required",
+        }
