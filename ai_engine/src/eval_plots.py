@@ -197,3 +197,7 @@ def save_xgboost_evals_plot(evals_result: Dict[str, Any], path: Path, title: str
         ax.set_title(mkey)
         ax.set_xlabel("Boosting round")
         ax.grid(True, alpha=0.3)
+fig.suptitle(title)
+    fig.tight_layout()
+    fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
