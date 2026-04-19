@@ -395,3 +395,16 @@ class ResponseEngine:
         actions, rule = self.decision_engine.decide(event)
         outputs: List[Dict[str, Any]] = []
         triggered_by = str(event.get("triggered_by") or "AI")
+
+        skip_reason = self._should_skip_due_to_whitelist(event)
+        if skip_reason:
+            rec = self._record(event_id, "log_only", "skipped", {"reason": skip_reason}, triggered_by=triggered_by)
+            outputs.append(rec.__dict__)
+            chain_status = self.log_to_blockchain(event, outputs, event_id)
+            outputs.append(chain_status)
+            return {
+                "event_id": event_id,
+                "decision_rule": f"whitelist:{skip_reason}",
+                "confidence": _normalize_confidence(event.get("confidence")),
+                "actions": outputs,
+            }
