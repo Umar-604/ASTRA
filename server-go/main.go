@@ -119,3 +119,8 @@ func main() {
             http.Error(w, "missing token", http.StatusUnauthorized)
             return
         }
+		if _, err := internal.VerifyJWT(token); err != nil {
+            log.Printf("auth error: %v", err)
+            http.Error(w, "invalid token", http.StatusForbidden)
+            return
+        }
