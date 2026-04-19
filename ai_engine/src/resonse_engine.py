@@ -312,3 +312,8 @@ class ResponseEngine:
             "block_file_hash": self.block_file_hash,
             "collect_forensics": self.collect_forensics,
         }
+
+        Path(self.config.quarantine_dir).mkdir(parents=True, exist_ok=True)
+        Path(self.config.action_log_path).parent.mkdir(parents=True, exist_ok=True)
+        Path(self.config.history_path).parent.mkdir(parents=True, exist_ok=True)
+        Path(self.config.blocked_hashes_path).parent.mkdir(parents=True, exist_ok=True)
