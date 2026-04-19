@@ -206,3 +206,13 @@ def save_keras_history_png(
     path: Path,
     title: str = "Training history",
 ) -> None:
+"""Plot Keras/TF `history.history` (loss / val_loss / accuracy / val_accuracy)."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    h = dict(history)
+    panels: List[Tuple[str, str]] = []
+    if "loss" in h or "val_loss" in h:
+        panels.append(("loss", "Loss"))
+    if "accuracy" in h or "val_accuracy" in h:
+        panels.append(("accuracy", "Accuracy"))
+    if not panels:
+        return
