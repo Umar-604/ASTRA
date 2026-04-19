@@ -526,3 +526,7 @@ class ResponseEngine:
             return self._dispatch_to_endpoint(
                 "suspend_process", payload, {"pid": "pid"}, rollback_action="resume_process"
             )
+        pid = self._require_int(payload.get("pid"), "pid")
+        if psutil is None:
+            return {"status": "error", "error": "psutil not available"}
+        try:
