@@ -124,3 +124,9 @@ fig, ax = plt.subplots(figsize=(8, 4.5))
             v = float(r.get(key, 0))
             if key == "roc_auc" and (v != v):
                 v = 0.0
+ ys.append(max(0.0, min(1.0, v)))
+        ax.plot(folds, ys, marker="o", label=lab)
+    ax.set_xticks(folds)
+    ax.set_xlabel("Fold")
+    ax.set_ylabel("Score")
+    ax.set_ylim(0, 1.05)
