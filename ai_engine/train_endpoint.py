@@ -606,3 +606,6 @@ out_path_display = (
             else keras_path
         )
         print(f"💾 Model saved to: {out_path_display}")
+def main():
+    """Main training function"""
+    import argparse
