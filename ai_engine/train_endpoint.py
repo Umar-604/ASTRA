@@ -155,3 +155,8 @@ print("📊 Loading and preparing data...")
 f"Record {i}: window has {len(events)} events, expected {expected_window_events}. "
                     "Partial windows must be rejected; use only full windows for training."
                 )
+features = extract_endpoint_behavioral_features(events)
+            validate_feature_dict(features, self.feature_names)
+            # Build row in exact canonical order
+            features_list.append([float(features.get(k, 0.0)) for k in self.feature_names])
+            labels.append(record.get('label', 0))  # 0 = benign, 1 = malicious
