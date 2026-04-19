@@ -270,3 +270,6 @@ def _train_lstm(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | 
             epochs=100,
             batch_size=32,
             validation_split=0.2,
+ callbacks=[early_stopping],
+            verbose=0
+        )
