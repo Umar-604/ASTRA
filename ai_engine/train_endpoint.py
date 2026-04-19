@@ -208,3 +208,6 @@ input_dim = X_benign.shape[1]
         x = Dense(encoding_dim, activation="relu", kernel_regularizer=reg)(x)
         x = Dropout(drop)(x)
         bottleneck = Dense(max(16, encoding_dim // 2), activation="relu", kernel_regularizer=reg)(x)
+ # Decoder: bottleneck -> Dense -> Dropout -> Dense -> Dropout -> output
+        x = Dense(encoding_dim, activation="relu", kernel_regularizer=reg)(bottleneck)
+        x = Dropout(drop)(x)
