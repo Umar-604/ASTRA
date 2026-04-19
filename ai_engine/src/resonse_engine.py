@@ -704,3 +704,11 @@ class ResponseEngine:
         system = platform.system().lower()
         if system == "linux":
             cmd = f"usermod -L {user}"
+
+        elif system == "darwin":
+            cmd = f"pwpolicy -u {user} -setpolicy 'isDisabled=1'"
+        elif system == "windows":
+            cmd = f"net user {user} /active:no"
+        else:
+            cmd = None
+        return {"status": "ok" if cmd else "error", "user": user, "command": cmd}
