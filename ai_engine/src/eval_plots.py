@@ -144,3 +144,11 @@ def save_learning_curve_png(
     y_label: str,
     title: str = "Learning curve",
 ) -> None:
+path.parent.mkdir(parents=True, exist_ok=True)
+    fig, ax = plt.subplots(figsize=(7, 4.5))
+    ax.plot(epochs, train_values, label="Train", marker="o", markersize=3)
+    if val_values is not None and len(val_values) == len(epochs):
+        ax.plot(epochs, val_values, label="Validation", marker="s", markersize=3)
+    ax.set_xlabel("Iteration / epoch")
+    ax.set_ylabel(y_label)
+    ax.set_title(title)
