@@ -78,3 +78,4 @@ def __init__(self, model_type: str = "isolation_forest"):
 X_train_scaled = self.scaler.fit_transform(X_train)
         X_test_scaled = self.scaler.transform(X_test)
         
+        plot_dir = str(output_dir if output_dir is not None else settings.MODEL_DIR)
