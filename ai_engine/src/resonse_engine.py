@@ -133,3 +133,8 @@ class EngineConfig:
                 gateway_candidates.add(host)
         for host in gateway_candidates:
             trusted_ips.update(_resolve_to_ips(host))
+
+
+        # Same logic for the EDR agent's own process name/path — the engine
+        # must not order the agent to kill itself even if its beacon thread
+        # crosses a behavioural threshold.
