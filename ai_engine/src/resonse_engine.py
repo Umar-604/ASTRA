@@ -235,7 +235,7 @@ class DecisionEngine:
             return self._full_response_actions(payload), "severity==critical"
         return self._full_response_actions(payload), "confidence>95"
 
-        @staticmethod
+    @staticmethod
     def _full_response_actions(payload: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]]:
         return [
             ("isolate_host", payload),
@@ -248,3 +248,13 @@ class DecisionEngine:
             ("force_logout", payload),
             ("collect_forensics", payload),
         ]
+    @staticmethod
+    def _playbook_actions(playbook: str, event: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]]:
+        payload = {
+            "pid": event.get("pid"),
+            "file_path": event.get("file_path"),
+            "ip_address": event.get("ip_address"),
+            "user": event.get("user"),
+            "file_hash": event.get("file_hash"),
+            "event": event,
+        }
