@@ -403,3 +403,13 @@ def main():
                 title="XGBoost — train vs validation loss",
             )
             break
+            
+            elif train_series:
+            save_learning_curve_png(
+                list(range(1, len(train_series) + 1)),
+                train_series, None,
+                plot_dir / "netflow_xgboost_loss_curve.png",
+                y_label=loss_key,
+                title="XGBoost — training loss per round",
+            )
+            break
