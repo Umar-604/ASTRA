@@ -371,3 +371,9 @@ def main():
         evals, plot_dir / "netflow_xgboost_learning_curve.png",
         title="XGBoost (netflow) — validation metrics per boosting round",
     )
+
+    save_confusion_matrix_predictions_png(
+        y_hold, pred,
+        plot_dir / "netflow_xgboost_confusion_matrix.png",
+        title="XGBoost (netflow) — hold-out confusion matrix",
+    )
