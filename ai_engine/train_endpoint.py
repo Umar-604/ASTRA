@@ -381,3 +381,9 @@ fig, ax = plt.subplots(figsize=(14, 8), facecolor="white")
  if mse_train_benign is not None and len(mse_train_benign) > 0:
                 mse_t = np.maximum(mse_train_benign.ravel(), min_mse)
                 try:
+kde_t = gaussian_kde(mse_t, bw_method="scott")
+                    dens_t = np.maximum(kde_t(x_grid), 1e-12)
+                    ax.fill_between(x_grid, dens_t, alpha=0.25, color=train_color)
+                    ax.plot(x_grid, dens_t, color=train_color, linewidth=2.5, label="Train (benign)")
+                except Exception:
+                    pass
