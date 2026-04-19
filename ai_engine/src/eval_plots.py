@@ -47,3 +47,8 @@ def save_confusion_matrix_predictions_png(
     fig, ax = plt.subplots(figsize=(min(14, 4 + 0.35 * len(np.unique(y_true))), 6))
     disp = ConfusionMatrixDisplay.from_predictions(
         y_true, y_pred, ax=ax, cmap="Blues", colorbar=True, xticks_rotation=45
+ )
+    ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
