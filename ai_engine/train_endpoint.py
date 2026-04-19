@@ -353,3 +353,9 @@ def _plot_ae_reconstruction_distribution(
         fp_rate_benign: Optional[float] = None,
         anomaly_rate: Optional[float] = None,
         threshold_method: Optional[str] = None,
+ threshold_percentile: Optional[int] = None,
+    ) -> None:
+        """Plot reconstruction error distribution: KDE curves (train/val benign), log10 X-axis
+        limited to [min_error, threshold*1.2], P99 thick black, P95/P97 thin dashed.
+        Poster-ready; raw MSE unchanged (no scaling/normalization)."""
+        if not _HAS_MATPLOTLIB:
