@@ -108,3 +108,14 @@ if drop_port:
 
     X = df_sampled[feature_cols].replace([np.inf, -np.inf], np.nan).fillna(0.0)
     y_raw = df_sampled[label_col]
+
+    encoder = LabelEncoder()
+    y_enc = encoder.fit_transform(y_raw.values)
+
+    sampled_counts = df_sampled[label_col].value_counts()
+    print(f"\n  Stratified sample ({len(df_sampled):,} rows):")
+    for cls in class_counts.index:
+        cnt = sampled_counts.get(cls, 0)
+        print(f"    {cls:40s}: {cnt:>8,}")
+
+    return X, y_enc, encoder
