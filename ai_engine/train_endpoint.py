@@ -541,3 +541,4 @@ elif self.model_type == "lstm":
             auc = roc_auc_score(y_test, y_proba)
         except:
             auc = 0.5
+        accuracy = np.mean(y_pred == y_test)
