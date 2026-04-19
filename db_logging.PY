@@ -192,3 +192,11 @@ def _safe_json(obj: Any) -> str:
         return json.dumps(obj, default=_json_default)
     except Exception:
         return "{}"
+
+
+def _json_default(o: Any) -> Any:
+    try:
+        return str(o)
+    except Exception:
+        return None
+
