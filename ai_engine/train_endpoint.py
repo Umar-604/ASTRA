@@ -313,3 +313,4 @@ std_mse = 1.0
         for p in percentiles:
             candidates[f"p{p}"] = float(np.percentile(mse_benign, p))
         candidates["mean_k_std"] = mean_mse + k_std * std_mse
+        return candidates, mean_mse, std_mse
