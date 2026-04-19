@@ -42,3 +42,8 @@ from .features.endpoint_behavioral import (
 
 # Optional matplotlib for AE threshold visualization
 try:
+ import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    _HAS_MATPLOTLIB = True
+except ImportError:
