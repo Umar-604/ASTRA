@@ -383,3 +383,8 @@ def main():
         "Weighted F1": float(f1_wt),
         "MCC": mcc,
     }
+
+    if not np.isnan(auc_v):
+        bar_m["ROC-AUC"] = auc_v
+    save_metrics_bar_png(bar_m, plot_dir / "netflow_xgboost_metrics_bar.png",
+                         title="XGBoost — hold-out metrics")
