@@ -558,3 +558,13 @@ elif self.model_type == "lstm":
         print(f"   AUC      : {auc:.3f}")
         print("   Confusion matrix [[TN, FP], [FN, TP]]:")
         print(f"      {cm.tolist()}")
+ return {
+            "accuracy": accuracy,
+            "auc": auc,
+            "precision": float(precision),
+            "recall": float(recall),
+            "f1": float(f1),
+            "confusion_matrix": cm.tolist(),
+            "predictions": y_pred.tolist(),
+            "probabilities": y_proba.tolist()
+        }
