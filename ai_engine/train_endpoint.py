@@ -56,3 +56,8 @@ except ImportError:
     _HAS_SCIPY_KDE = False
 class EndpointModelTrainer:
     """Train behavioral models for endpoint events"""
+def __init__(self, model_type: str = "isolation_forest"):
+        self.model_type = model_type
+        self.model = None
+        self.scaler = StandardScaler()
+        self.feature_names = None
