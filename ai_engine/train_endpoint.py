@@ -449,4 +449,7 @@ def _evaluate_model(
         X_test: np.ndarray,
         y_test: np.ndarray,
         output_dir: Optional[str] = None,
-        X_train: Optional[np.ndarray] = None,
+        X_train: Optional[np.ndarray] = None,  y_train: Optional[np.ndarray] = None,
+    ) -> Dict[str, Any]:
+        """Evaluate the trained model"""
+        print("📈 Evaluating model...")
