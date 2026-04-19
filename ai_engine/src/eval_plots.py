@@ -56,3 +56,11 @@ def save_roc_curve_png(
     y_true: np.ndarray,
     y_score: np.ndarray,
     path: Path,
+ title: str = "ROC curve",
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig, ax = plt.subplots(figsize=(6, 5))
+    fpr, tpr, _ = roc_curve(y_true, y_score)
+    roc_auc = auc(fpr, tpr)
+    disp = RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_auc, estimator_name="Model")
+    disp.plot(ax=ax)
