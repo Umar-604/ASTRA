@@ -319,3 +319,9 @@ def _select_ae_threshold(
         candidates: Dict[str, float],
         strategy: str = "minimize_fp",
         default_percentile: int = 99,
+ ) -> Tuple[float, Dict[str, Any]]:
+        """Select a stable default threshold from candidates.
+        strategy: 'minimize_fp' -> use percentile (default 99) so few benign windows exceed.
+        Returns (threshold_value, metadata dict)."""
+        if strategy == "minimize_fp":
+            key = f"p{default_percentile}"
