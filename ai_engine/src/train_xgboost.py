@@ -40,3 +40,8 @@ from src.eval_plots import (
     save_roc_curve_png,
     save_xgboost_evals_plot,
 )
+
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+
