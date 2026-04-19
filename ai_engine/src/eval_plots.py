@@ -163,3 +163,10 @@ def save_lightgbm_eval_plot(eval_result: Dict[str, Any], path: Path, title: str 
     valid_key = "valid_0" if "valid_0" in eval_result else next((k for k in eval_result if k.startswith("valid")), None)
     if not valid_key or not eval_result.get(valid_key):
         return
+ metrics_dict = eval_result[valid_key]
+    keys = [k for k in metrics_dict if isinstance(metrics_dict[k], list) and metrics_dict[k]]
+    if not keys:
+        return
+    n = min(len(keys), 3)
+    fig, axes = plt.subplots(1, n, figsize=(5 * n, 4))
+    if n == 1:
