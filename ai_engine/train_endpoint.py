@@ -422,3 +422,9 @@ mse_v = np.maximum(mse_val_benign.ravel(), min_mse)
             "Normal behavior vs anomaly boundary",
             fontsize=24, fontweight="600", color="#111827", pad=18,
         )
+ax.tick_params(axis="both", labelsize=16, colors="#4B5563")
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.2f}"))
+        ax.grid(True, axis="y", alpha=0.15, color="#d1d5db", linestyle="-")
+        ax.set_axisbelow(True)
+        ax.legend(loc="upper right", fontsize=14, frameon=True, fancybox=False, framealpha=0.98, edgecolor="#e5e7eb")
+        # Simplified annotation: Mean MSE, Threshold, FP rate — clean corner box
