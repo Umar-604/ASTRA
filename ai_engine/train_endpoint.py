@@ -216,3 +216,8 @@ input_dim = X_benign.shape[1]
         autoencoder.compile(optimizer=Adam(learning_rate=0.001), loss='mse')
         
         early_stopping = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)
+ history = autoencoder.fit(
+            X_benign, X_benign,
+            epochs=150,
+            batch_size=32,
+            validation_split=0.2,
