@@ -65,3 +65,6 @@ def __init__(self, model_type: str = "isolation_forest"):
     def train(self, data_path: str, output_dir: str = None) -> Dict[str, Any]:
         """Train the endpoint behavioral model"""
         print(f"🚀 Training {self.model_type} model for endpoint behavioral analysis...")
+# Load and prepare data
+        X, y = self._load_and_prepare_data(data_path)
+        
