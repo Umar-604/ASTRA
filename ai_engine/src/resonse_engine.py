@@ -234,3 +234,17 @@ class DecisionEngine:
         if severity == "critical":
             return self._full_response_actions(payload), "severity==critical"
         return self._full_response_actions(payload), "confidence>95"
+
+        @staticmethod
+    def _full_response_actions(payload: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]]:
+        return [
+            ("isolate_host", payload),
+            ("kill_process", payload),
+            ("quarantine_file", payload),
+            ("block_ip", payload),
+            ("terminate_connection", payload),
+            ("block_file_hash", payload),
+            ("lock_user", payload),
+            ("force_logout", payload),
+            ("collect_forensics", payload),
+        ]
