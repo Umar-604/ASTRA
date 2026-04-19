@@ -954,4 +954,8 @@ class ResponseEngine:
                 ip_val = str(src.get(key) or "").strip()
                 if ip_val and ip_val in self.config.trusted_ips:
                     return f"trusted ip: {ip_val} ({key})"
+        file_hash = str(event.get("file_hash") or "").strip().lower()
+        if file_hash and file_hash in self.config.trusted_hashes:
+            return f"trusted hash: {file_hash}"
+        return None
 
