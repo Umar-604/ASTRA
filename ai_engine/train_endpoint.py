@@ -441,3 +441,6 @@ ax.tick_params(axis="both", labelsize=16, colors="#4B5563")
                 bbox=dict(boxstyle="round,pad=0.5", facecolor="white", edgecolor="#d1d5db", alpha=0.95),
                 fontfamily="monospace", color="#374151",
             )
+fig.tight_layout()
+        fig.savefig(output_path, dpi=300, bbox_inches="tight", facecolor="white", edgecolor="none")
+        plt.close(fig)
