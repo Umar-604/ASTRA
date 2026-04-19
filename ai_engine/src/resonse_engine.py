@@ -43,3 +43,13 @@ def _extract_hosts_from_url(raw: str) -> Set[str]:
         return candidates
     try:
         from urllib.parse import urlparse  # local import keeps top tidy
+
+        if "://" not in s:
+            s = "http://" + s
+        parsed = urlparse(s)
+        host = (parsed.hostname or "").strip()
+        if host:
+            candidates.add(host)
+    except Exception:
+        pass
+    return candidates
