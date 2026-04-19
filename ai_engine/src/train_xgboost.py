@@ -73,3 +73,7 @@ def load_stratified_csv(
         label_chunks.append(chunk)
 
     df = pd.concat(label_chunks, axis=0, ignore_index=True)
+feature_cols = [
+        c for c in df.columns
+        if c != label_col and pd.api.types.is_numeric_dtype(df[c])
+    ]
