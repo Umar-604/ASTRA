@@ -220,4 +220,6 @@ input_dim = X_benign.shape[1]
             X_benign, X_benign,
             epochs=150,
             batch_size=32,
-            validation_split=0.2,
+            validation_split=0.2, callbacks=[early_stopping],
+            verbose=0
+        )
