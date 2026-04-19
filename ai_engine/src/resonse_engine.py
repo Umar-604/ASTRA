@@ -486,3 +486,12 @@ class ResponseEngine:
                 except Exception as exc:  # defensive catch
                 rec = self._record(event_id, action_name, "error", {"error": str(exc)}, triggered_by=triggered_by)
             outputs.append(rec.__dict__)
+
+            chain_status = self.log_to_blockchain(event, outputs, event_id)
+        outputs.append(chain_status)
+        return {
+            "event_id": event_id,
+            "decision_rule": rule,
+            "confidence": _normalize_confidence(event.get("confidence")),
+            "actions": outputs,
+        }
