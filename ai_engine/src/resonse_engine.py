@@ -503,3 +503,13 @@ class ResponseEngine:
     def log_only(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         return {"status": "ok", "message": "logged only"}
 
+    def alert_monitor(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        return {"status": "ok", "message": "alert generated and monitoring elevated"}
+
+    def kill_process(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if self._is_remote_target(payload):
+            return self._dispatch_to_endpoint("kill_process", payload, {"pid": "pid"})
+        pid = self._require_int(payload.get("pid"), "pid")
+        if psutil is None:
+            return {"status": "error", "error": "psutil not available"}
+        try:
