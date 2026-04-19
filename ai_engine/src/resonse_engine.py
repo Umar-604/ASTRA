@@ -67,3 +67,7 @@ def _resolve_to_ips(host: str) -> Set[str]:
             ip = info[4][0]
             if ip:
                 out.add(ip)
+
+    except Exception:
+        pass
+    return out
