@@ -542,3 +542,12 @@ elif self.model_type == "lstm":
         except:
             auc = 0.5
         accuracy = np.mean(y_pred == y_test)
+  # Confusion matrix and classification metrics
+        # Labels: 0 = benign/normal, 1 = malicious/anomalous
+        cm = confusion_matrix(y_test, y_pred, labels=[0, 1])
+        precision, recall, f1, _ = precision_recall_fscore_support(
+            y_test,
+            y_pred,
+            average="binary",
+            zero_division=0,
+        )
