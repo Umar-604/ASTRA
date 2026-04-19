@@ -495,3 +495,11 @@ class ResponseEngine:
             "confidence": _normalize_confidence(event.get("confidence")),
             "actions": outputs,
         }
+    
+    async def process_event_async(self, event: Dict[str, Any]) -> Dict[str, Any]:
+        return await asyncio.to_thread(self.process_event, event)
+
+    # ---------- Action implementations ----------
+    def log_only(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        return {"status": "ok", "message": "logged only"}
+
