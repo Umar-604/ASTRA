@@ -982,3 +982,12 @@ class ResponseEngine:
             return f'netsh advfirewall firewall delete rule name="ASTRA_BLOCK_{ip}"'
         return None
 
+if __name__ == "__main__":
+    # Example simulation: reverse shell at very high confidence.
+    sample_event = {
+        "event_id": "evt-reverse-shell-001",
+        "event_type": "network_connection",
+        "event_source": "sysmon",
+        "severity": "critical",
+        "confidence": 97.2,
+        "pid": 12345,
