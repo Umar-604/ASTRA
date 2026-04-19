@@ -454,3 +454,11 @@ def main():
         },
         "drop_port": args.drop_port,
     }
+
+    joblib.dump(bundle, out_path)
+    print(f"\nModel bundle saved to: {out_path}")
+    print(f"Training plots saved under: {plot_dir.resolve()}")
+
+
+if __name__ == "__main__":
+    main()
