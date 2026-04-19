@@ -130,3 +130,10 @@ def load_sampled_csv(
     X_parts: list[pd.DataFrame] = []
     y_parts: list[pd.Series] = []
     total_kept = 0
+
+    for chunk in pd.read_csv(path, chunksize=chunksize, low_memory=False):
+        if label_col not in chunk.columns:
+            raise ValueError(f"Label column '{label_col}' not found in CSV")
+        if 0.0 < sample_frac < 1.0:
+            chunk = chunk.sample(frac=sample_frac, random_state=42)
+        y_chunk = chunk[label_col]
