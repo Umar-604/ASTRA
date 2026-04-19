@@ -874,3 +874,9 @@ class ResponseEngine:
             rollback_action=rollback_action,
             rollback_payload=rollback_payload,
         )
+        data = {
+            **rec.__dict__,
+            "action_taken": action,
+            "triggered_by": triggered_by,
+            "tx_id": (details or {}).get("tx_id"),
+        }
