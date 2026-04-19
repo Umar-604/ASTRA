@@ -501,3 +501,7 @@ os.makedirs(output_dir, exist_ok=True)
                     mean_mse=mean_mse,
                     std_mse=std_mse,
                     fp_rate_benign=fp_rate_benign,
+anomaly_rate=anomaly_rate,
+                    threshold_method=threshold_metadata.get("threshold_method"),
+                    threshold_percentile=threshold_metadata.get("threshold_percentile"),
+                )
