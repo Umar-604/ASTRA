@@ -598,3 +598,12 @@ class ResponseEngine:
             return {"status": "ok", "file_path": str(p)}
         except PermissionError:
             return {"status": "error", "error": "permission denied", "file_path": str(p)}
+
+    def block_file_hash(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        file_hash = str(payload.get("file_hash") or "").strip().lower()
+        if not file_hash:
+            return {"status": "error", "error": "file_hash required"}
+        if file_hash in self.config.trusted_hashes:
+            return {"status": "skipped", "reason": "trusted hash", "file_hash": file_hash}
+        path = Path(self.config.blocked_hashes_path)
+        existing = set()
