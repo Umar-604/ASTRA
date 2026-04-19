@@ -325,3 +325,11 @@ class ResponseEngine:
         "windows": "windows",
         "windows_nt": "windows",
     }
+
+    def _is_remote_target(self, payload: Dict[str, Any]) -> bool:
+        """Return True when the originating event is from a different platform than this engine host.
+
+        Example: engine on macOS, event from Windows agent -> remote target.
+        When True, endpoint-bound actions must be dispatched to the agent via NATS
+        rather than executed server-side (where the PID/file_path/firewall rules do not exist).
+        """
