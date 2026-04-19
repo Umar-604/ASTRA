@@ -469,3 +469,16 @@ class ResponseEngine:
                         "lock_user": (not payload.get("user"), {"user required"}),
                         "force_logout": (not payload.get("user"), {"user required"}),
                     }
+
+                    check = missing_map.get(action_name)
+                    if check and check[0] and err in check[1]:
+                        status = "skipped_not_applicable"
+                rec = self._record(
+                    event_id,
+                    action_name,
+                    status,
+                    result,
+                    rollback_action=result.get("rollback_action"),
+                    rollback_payload=result.get("rollback_payload"),
+                    triggered_by=triggered_by,
+                )
