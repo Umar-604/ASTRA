@@ -650,3 +650,10 @@ class ResponseEngine:
             "command": cmd,
             "message": "connection termination command prepared" if cmd else "unsupported OS",
         }
+    
+    def unblock_ip(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        ip_address = str(payload.get("ip_address") or "").strip()
+        if not ip_address:
+            return {"status": "error", "error": "invalid ip"}
+        cmd = self._firewall_unblock_command(ip_address)
+        return {"status": "ok" if cmd else "error", "ip_address": ip_address, "command": cmd}
