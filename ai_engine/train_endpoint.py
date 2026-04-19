@@ -160,3 +160,5 @@ features = extract_endpoint_behavioral_features(events)
             # Build row in exact canonical order
             features_list.append([float(features.get(k, 0.0)) for k in self.feature_names])
             labels.append(record.get('label', 0))  # 0 = benign, 1 = malicious
+ X = np.array(features_list)
+        y = np.array(labels)
