@@ -47,3 +47,14 @@ def _ensure_engine(dsn: Optional[str] = None) -> Optional["Engine"]:
             return _ENGINE
         except Exception:
             return None
+
+
+def _ensure_table(engine: "Engine") -> None:
+    """
+    Create the logs table if it does not exist.
+    """
+    global _TABLE_ENSURED
+    if _TABLE_ENSURED:
+        return
+    if text is None:
+        return
