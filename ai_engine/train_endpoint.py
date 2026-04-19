@@ -50,3 +50,7 @@ except ImportError:
 _HAS_MATPLOTLIB = False
 
 try:
+ from scipy.stats import gaussian_kde
+    _HAS_SCIPY_KDE = True
+except ImportError:
+    _HAS_SCIPY_KDE = False
