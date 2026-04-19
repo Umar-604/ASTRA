@@ -260,3 +260,4 @@ def save_iforest_score_distribution(
     scores_attack: np.ndarray,
     path: Path,
     title: str = "Isolation Forest anomaly scores (test set)",
+) -> None:
