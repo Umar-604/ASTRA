@@ -623,3 +623,11 @@ class ResponseEngine:
         if not ip_address:
             return {"status": "error", "error": "invalid ip"}
         cmd = self._firewall_block_command(ip_address)
+        return {
+            "status": "ok" if cmd else "error",
+            "ip_address": ip_address,
+            "command": cmd,
+            "rollback_action": "unblock_ip" if cmd else None,
+            "rollback_payload": {"ip_address": ip_address} if cmd else None,
+            "message": "command prepared/executed" if cmd else "unsupported OS for firewall block",
+        }
