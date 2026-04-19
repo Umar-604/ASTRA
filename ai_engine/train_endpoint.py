@@ -249,3 +249,5 @@ def _train_lstm(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | 
         print("🧠 Training LSTM...") # Reshape data for LSTM (samples, timesteps, features)
         # For now, treat each sample as a single timestep
         X_reshaped = X_train.reshape(X_train.shape[0], 1, X_train.shape[1])
+  input_dim = X_train.shape[1]
+        lstm_units = 64
