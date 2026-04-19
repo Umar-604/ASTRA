@@ -359,3 +359,9 @@ def _plot_ae_reconstruction_distribution(
         limited to [min_error, threshold*1.2], P99 thick black, P95/P97 thin dashed.
         Poster-ready; raw MSE unchanged (no scaling/normalization)."""
         if not _HAS_MATPLOTLIB:
+  return
+        # Visible range: [min_error, threshold * 1.2] — raw MSE unchanged
+        all_mse = []
+        if mse_train_benign is not None and len(mse_train_benign) > 0:
+            all_mse.extend(mse_train_benign.ravel().tolist())
+        all_mse.extend(mse_val_benign.ravel().tolist())
