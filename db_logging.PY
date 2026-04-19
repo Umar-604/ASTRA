@@ -16,3 +16,12 @@ except Exception:  # pragma: no cover
 _ENGINE_LOCK = threading.Lock()
 _ENGINE: Optional["Engine"] = None
 _TABLE_ENSURED = False
+
+
+def _get_dsn() -> Optional[str]:
+    """
+    Resolve a PostgreSQL DSN from environment.
+    Prefers POSTGRES_DSN, falls back to DATABASE_URL.
+    """
+    dsn = os.getenv("POSTGRES_DSN") or os.getenv("DATABASE_URL")
+    return dsn
