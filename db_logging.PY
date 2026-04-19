@@ -91,3 +91,10 @@ class PostgresLogHandler(logging.Handler):
     Logging handler that writes log records to a PostgreSQL table (app_logs).
     Safe-fails if DB is unavailable.
     """
+
+    def __init__(self, dsn: Optional[str] = None, level: int = logging.INFO) -> None:
+        super().__init__(level=level)
+        self._engine = _ensure_engine(dsn)
+        if self._engine is not None:
+            _ensure_table(self._engine)
+        self._local = threading.local()
