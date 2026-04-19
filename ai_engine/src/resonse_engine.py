@@ -230,3 +230,7 @@ class DecisionEngine:
                 ("terminate_connection", payload),
                 ("collect_forensics", payload),
             ], "80<confidence<=95"
+        
+        if severity == "critical":
+            return self._full_response_actions(payload), "severity==critical"
+        return self._full_response_actions(payload), "confidence>95"
