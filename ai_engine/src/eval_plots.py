@@ -234,3 +234,7 @@ ax.plot(range(1, len(h[val_k]) + 1), h[val_k], label=f"Val {ylabel.lower()}")
 fig.tight_layout()
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+def save_iforest_score_distribution(
+    scores_normal: np.ndarray,
+    scores_attack: np.ndarray,
+    path: Path,
