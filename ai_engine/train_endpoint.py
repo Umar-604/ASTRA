@@ -152,3 +152,6 @@ print("📊 Loading and preparing data...")
             # Reject partial windows: only full windows go to the model
             if expected_window_events is not None and len(events) != expected_window_events:
                 raise ValueError(
+f"Record {i}: window has {len(events)} events, expected {expected_window_events}. "
+                    "Partial windows must be rejected; use only full windows for training."
+                )
