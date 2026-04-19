@@ -11,7 +11,6 @@ Improvements over the original pipeline:
   - Feature importance analysis.
   - Proper train-vs-validation loss comparison.
 """
-
 import argparse
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -26,7 +25,6 @@ from sklearn.metrics import (
     precision_recall_fscore_support,
     roc_auc_score,
 )
-
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.utils import compute_sample_weight
@@ -46,6 +44,10 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
+# ────────────────────────────────────────────────────────────────────
+# Data loading with stratified min-guarantee sampling
+# ────────────────────────────────────────────────────────────────────
+
 def load_stratified_csv(
     path: str,
     label_col: str,
@@ -55,8 +57,7 @@ def load_stratified_csv(
     chunksize: int = 300_000,
     drop_port: bool = False,
 ) -> Tuple[pd.DataFrame, np.ndarray, LabelEncoder]:
-    
-        """
+    """
     Load CICIDS CSV with stratified sampling that guarantees rare classes
     are fully represented while capping the majority class.
 
@@ -73,24 +74,23 @@ def load_stratified_csv(
         label_chunks.append(chunk)
 
     df = pd.concat(label_chunks, axis=0, ignore_index=True)
-feature_cols = [
+
+    feature_cols = [
         c for c in df.columns
         if c != label_col and pd.api.types.is_numeric_dtype(df[c])
     ]
-if drop_port:
+    if drop_port:
         port_cols = [c for c in feature_cols if "port" in c.lower()]
         if port_cols:
             print(f"  Dropping leaky port feature(s): {port_cols}")
             feature_cols = [c for c in feature_cols if c not in port_cols]
 
-    
-    
-     class_counts = df[label_col].value_counts()
+    class_counts = df[label_col].value_counts()
     print(f"\n  Raw class distribution ({len(class_counts)} classes, {len(df):,} total):")
     for cls, cnt in class_counts.items():
         print(f"    {cls:40s}: {cnt:>10,}")
 
-        sampled_indices: List[int] = []
+    sampled_indices: List[int] = []
     for cls, cnt in class_counts.items():
         cls_idx = df.index[df[label_col] == cls].tolist()
         if cnt <= min_per_class:
@@ -101,7 +101,7 @@ if drop_port:
             rng = np.random.RandomState(42)
             sampled_indices.extend(rng.choice(cls_idx, size=target, replace=False).tolist())
         else:
-             rng = np.random.RandomState(42)
+            rng = np.random.RandomState(42)
             sampled_indices.extend(rng.choice(cls_idx, size=max_majority, replace=False).tolist())
 
     df_sampled = df.loc[sampled_indices].reset_index(drop=True)
@@ -120,6 +120,11 @@ if drop_port:
 
     return X, y_enc, encoder
 
+
+# ────────────────────────────────────────────────────────────────────
+# Legacy loader (kept for --legacy flag)
+# ────────────────────────────────────────────────────────────────────
+
 def load_sampled_csv(
     path: str,
     label_col: str,
@@ -137,7 +142,6 @@ def load_sampled_csv(
         if 0.0 < sample_frac < 1.0:
             chunk = chunk.sample(frac=sample_frac, random_state=42)
         y_chunk = chunk[label_col]
-
         feature_cols = [
             c for c in chunk.columns
             if c != label_col and pd.api.types.is_numeric_dtype(chunk[c])
@@ -148,8 +152,8 @@ def load_sampled_csv(
         total_kept += len(X_chunk)
         if max_rows is not None and total_kept >= max_rows:
             break
-        \
-        if not X_parts:
+
+    if not X_parts:
         raise ValueError("No data loaded from CSV - adjust sampling parameters")
     X = pd.concat(X_parts, axis=0, ignore_index=True)
     y = pd.concat(y_parts, axis=0, ignore_index=True).iloc[: len(X)]
@@ -157,7 +161,6 @@ def load_sampled_csv(
         X = X.iloc[:max_rows].reset_index(drop=True)
         y = y.iloc[:max_rows].reset_index(drop=True)
     if y.dtype == object or isinstance(y.iloc[0], str):
-
         encoder = LabelEncoder()
         y_enc = encoder.fit_transform(y.values)
     else:
@@ -165,14 +168,18 @@ def load_sampled_csv(
     return X, y_enc
 
 
+# ────────────────────────────────────────────────────────────────────
+# Model building
+# ────────────────────────────────────────────────────────────────────
+
 def train_xgboost_classifier(
     X_train: pd.DataFrame,
     y_train: np.ndarray,
     X_val: pd.DataFrame,
     y_val: np.ndarray,
     sample_weights: Optional[np.ndarray] = None,
-
-     n_labels = len(np.unique(y_train))
+) -> XGBClassifier:
+    n_labels = len(np.unique(y_train))
     eval_metrics = ["mlogloss", "merror"] if n_labels > 2 else ["logloss", "error"]
     model = XGBClassifier(
         n_estimators=400,
@@ -188,27 +195,28 @@ def train_xgboost_classifier(
         reg_alpha=0.05,
         reg_lambda=1.0,
     )
-
     fit_params: Dict[str, Any] = {
         "eval_set": [(X_train, y_train), (X_val, y_val)],
         "verbose": False,
     }
-
     if sample_weights is not None:
         fit_params["sample_weight"] = sample_weights
     model.fit(X_train, y_train, **fit_params)
     return model
 
 
-    def save_feature_importance_png(
+# ────────────────────────────────────────────────────────────────────
+# Feature importance plot
+# ────────────────────────────────────────────────────────────────────
+
+def save_feature_importance_png(
     model: XGBClassifier,
     feature_names: List[str],
     path: Path,
     top_k: int = 25,
     title: str = "Feature Importance",
 ) -> None:
-
-importances = model.feature_importances_
+    importances = model.feature_importances_
     indices = np.argsort(importances)[::-1][:top_k]
 
     fig, ax = plt.subplots(figsize=(10, 7))
@@ -223,6 +231,10 @@ importances = model.feature_importances_
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
 
+
+# ────────────────────────────────────────────────────────────────────
+# CLI + main
+# ────────────────────────────────────────────────────────────────────
 
 def main():
     ap = argparse.ArgumentParser(description="Train XGBoost on cicids_merged.csv (improved pipeline)")
@@ -273,8 +285,7 @@ def main():
             max_rows=args.max_rows,
             chunksize=args.chunksize,
         )
-
-        else:
+    else:
         print("Loading data (stratified min-guarantee sampling)...")
         X, y, label_encoder = load_stratified_csv(
             path=args.data,
@@ -285,14 +296,14 @@ def main():
             drop_port=args.drop_port,
         )
 
-        print(f"\n  Loaded {len(X):,} rows with {X.shape[1]} features")
+    print(f"\n  Loaded {len(X):,} rows with {X.shape[1]} features")
     feature_names = list(X.columns)
 
     try:
         X_model, X_hold, y_model, y_hold = train_test_split(
             X, y, test_size=0.2, random_state=42, stratify=y
         )
-        except ValueError:
+    except ValueError:
         X_model, X_hold, y_model, y_hold = train_test_split(
             X, y, test_size=0.2, random_state=42
         )
@@ -300,7 +311,7 @@ def main():
         X_tr, X_val, y_tr, y_val = train_test_split(
             X_model, y_model, test_size=0.12, random_state=42, stratify=y_model
         )
-        except ValueError:
+    except ValueError:
         X_tr, X_val, y_tr, y_val = train_test_split(
             X_model, y_model, test_size=0.12, random_state=42
         )
@@ -325,7 +336,6 @@ def main():
     prec_wt, rec_wt, f1_wt, _ = precision_recall_fscore_support(
         y_hold, pred, average="weighted", zero_division=0
     )
-
     mcc = float(matthews_corrcoef(y_hold, pred))
     try:
         if n_classes == 2:
@@ -335,14 +345,13 @@ def main():
     except ValueError:
         auc_v = float("nan")
 
-        print("\n=== Hold-out evaluation (20% stratified) ===")
+    print("\n=== Hold-out evaluation (20% stratified) ===")
     if label_encoder is not None:
         target_names = [str(c) for c in label_encoder.classes_]
         print(classification_report(y_hold, pred, target_names=target_names, digits=4, zero_division=0))
     else:
         print(classification_report(y_hold, pred, digits=4, zero_division=0))
 
-    
     print(f"Accuracy:       {acc:.4f}")
     print(f"Macro F1:       {float(f1_mac):.4f}")
     print(f"Weighted F1:    {float(f1_wt):.4f}")
@@ -377,18 +386,17 @@ def main():
         plot_dir / "netflow_xgboost_confusion_matrix.png",
         title="XGBoost (netflow) — hold-out confusion matrix",
     )
+
     bar_m: Dict[str, float] = {
         "Accuracy": acc,
         "Macro F1": float(f1_mac),
         "Weighted F1": float(f1_wt),
         "MCC": mcc,
     }
-
     if not np.isnan(auc_v):
         bar_m["ROC-AUC"] = auc_v
     save_metrics_bar_png(bar_m, plot_dir / "netflow_xgboost_metrics_bar.png",
                          title="XGBoost — hold-out metrics")
-
 
     for loss_key in ("mlogloss", "logloss"):
         train_series = (evals.get(train_key) or {}).get(loss_key)
@@ -403,8 +411,7 @@ def main():
                 title="XGBoost — train vs validation loss",
             )
             break
-            
-            elif train_series:
+        elif train_series:
             save_learning_curve_png(
                 list(range(1, len(train_series) + 1)),
                 train_series, None,
@@ -413,8 +420,8 @@ def main():
                 title="XGBoost — training loss per round",
             )
             break
-            
-            for err_key in ("merror", "error"):
+
+    for err_key in ("merror", "error"):
         train_series = (evals.get(train_key) or {}).get(err_key)
         val_series = (evals.get(val_key) or {}).get(err_key)
         if train_series and val_series:
@@ -436,8 +443,8 @@ def main():
                 title="XGBoost — validation error per round",
             )
             break
-            
-            # ── Save ──────────────────────────────────────────────────────
+
+    # ── Save ──────────────────────────────────────────────────────
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     bundle = {
@@ -454,11 +461,10 @@ def main():
         },
         "drop_port": args.drop_port,
     }
+        joblib.dump(bundle, out_path)
+        print(f"\nModel bundle saved to: {out_path}")
+        print(f"Training plots saved under: {plot_dir.resolve()}")
 
-    joblib.dump(bundle, out_path)
-    print(f"\nModel bundle saved to: {out_path}")
-    print(f"Training plots saved under: {plot_dir.resolve()}")
 
-
-if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        main()
