@@ -491,3 +491,8 @@ def _evaluate_model(
 model_version = datetime.now(timezone.utc).isoformat()
             plot_path = None
             if output_dir:
+os.makedirs(output_dir, exist_ok=True)
+                suffix = os.environ.get("AE_NAME_SUFFIX", "").strip()
+                plot_name = f"ae_reconstruction_error_distribution_{suffix}.png" if suffix else "ae_reconstruction_error_distribution.png"
+                plot_path = os.path.join(output_dir, plot_name)
+                self._plot_ae_reconstruction_distribution(
