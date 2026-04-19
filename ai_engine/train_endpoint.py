@@ -293,3 +293,9 @@ self.training_stats = {
  "epochs_trained": len(history.history['loss']),
             "final_loss": history.history['loss'][-1]
         }
+
+    def _compute_ae_threshold_candidates(
+        self,
+        mse_benign: np.ndarray,
+        percentiles: Tuple[int, ...] = (95, 97, 99),
+        k_std: float = 3.0,
