@@ -35,6 +35,7 @@ def _normalize_confidence(value: float | int | None) -> float:
         return max(0.0, min(v * 100.0, 100.0))
     return max(0.0, min(v, 100.0))
 
+
 def _extract_hosts_from_url(raw: str) -> Set[str]:
     """Pull hostname tokens out of a URL or `host:port` string."""
     candidates: Set[str] = set()
@@ -54,6 +55,7 @@ def _extract_hosts_from_url(raw: str) -> Set[str]:
         pass
     return candidates
 
+
 def _resolve_to_ips(host: str) -> Set[str]:
     """Resolve a hostname to its IPv4/IPv6 literals plus echo the host itself.
 
@@ -67,7 +69,6 @@ def _resolve_to_ips(host: str) -> Set[str]:
             ip = info[4][0]
             if ip:
                 out.add(ip)
-
     except Exception:
         pass
     return out
@@ -100,6 +101,7 @@ class EngineConfig:
     trusted_processes: Set[str] = field(default_factory=set)
     trusted_ips: Set[str] = field(default_factory=set)
     trusted_hashes: Set[str] = field(default_factory=set)
+
     @classmethod
     def from_env(cls) -> "EngineConfig":
         auto = str(os.getenv("AUTO_RESPONSE", "true")).strip().lower() in {"1", "true", "yes", "on"}
@@ -122,7 +124,6 @@ class EngineConfig:
         # is told to sever its own control channel. Operators can extend this
         # list via RESPONSE_GATEWAY_HOSTS=<comma-separated host or ip list>.
         gateway_candidates: Set[str] = set()
-
         for env_var in ("ASTRA_GATEWAY", "ASTRA_SERVER", "GATEWAY_URL"):
             raw = os.getenv(env_var, "").strip()
             if raw:
@@ -134,7 +135,6 @@ class EngineConfig:
         for host in gateway_candidates:
             trusted_ips.update(_resolve_to_ips(host))
 
-
         # Same logic for the EDR agent's own process name/path — the engine
         # must not order the agent to kill itself even if its beacon thread
         # crosses a behavioural threshold.
@@ -143,9 +143,7 @@ class EngineConfig:
                 p = proc.strip().lower()
                 if p:
                     trusted_processes.add(p)
-
-
-                    # Sensible defaults: the standard ASTRA agent entry-points AND the
+        # Sensible defaults: the standard ASTRA agent entry-points AND the
         # second-order signatures of response actions the agent itself
         # executes. Without these patterns the engine will see the cmd.exe
         # subprocess the agent ran for `lock_user` / `block_ip` / `isolate_host`
@@ -184,7 +182,8 @@ class EngineConfig:
                 p.strip().lower() for p in str(os.getenv("RESPONSE_TRUSTED_HASHES", "")).split(",") if p.strip()
             },
         )
-    
+
+
 class DecisionEngine:
     """Pure decision logic. No side-effects here."""
 
@@ -198,6 +197,7 @@ class DecisionEngine:
             or event.get("incomplete_telemetry")
             or event.get("missing_telemetry")
         )
+
         if playbook in {"ransomware", "reverse_shell"}:
             return self._playbook_actions(playbook, event), f"playbook:{playbook}"
 
@@ -216,7 +216,6 @@ class DecisionEngine:
 
         if confidence < 60:
             return [("log_only", payload)], "confidence<60"
-        
         if confidence <= 80:
             actions: List[Tuple[str, Dict[str, Any]]] = [("alert_monitor", payload)]
             if event.get("pid") is not None:
@@ -230,7 +229,6 @@ class DecisionEngine:
                 ("terminate_connection", payload),
                 ("collect_forensics", payload),
             ], "80<confidence<=95"
-        
         if severity == "critical":
             return self._full_response_actions(payload), "severity==critical"
         return self._full_response_actions(payload), "confidence>95"
@@ -248,6 +246,7 @@ class DecisionEngine:
             ("force_logout", payload),
             ("collect_forensics", payload),
         ]
+
     @staticmethod
     def _playbook_actions(playbook: str, event: Dict[str, Any]) -> List[Tuple[str, Dict[str, Any]]]:
         payload = {
@@ -258,7 +257,6 @@ class DecisionEngine:
             "file_hash": event.get("file_hash"),
             "event": event,
         }
-
         if playbook == "ransomware":
             return [
                 ("kill_process", payload),
@@ -275,6 +273,7 @@ class DecisionEngine:
             ("force_logout", payload),
             ("collect_forensics", payload),
         ]
+
 
 class ResponseEngine:
     """
@@ -295,7 +294,6 @@ class ResponseEngine:
             "resume_process": self.resume_process,
             "unisolate_host": self.unisolate_host,
         }
-
         self._action_handlers: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {
             "log_only": self.log_only,
             "alert_monitor": self.alert_monitor,
@@ -312,12 +310,11 @@ class ResponseEngine:
             "block_file_hash": self.block_file_hash,
             "collect_forensics": self.collect_forensics,
         }
-
         Path(self.config.quarantine_dir).mkdir(parents=True, exist_ok=True)
         Path(self.config.action_log_path).parent.mkdir(parents=True, exist_ok=True)
         Path(self.config.history_path).parent.mkdir(parents=True, exist_ok=True)
         Path(self.config.blocked_hashes_path).parent.mkdir(parents=True, exist_ok=True)
-    
+
     # ---------- Remote-target dispatch helpers (Option A) ----------
     _HOST_PLATFORM_NORMALIZED = {
         "linux": "linux",
@@ -333,7 +330,6 @@ class ResponseEngine:
         When True, endpoint-bound actions must be dispatched to the agent via NATS
         rather than executed server-side (where the PID/file_path/firewall rules do not exist).
         """
-
         ev = payload.get("event") or {}
         target = str(ev.get("platform") or "").strip().lower()
         if not target:
@@ -351,7 +347,6 @@ class ResponseEngine:
         rollback_action: Optional[str] = None,
         extra: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
-        
         """Build a `dispatched` result for endpoint-bound actions.
 
         required: {friendly_name: payload_key} used for missing-field validation.
@@ -367,7 +362,6 @@ class ResponseEngine:
             "user": "user required",
             "file_hash": "file_hash required",
         }
-
         for _, key in required.items():
             value = payload.get(key)
             if value in (None, "") or (isinstance(value, str) and not value.strip()):
@@ -381,14 +375,13 @@ class ResponseEngine:
             "payload": command_payload,
             "message": f"{action} dispatched to endpoint agent via NATS",
         }
-
         if rollback_action:
             result["rollback_action"] = rollback_action
             result["rollback_payload"] = command_payload
         if extra:
             result.update(extra)
         return result
-    
+
     def process_event(self, event: Dict[str, Any]) -> Dict[str, Any]:
         event_id = str(event.get("event_id") or f"evt-{int(datetime.now().timestamp())}")
         event["event_id"] = event_id
@@ -408,7 +401,7 @@ class ResponseEngine:
                 "confidence": _normalize_confidence(event.get("confidence")),
                 "actions": outputs,
             }
-        
+
         for action_name, payload in actions:
             payload = {**payload, "event_id": event_id}
             if action_name == "suspend_process" and not self.config.suspend_in_medium_band:
@@ -431,7 +424,6 @@ class ResponseEngine:
                     {"reason": "manual approval required"},
                     triggered_by=triggered_by,
                 )
-
                 outputs.append(rec.__dict__)
                 continue
             if not self.config.auto_response and action_name not in {"log_only", "alert_monitor"}:
@@ -442,7 +434,6 @@ class ResponseEngine:
                     {"reason": "AUTO_RESPONSE disabled"},
                     triggered_by=triggered_by,
                 )
-
                 outputs.append(rec.__dict__)
                 continue
             handler = self._action_handlers.get(action_name)
@@ -450,14 +441,12 @@ class ResponseEngine:
                 rec = self._record(event_id, action_name, "error", {"error": "unknown action"}, triggered_by=triggered_by)
                 outputs.append(rec.__dict__)
                 continue
-
             try:
                 result = handler(payload)
                 # Missing/non-applicable input should be visible but not treated as hard execution failure.
                 status = result.get("status", "ok")
                 err = str(result.get("error") or "").strip().lower()
                 if status == "error":
-
                     missing_map = {
                         "kill_process": (payload.get("pid") is None, {"pid is required"}),
                         "suspend_process": (payload.get("pid") is None, {"pid is required"}),
@@ -469,7 +458,6 @@ class ResponseEngine:
                         "lock_user": (not payload.get("user"), {"user required"}),
                         "force_logout": (not payload.get("user"), {"user required"}),
                     }
-
                     check = missing_map.get(action_name)
                     if check and check[0] and err in check[1]:
                         status = "skipped_not_applicable"
@@ -482,12 +470,11 @@ class ResponseEngine:
                     rollback_payload=result.get("rollback_payload"),
                     triggered_by=triggered_by,
                 )
-
-                except Exception as exc:  # defensive catch
+            except Exception as exc:  # defensive catch
                 rec = self._record(event_id, action_name, "error", {"error": str(exc)}, triggered_by=triggered_by)
             outputs.append(rec.__dict__)
 
-            chain_status = self.log_to_blockchain(event, outputs, event_id)
+        chain_status = self.log_to_blockchain(event, outputs, event_id)
         outputs.append(chain_status)
         return {
             "event_id": event_id,
@@ -495,7 +482,7 @@ class ResponseEngine:
             "confidence": _normalize_confidence(event.get("confidence")),
             "actions": outputs,
         }
-    
+
     async def process_event_async(self, event: Dict[str, Any]) -> Dict[str, Any]:
         return await asyncio.to_thread(self.process_event, event)
 
@@ -592,7 +579,7 @@ class ResponseEngine:
         file_path = self._require_path(payload.get("file_path"))
         p = Path(file_path)
         if not p.exists():
-            eturn {"status": "error", "error": "file not found", "file_path": str(p)}
+            return {"status": "error", "error": "file not found", "file_path": str(p)}
         try:
             p.unlink()
             return {"status": "ok", "file_path": str(p)}
@@ -631,6 +618,7 @@ class ResponseEngine:
             "rollback_payload": {"ip_address": ip_address} if cmd else None,
             "message": "command prepared/executed" if cmd else "unsupported OS for firewall block",
         }
+
     def terminate_connection(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         if self._is_remote_target(payload):
             return self._dispatch_to_endpoint("terminate_connection", payload, {"ip_address": "ip_address"})
@@ -650,7 +638,7 @@ class ResponseEngine:
             "command": cmd,
             "message": "connection termination command prepared" if cmd else "unsupported OS",
         }
-    
+
     def unblock_ip(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         ip_address = str(payload.get("ip_address") or "").strip()
         if not ip_address:
@@ -680,7 +668,7 @@ class ResponseEngine:
             "rollback_payload": {},
             "message": "host isolation command prepared" if cmd else "unsupported OS",
         }
-    
+
     def unisolate_host(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         if self._is_remote_target(payload):
             return self._dispatch_to_endpoint("unisolate_host", payload, {})
@@ -704,7 +692,6 @@ class ResponseEngine:
         system = platform.system().lower()
         if system == "linux":
             cmd = f"usermod -L {user}"
-
         elif system == "darwin":
             cmd = f"pwpolicy -u {user} -setpolicy 'isDisabled=1'"
         elif system == "windows":
@@ -719,14 +706,14 @@ class ResponseEngine:
         user = str(payload.get("user") or "").strip()
         if not user:
             return {"status": "error", "error": "user required"}
-         system = platform.system().lower()
+        system = platform.system().lower()
         if system in {"linux", "darwin"}:
             cmd = f"pkill -KILL -u {user}"
         elif system == "windows":
             cmd = f'logoff /server:localhost "{user}"'
         else:
             cmd = None
-        eturn {"status": "ok" if cmd else "error", "user": user, "command": cmd}
+        return {"status": "ok" if cmd else "error", "user": user, "command": cmd}
 
     def collect_forensics(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         event = payload.get("event") or {}
@@ -782,7 +769,6 @@ class ResponseEngine:
                 tx_id = body.get("tx_id") or body.get("transaction_id") or body.get("id")
             except Exception:
                 pass
-
             rec = self._record(
                 event_id,
                 "log_to_blockchain",
@@ -810,7 +796,7 @@ class ResponseEngine:
                 },
             )
             return rec.__dict__
-        
+
     # ---------- Rollback ----------
     def rollback(self, event_id: str) -> List[Dict[str, Any]]:
         records = self._load_history_for_event(event_id)
@@ -827,7 +813,7 @@ class ResponseEngine:
             rr = self._record(event_id, f"rollback:{action}", result.get("status", "ok"), result, triggered_by="manual")
             reverted.append(rr.__dict__)
         return reverted
-    
+
     # ---------- Helpers ----------
     @staticmethod
     def _hash_event(event: Dict[str, Any]) -> str:
@@ -854,7 +840,7 @@ class ResponseEngine:
         if not path:
             raise ValueError("file_path is required")
         return path
-    
+
     def _record(
         self,
         event_id: str,
@@ -900,7 +886,7 @@ class ResponseEngine:
         out: List[Dict[str, Any]] = []
         with p.open("r", encoding="utf-8") as f:
             for line in f:
-                ine = line.strip()
+                line = line.strip()
                 if not line:
                     continue
                 try:
@@ -910,6 +896,7 @@ class ResponseEngine:
                 if str(obj.get("event_id")) == event_id:
                     out.append(obj)
         return out
+
     def _should_skip_due_to_whitelist(self, event: Dict[str, Any]) -> str | None:
         # Inspect both the canonical top-level fields AND the raw `event_data`
         # blob the agent shipped. Process telemetry routinely carries the
@@ -954,11 +941,11 @@ class ResponseEngine:
                 ip_val = str(src.get(key) or "").strip()
                 if ip_val and ip_val in self.config.trusted_ips:
                     return f"trusted ip: {ip_val} ({key})"
+
         file_hash = str(event.get("file_hash") or "").strip().lower()
         if file_hash and file_hash in self.config.trusted_hashes:
             return f"trusted hash: {file_hash}"
         return None
-
 
     @staticmethod
     def _firewall_block_command(ip: str) -> Optional[str]:
@@ -970,7 +957,7 @@ class ResponseEngine:
         if system == "windows":
             return f'netsh advfirewall firewall add rule name="ASTRA_BLOCK_{ip}" dir=in action=block remoteip={ip}'
         return None
-    
+
     @staticmethod
     def _firewall_unblock_command(ip: str) -> Optional[str]:
         system = platform.system().lower()
@@ -981,6 +968,7 @@ class ResponseEngine:
         if system == "windows":
             return f'netsh advfirewall firewall delete rule name="ASTRA_BLOCK_{ip}"'
         return None
+
 
 if __name__ == "__main__":
     # Example simulation: reverse shell at very high confidence.
@@ -1000,4 +988,3 @@ if __name__ == "__main__":
     }
     engine = ResponseEngine()
     print(json.dumps(engine.process_event(sample_event), indent=2))
-
