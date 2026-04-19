@@ -613,3 +613,9 @@ class ResponseEngine:
             with path.open("a", encoding="utf-8") as f:
                 f.write(file_hash + "\n")
         return {"status": "ok", "file_hash": file_hash, "blocked_hashes_path": str(path)}
+
+    def block_ip(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if self._is_remote_target(payload):
+            return self._dispatch_to_endpoint(
+                "block_ip", payload, {"ip_address": "ip_address"}, rollback_action="unblock_ip"
+            )
