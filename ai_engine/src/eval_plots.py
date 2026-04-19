@@ -112,3 +112,8 @@ fig.savefig(path, dpi=150, bbox_inches="tight")
     path: Path,
     title: str = "Cross-validation metrics by fold",
 ) -> None:
+"""Line plot: each metric vs fold (clearer than many grouped bars)."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    folds = [int(r["fold"]) for r in cv_fold_rows]
+    metric_keys = ["accuracy", "precision_attack", "recall_attack", "f1_attack", "roc_auc"]
+    labels = ["Accuracy", "Precision", "Recall", "F1", "ROC-AUC"]
