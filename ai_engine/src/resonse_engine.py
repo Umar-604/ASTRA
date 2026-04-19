@@ -184,3 +184,17 @@ class EngineConfig:
                 p.strip().lower() for p in str(os.getenv("RESPONSE_TRUSTED_HASHES", "")).split(",") if p.strip()
             },
         )
+    
+class DecisionEngine:
+    """Pure decision logic. No side-effects here."""
+
+    def decide(self, event: Dict[str, Any]) -> Tuple[List[Tuple[str, Dict[str, Any]]], str]:
+        confidence = _normalize_confidence(event.get("confidence"))
+        playbook = (event.get("playbook") or "").strip().lower()
+        severity = str(event.get("severity") or "").strip().lower()
+        event_source = str(event.get("event_source") or event.get("source") or "").strip().lower()
+        telemetry_incomplete = bool(
+            event.get("telemetry_incomplete")
+            or event.get("incomplete_telemetry")
+            or event.get("missing_telemetry")
+        )
