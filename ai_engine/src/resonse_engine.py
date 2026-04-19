@@ -367,3 +367,8 @@ class ResponseEngine:
             "user": "user required",
             "file_hash": "file_hash required",
         }
+
+        for _, key in required.items():
+            value = payload.get(key)
+            if value in (None, "") or (isinstance(value, str) and not value.strip()):
+                return {"status": "error", "error": err_msg_map.get(key, f"{key} required")}
