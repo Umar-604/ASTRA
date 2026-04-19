@@ -739,3 +739,7 @@ class ResponseEngine:
             "ip_address": payload.get("ip_address"),
             "event_type": event.get("event_type"),
         }
+        out_path = Path("logs") / f"forensics_{payload.get('event_id')}.json"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(snapshot, indent=2), encoding="utf-8")
+        return {"status": "ok", "forensics_path": str(out_path)}
