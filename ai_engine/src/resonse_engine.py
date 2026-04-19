@@ -372,3 +372,12 @@ class ResponseEngine:
             value = payload.get(key)
             if value in (None, "") or (isinstance(value, str) and not value.strip()):
                 return {"status": "error", "error": err_msg_map.get(key, f"{key} required")}
+
+        command_payload = {k: payload.get(k) for k in required.values()}
+        result: Dict[str, Any] = {
+            "status": "dispatched",
+            "target": "endpoint_agent",
+            "action": action,
+            "payload": command_payload,
+            "message": f"{action} dispatched to endpoint agent via NATS",
+        }
