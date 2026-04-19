@@ -198,3 +198,14 @@ class DecisionEngine:
             or event.get("incomplete_telemetry")
             or event.get("missing_telemetry")
         )
+        if playbook in {"ransomware", "reverse_shell"}:
+            return self._playbook_actions(playbook, event), f"playbook:{playbook}"
+
+        payload: Dict[str, Any] = {
+            "pid": event.get("pid"),
+            "file_path": event.get("file_path"),
+            "ip_address": event.get("ip_address"),
+            "user": event.get("user"),
+            "file_hash": event.get("file_hash"),
+            "event": event,
+        }
