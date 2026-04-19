@@ -368,3 +368,4 @@ def _plot_ae_reconstruction_distribution(
         min_mse = max(1e-10, np.min(all_mse[all_mse > 0])) if np.any(all_mse > 0) else 1e-10
         x_max = selected_threshold * 1.2
         x_grid = np.logspace(np.log10(min_mse), np.log10(x_max + 1e-10), 200)
+
