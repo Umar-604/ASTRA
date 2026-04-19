@@ -182,3 +182,10 @@ self.model = IsolationForest(
             random_state=42,
             n_estimators=100
         )
+ self.model.fit(X_benign)
+        
+        self.training_stats = {
+            "training_samples": len(X_benign),
+            "contamination": 0.1,
+            "n_estimators": 100
+        }
