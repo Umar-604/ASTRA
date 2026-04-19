@@ -263,3 +263,4 @@ def save_iforest_score_distribution(
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fig, ax = plt.subplots(figsize=(7, 4.5))
+    ax.hist(scores_normal, bins=40, alpha=0.6, label="Normal (0)", density=True)
