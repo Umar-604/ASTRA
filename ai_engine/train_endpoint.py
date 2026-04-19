@@ -407,3 +407,8 @@ mse_v = np.maximum(mse_val_benign.ravel(), min_mse)
         # P95 and P97: thin, light dashed; P99: thick solid black
         p95_val = candidates.get("p95")
         p97_val = candidates.get("p97")
+  if p95_val is not None and min_mse <= p95_val <= x_max:
+            ax.axvline(p95_val, color="#9ca3af", linestyle="--", linewidth=1, alpha=0.7, label="P95")
+        if p97_val is not None and min_mse <= p97_val <= x_max:
+            ax.axvline(p97_val, color="#9ca3af", linestyle="--", linewidth=1, alpha=0.7, label="P97")
+        ax.axvline(
