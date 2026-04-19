@@ -590,3 +590,10 @@ else:
             fname = f"endpoint_model_{self.model_type}{('_' + suffix) if suffix else ''}.keras"
             keras_path = os.path.join(output_dir, fname)
             self.model.save(keras_path)
+ # Save metadata alongside
+            metadata = {
+                'scaler': self.scaler,
+                'feature_names': self.feature_names,
+                'model_type': self.model_type,
+                'training_stats': self.training_stats
+            }
