@@ -10,3 +10,15 @@ from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
 import numpy as np
 
 import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from sklearn.metrics import (
+    ConfusionMatrixDisplay,
+    PrecisionRecallDisplay,
+    RocCurveDisplay,
+    auc,
+    precision_recall_curve,
+    roc_curve,
+)
+
