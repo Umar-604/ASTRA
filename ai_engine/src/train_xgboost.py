@@ -284,3 +284,11 @@ def main():
             sample_frac_medium=args.sample_frac_medium,
             drop_port=args.drop_port,
         )
+
+        print(f"\n  Loaded {len(X):,} rows with {X.shape[1]} features")
+    feature_names = list(X.columns)
+
+    try:
+        X_model, X_hold, y_model, y_hold = train_test_split(
+            X, y, test_size=0.2, random_state=42, stratify=y
+        )
