@@ -28,3 +28,9 @@ def save_confusion_matrix_png(
     title: str,
     display_labels: Tuple[str, str] = ("Negative (0)", "Positive (1)"),
 ) -> None:
+path.parent.mkdir(parents=True, exist_ok=True)
+    fig, ax = plt.subplots(figsize=(5.5, 4.5))
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=list(display_labels))
+    disp.plot(ax=ax, cmap="Blues", colorbar=True, values_format="d")
+    ax.set_title(title)
+    fig.tight_layout()
