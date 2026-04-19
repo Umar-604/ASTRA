@@ -520,3 +520,5 @@ anomaly_rate=anomaly_rate,
                 "model_version": model_version,
             }
             if plot_path:
+ out["plot_path"] = plot_path
+            return out
