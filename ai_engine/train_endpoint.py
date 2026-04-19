@@ -212,4 +212,7 @@ input_dim = X_benign.shape[1]
         x = Dense(encoding_dim, activation="relu", kernel_regularizer=reg)(bottleneck)
         x = Dropout(drop)(x)x = Dense(encoding_dim * 2, activation="relu", kernel_regularizer=reg)(x)
         x = Dropout(drop)(x)
-        output = Dense(input_dim, activation="sigmoid")(x)
+        output = Dense(input_dim, activation="sigmoid")(x) autoencoder = Model(input_layer, output)
+        autoencoder.compile(optimizer=Adam(learning_rate=0.001), loss='mse')
+        
+        early_stopping = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)
