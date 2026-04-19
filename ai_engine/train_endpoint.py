@@ -244,3 +244,6 @@ self.training_stats = {
  "epochs_trained": len(history.history['loss']),
             "final_loss": float(history.history['loss'][-1]),
         }
+def _train_lstm(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | None = None):
+        """Train LSTM model for sequence analysis"""
+        print("🧠 Training LSTM...")
