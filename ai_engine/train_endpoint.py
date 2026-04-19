@@ -514,3 +514,9 @@ anomaly_rate=anomaly_rate,
                 "anomaly_threshold": threshold,
                 "k_std": k_std,
                 "anomaly_rate": anomaly_rate,
+ "fp_rate_benign_val": fp_rate_benign,
+                "threshold_candidates": candidates,
+                "threshold_metadata": threshold_metadata,
+                "model_version": model_version,
+            }
+            if plot_path:
