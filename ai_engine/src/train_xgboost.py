@@ -137,3 +137,8 @@ def load_sampled_csv(
         if 0.0 < sample_frac < 1.0:
             chunk = chunk.sample(frac=sample_frac, random_state=42)
         y_chunk = chunk[label_col]
+
+        feature_cols = [
+            c for c in chunk.columns
+            if c != label_col and pd.api.types.is_numeric_dtype(chunk[c])
+        ]
