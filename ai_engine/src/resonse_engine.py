@@ -743,3 +743,9 @@ class ResponseEngine:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(json.dumps(snapshot, indent=2), encoding="utf-8")
         return {"status": "ok", "forensics_path": str(out_path)}
+
+    def log_to_blockchain(self, event: Dict[str, Any], actions: List[Dict[str, Any]], event_id: str) -> Dict[str, Any]:
+        event_hash = self._hash_event(event)
+        response_hash = self._hash_response(actions)
+        bundle_hash = hashlib.sha256(f"{event_hash}:{response_hash}".encode("utf-8")).hexdigest()
+        if not self.config.blockchain_api_url:
