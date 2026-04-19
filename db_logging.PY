@@ -107,3 +107,24 @@ class PostgresLogHandler(logging.Handler):
                 if self._engine is None:
                     return
                 _ensure_table(self._engine)
+
+            # Prepare payload
+            message = self.format(record)
+            payload: Dict[str, Any] = {
+                "level": record.levelname,
+                "logger_name": record.name,
+                "message": message,
+                "pathname": getattr(record, "pathname", None),
+                "func_name": getattr(record, "funcName", None),
+                "line_no": getattr(record, "lineno", None),
+                "process": getattr(record, "process", None),
+                "thread": getattr(record, "thread", None),
+                "agent_id": getattr(record, "agent_id", None),
+                # Store remaining attributes as JSON for debugging/analytics
+                "extra": {k: v for k, v in record.__dict__.items() if k not in {
+                    "levelname", "name", "msg", "args", "pathname", "filename", "module",
+                    "exc_info", "exc_text", "stack_info", "lineno", "funcName", "created",
+                    "msecs", "relativeCreated", "thread", "threadName", "processName",
+                    "process", "message", "agent_id"
+                }},
+            }
