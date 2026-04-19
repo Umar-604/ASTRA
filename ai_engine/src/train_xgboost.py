@@ -119,3 +119,14 @@ if drop_port:
         print(f"    {cls:40s}: {cnt:>8,}")
 
     return X, y_enc, encoder
+
+def load_sampled_csv(
+    path: str,
+    label_col: str,
+    sample_frac: float = 0.02,
+    max_rows: Optional[int] = 300_000,
+    chunksize: int = 150_000,
+) -> Tuple[pd.DataFrame, np.ndarray]:
+    X_parts: list[pd.DataFrame] = []
+    y_parts: list[pd.Series] = []
+    total_kept = 0
