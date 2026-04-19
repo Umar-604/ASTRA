@@ -117,3 +117,10 @@ fig.savefig(path, dpi=150, bbox_inches="tight")
     folds = [int(r["fold"]) for r in cv_fold_rows]
     metric_keys = ["accuracy", "precision_attack", "recall_attack", "f1_attack", "roc_auc"]
     labels = ["Accuracy", "Precision", "Recall", "F1", "ROC-AUC"]
+fig, ax = plt.subplots(figsize=(8, 4.5))
+    for key, lab in zip(metric_keys, labels):
+        ys = []
+        for r in cv_fold_rows:
+            v = float(r.get(key, 0))
+            if key == "roc_auc" and (v != v):
+                v = 0.0
