@@ -767,3 +767,10 @@ class ResponseEngine:
             "bundle_hash": bundle_hash,
             "event_id": event_id,
         }
+        try:
+            resp = requests.post(
+                self.config.blockchain_api_url,
+                json=payload,
+                timeout=self.config.request_timeout_sec,
+                verify=self.config.blockchain_verify_tls,
+            )
