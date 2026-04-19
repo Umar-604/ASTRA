@@ -619,3 +619,7 @@ class ResponseEngine:
             return self._dispatch_to_endpoint(
                 "block_ip", payload, {"ip_address": "ip_address"}, rollback_action="unblock_ip"
             )
+        ip_address = str(payload.get("ip_address") or "").strip()
+        if not ip_address:
+            return {"status": "error", "error": "invalid ip"}
+        cmd = self._firewall_block_command(ip_address)
