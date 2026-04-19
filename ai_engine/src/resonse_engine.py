@@ -760,3 +760,10 @@ class ResponseEngine:
                     "bundle_hash": bundle_hash,
                 },
             )
+            return rec.__dict__
+        payload = {
+            "event_hash": event_hash,
+            "response_hash": response_hash,
+            "bundle_hash": bundle_hash,
+            "event_id": event_id,
+        }
