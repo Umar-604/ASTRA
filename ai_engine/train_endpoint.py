@@ -263,3 +263,5 @@ def _train_lstm(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | 
             loss='binary_crossentropy',
             metrics=['accuracy']
         )
+ # Train LSTM
+        early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
