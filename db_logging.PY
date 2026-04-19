@@ -180,3 +180,15 @@ def attach_postgres_handler(
         handler.setFormatter(formatter)
     logger.addHandler(handler)
     return handler
+
+
+def _safe_json(obj: Any) -> str:
+    """
+    Best-effort JSON serialization for the 'extra' column.
+    """
+    try:
+        import json
+
+        return json.dumps(obj, default=_json_default)
+    except Exception:
+        return "{}"
