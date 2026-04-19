@@ -522,3 +522,8 @@ anomaly_rate=anomaly_rate,
             if plot_path:
  out["plot_path"] = plot_path
             return out
+ # Classification-style metrics for non-AE models
+        if self.model_type == "isolation_forest":
+            # Isolation Forest returns -1 for outliers, 1 for inliers
+            predictions = self.model.predict(X_test)
+            scores = self.model.score_samples(X_test)
