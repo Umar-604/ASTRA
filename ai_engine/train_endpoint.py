@@ -378,3 +378,6 @@ fig, ax = plt.subplots(figsize=(14, 8), facecolor="white")
         train_color, val_color = "#0173B2", "#DE8F05"
         # KDE curves for train (benign) and validation (benign); display-only clamp for log scale
         if _HAS_SCIPY_KDE:
+ if mse_train_benign is not None and len(mse_train_benign) > 0:
+                mse_t = np.maximum(mse_train_benign.ravel(), min_mse)
+                try:
