@@ -485,4 +485,6 @@ def _evaluate_model(
 
             print("   Autoencoder reconstruction error statistics (benign validation):")
             print(f"      mean MSE        : {mean_mse:.6f}")
-            print(f"      std  MSE        : {std_mse:.6f}")
+            print(f"      std  MSE        : {std_mse:.6f}") print(f"      candidates      : p95={candidates.get('p95', 0):.6f} p97={candidates.get('p97', 0):.6f} p99={candidates.get('p99', 0):.6f} mean+{k_std}*std={candidates.get('mean_k_std', 0):.6f}")
+            print(f"      selected thresh : {threshold:.6f} ({threshold_metadata.get('threshold_method', '')} {threshold_metadata.get('threshold_percentile', '')})")
+            print(f"      FP rate (benign): {fp_rate_benign * 100:.2f}% | anomaly rate (all): {anomaly_rate * 100:.2f}%")
