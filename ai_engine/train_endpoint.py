@@ -47,3 +47,6 @@ try:
     import matplotlib.pyplot as plt
     _HAS_MATPLOTLIB = True
 except ImportError:
+_HAS_MATPLOTLIB = False
+
+try:
