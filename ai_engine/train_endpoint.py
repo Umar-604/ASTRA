@@ -141,3 +141,8 @@ print("📊 Loading and preparing data...")
         
         print(f"   Loaded {len(data)} records")
         
+ # Use canonical feature order so training and inference always match
+        self.feature_names = get_canonical_feature_order()
+        expected_window_events = len(data[0].get('events', [])) if data else None
+        if expected_window_events is not None:
+            self.training_stats["window_events"] = expected_window_events
