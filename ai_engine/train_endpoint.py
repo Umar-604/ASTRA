@@ -108,6 +108,8 @@ self._train_autoencoder(X_train_scaled, y_train, plot_dir=plot_dir)
             "feature_count": len(self.feature_names),
             "metrics": metrics,
 
+
+
         else:
             metrics = self._evaluate_model(X_test_scaled, y_test)
             metrics = self._evaluate_model(X_test_scaled, y_test) "reconstruction_error_mean", "reconstruction_error_std", "anomaly_threshold", "k_std", "anomaly_rate",
@@ -117,3 +119,10 @@ self._train_autoencoder(X_train_scaled, y_train, plot_dir=plot_dir)
 
 }
                     self.training_stats[k] = metrics[k]
+
+
+ "training_stats": self.training_stats
+        }
+    
+    def _load_and_prepare_data(self, data_path: str) -> Tuple[np.ndarray, np.ndarray]:
+        """Load and prepare training data"""
