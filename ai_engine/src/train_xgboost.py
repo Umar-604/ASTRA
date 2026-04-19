@@ -45,3 +45,13 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+
+def load_stratified_csv(
+    path: str,
+    label_col: str,
+    min_per_class: int = 500,
+    max_majority: int = 50_000,
+    sample_frac_medium: float = 0.15,
+    chunksize: int = 300_000,
+    drop_port: bool = False,
+) -> Tuple[pd.DataFrame, np.ndarray, LabelEncoder]:
