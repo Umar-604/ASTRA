@@ -680,3 +680,12 @@ class ResponseEngine:
             "rollback_payload": {},
             "message": "host isolation command prepared" if cmd else "unsupported OS",
         }
+    
+    def unisolate_host(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if self._is_remote_target(payload):
+            return self._dispatch_to_endpoint("unisolate_host", payload, {})
+        system = platform.system().lower()
+        if system == "linux":
+            cmd = "iptables -P OUTPUT ACCEPT && iptables -P INPUT ACCEPT"
+        elif system == "darwin":
+            cmd = "pfctl -d"
