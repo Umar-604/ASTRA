@@ -317,3 +317,11 @@ class ResponseEngine:
         Path(self.config.action_log_path).parent.mkdir(parents=True, exist_ok=True)
         Path(self.config.history_path).parent.mkdir(parents=True, exist_ok=True)
         Path(self.config.blocked_hashes_path).parent.mkdir(parents=True, exist_ok=True)
+    
+    # ---------- Remote-target dispatch helpers (Option A) ----------
+    _HOST_PLATFORM_NORMALIZED = {
+        "linux": "linux",
+        "darwin": "darwin",
+        "windows": "windows",
+        "windows_nt": "windows",
+    }
