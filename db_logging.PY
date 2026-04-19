@@ -98,3 +98,12 @@ class PostgresLogHandler(logging.Handler):
         if self._engine is not None:
             _ensure_table(self._engine)
         self._local = threading.local()
+
+    def emit(self, record: logging.LogRecord) -> None:
+        try:
+            # If engine not ready, try once to initialize
+            if self._engine is None:
+                self._engine = _ensure_engine()
+                if self._engine is None:
+                    return
+                _ensure_table(self._engine)
