@@ -275,3 +275,10 @@ class DecisionEngine:
             ("force_logout", payload),
             ("collect_forensics", payload),
         ]
+
+class ResponseEngine:
+    """
+    Automated response orchestrator.
+    - Action execution and rollback hooks are separated from decision logic.
+    - AUTO_RESPONSE=False logs recommendations without executing side effects.
+    """
