@@ -694,3 +694,13 @@ class ResponseEngine:
         else:
             cmd = None
         return {"status": "ok" if cmd else "error", "command": cmd, "message": "host unisolation command prepared" if cmd else "unsupported OS"}
+
+    def lock_user(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if self._is_remote_target(payload):
+            return self._dispatch_to_endpoint("lock_user", payload, {"user": "user"})
+        user = str(payload.get("user") or "").strip()
+        if not user:
+            return {"status": "error", "error": "user required"}
+        system = platform.system().lower()
+        if system == "linux":
+            cmd = f"usermod -L {user}"
