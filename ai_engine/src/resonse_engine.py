@@ -672,3 +672,11 @@ class ResponseEngine:
         elif system == "windows":
             cmd = "netsh advfirewall set allprofiles state on"
         else:
+            cmd = None
+        return {
+            "status": "ok" if cmd else "error",
+            "command": cmd,
+            "rollback_action": "unisolate_host" if cmd else None,
+            "rollback_payload": {},
+            "message": "host isolation command prepared" if cmd else "unsupported OS",
+        }
