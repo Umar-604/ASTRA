@@ -124,3 +124,9 @@ func main() {
             http.Error(w, "invalid token", http.StatusForbidden)
             return
         }
+
+        // Ensure JSON
+        if !strings.Contains(strings.ToLower(r.Header.Get("Content-Type")), "application/json") {
+            http.Error(w, "content-type must be application/json", http.StatusUnsupportedMediaType)
+            return
+        }
