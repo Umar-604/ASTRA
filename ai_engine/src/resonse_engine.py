@@ -810,3 +810,20 @@ class ResponseEngine:
                 },
             )
             return rec.__dict__
+        
+    # ---------- Rollback ----------
+    def rollback(self, event_id: str) -> List[Dict[str, Any]]:
+        records = self._load_history_for_event(event_id)
+        reverted: List[Dict[str, Any]] = []
+        for rec in reversed(records):
+            action = rec.get("rollback_action")
+            payload = rec.get("rollback_payload")
+            if not action or not payload:
+                continue
+            handler = self._rollback_handlers.get(action)
+            if not handler:
+                continue
+            result = handler(payload)
+            rr = self._record(event_id, f"rollback:{action}", result.get("status", "ok"), result, triggered_by="manual")
+            reverted.append(rr.__dict__)
+        return reverted
