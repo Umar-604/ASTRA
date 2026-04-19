@@ -381,3 +381,10 @@ class ResponseEngine:
             "payload": command_payload,
             "message": f"{action} dispatched to endpoint agent via NATS",
         }
+
+        if rollback_action:
+            result["rollback_action"] = rollback_action
+            result["rollback_payload"] = command_payload
+        if extra:
+            result.update(extra)
+        return result
