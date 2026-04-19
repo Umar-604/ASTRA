@@ -496,3 +496,8 @@ os.makedirs(output_dir, exist_ok=True)
                 plot_name = f"ae_reconstruction_error_distribution_{suffix}.png" if suffix else "ae_reconstruction_error_distribution.png"
                 plot_path = os.path.join(output_dir, plot_name)
                 self._plot_ae_reconstruction_distribution(
+ mse_train_benign, mse_val_benign, mse_val_anomaly,
+                    candidates, threshold, plot_path,
+                    mean_mse=mean_mse,
+                    std_mse=std_mse,
+                    fp_rate_benign=fp_rate_benign,
