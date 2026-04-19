@@ -80,3 +80,9 @@ def save_pr_curve_png(
     ap = auc(rec, prec)
     disp = PrecisionRecallDisplay(precision=prec, recall=rec, average_precision=ap)
     disp.plot(ax=ax)
+ax.set_title(f"{title}\nAP = {ap:.4f}")
+    fig.tight_layout()
+    fig.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
