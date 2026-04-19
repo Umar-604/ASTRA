@@ -268,3 +268,4 @@ def save_iforest_score_distribution(
     ax.set_xlabel("Anomaly score (higher = more anomalous)")
     ax.set_ylabel("Density")
     ax.set_title(title)
+    ax.legend()
