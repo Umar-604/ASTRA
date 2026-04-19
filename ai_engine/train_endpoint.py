@@ -339,3 +339,10 @@ def _select_ae_threshold(
             }
         return threshold, metadata
 
+def _plot_ae_reconstruction_distribution(
+        self,
+        mse_train_benign: Optional[np.ndarray],
+        mse_val_benign: np.ndarray,
+        mse_val_anomaly: Optional[np.ndarray],
+        candidates: Dict[str, float],
+        selected_threshold: float,
