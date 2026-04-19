@@ -216,3 +216,17 @@ class DecisionEngine:
 
         if confidence < 60:
             return [("log_only", payload)], "confidence<60"
+        
+        if confidence <= 80:
+            actions: List[Tuple[str, Dict[str, Any]]] = [("alert_monitor", payload)]
+            if event.get("pid") is not None:
+                actions.append(("suspend_process", payload))
+            return actions, "60<=confidence<=80"
+        if confidence <= 95:
+            return [
+                ("kill_process", payload),
+                ("quarantine_file", payload),
+                ("block_ip", payload),
+                ("terminate_connection", payload),
+                ("collect_forensics", payload),
+            ], "80<confidence<=95"
