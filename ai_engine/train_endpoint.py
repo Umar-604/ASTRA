@@ -60,4 +60,7 @@ def __init__(self, model_type: str = "isolation_forest"):
         self.model_type = model_type
         self.model = None
         self.scaler = StandardScaler()
-        self.feature_names = None
+        self.feature_names = Noneself.training_stats = {}
+        
+    def train(self, data_path: str, output_dir: str = None) -> Dict[str, Any]:
+        """Train the endpoint behavioral model"""
