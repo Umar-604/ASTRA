@@ -182,3 +182,12 @@ func main() {
     }
     // Catch-all: proxy GET /events/{id}, /alerts, /auth, /hosts, /audit, /ui, etc. to AI engine
     http.HandleFunc("/", proxy.ServeHTTP)
+
+    log.Printf("Go gateway listening on %s (proxy to %s for UI/API)", addr, strings.TrimSuffix(aiEngineURL, "/"))
+	certFile := strings.TrimSpace(os.Getenv("TLS_CERT_FILE"))
+	keyFile := strings.TrimSpace(os.Getenv("TLS_KEY_FILE"))
+	if certFile != "" && keyFile != "" {
+		log.Printf("HTTPS enabled on %s (cert=%s)", addr, certFile)
+		log.Fatal(http.ListenAndServeTLS(addr, certFile, keyFile, nil))
+		return
+	}
