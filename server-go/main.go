@@ -191,3 +191,8 @@ func main() {
 		log.Fatal(http.ListenAndServeTLS(addr, certFile, keyFile, nil))
 		return
 	}
+	log.Printf("HTTPS disabled (TLS_CERT_FILE/TLS_KEY_FILE not set); serving HTTP on %s", addr)
+	log.Fatal(http.ListenAndServe(addr, nil))
+}
+
+
