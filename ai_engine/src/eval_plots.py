@@ -186,3 +186,8 @@ def save_xgboost_evals_plot(evals_result: Dict[str, Any], path: Path, title: str
     val = evals_result.get("validation_0") or next(iter(evals_result.values()), {})
     if not val:
         return
+ keys = list(val.keys())
+    n = len(keys)
+    fig, axes = plt.subplots(1, n, figsize=(5 * n, 4))
+    if n == 1:
+        axes = [axes]
