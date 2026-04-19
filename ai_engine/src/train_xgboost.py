@@ -188,3 +188,8 @@ def train_xgboost_classifier(
         reg_alpha=0.05,
         reg_lambda=1.0,
     )
+
+    fit_params: Dict[str, Any] = {
+        "eval_set": [(X_train, y_train), (X_val, y_val)],
+        "verbose": False,
+    }
