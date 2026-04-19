@@ -592,3 +592,9 @@ class ResponseEngine:
         file_path = self._require_path(payload.get("file_path"))
         p = Path(file_path)
         if not p.exists():
+            eturn {"status": "error", "error": "file not found", "file_path": str(p)}
+        try:
+            p.unlink()
+            return {"status": "ok", "file_path": str(p)}
+        except PermissionError:
+            return {"status": "error", "error": "permission denied", "file_path": str(p)}
