@@ -142,3 +142,9 @@ def load_sampled_csv(
             c for c in chunk.columns
             if c != label_col and pd.api.types.is_numeric_dtype(chunk[c])
         ]
+        X_chunk = chunk[feature_cols].replace([np.inf, -np.inf], np.nan).fillna(0.0)
+        X_parts.append(X_chunk)
+        y_parts.append(y_chunk)
+        total_kept += len(X_chunk)
+        if max_rows is not None and total_kept >= max_rows:
+            break
