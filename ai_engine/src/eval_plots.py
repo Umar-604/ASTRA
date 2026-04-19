@@ -251,3 +251,6 @@ title: str = "Isolation Forest anomaly scores (test set)",
     fig.tight_layout()
  fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+Normal (0)", density=True)
+    ax.hist(scores_attack, bins=40, alpha=0.6, label="Attack (1)", density=True)
+    ax.set_xlabel("Anomaly score (higher = more anomalou
