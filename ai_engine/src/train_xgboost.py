@@ -388,3 +388,18 @@ def main():
         bar_m["ROC-AUC"] = auc_v
     save_metrics_bar_png(bar_m, plot_dir / "netflow_xgboost_metrics_bar.png",
                          title="XGBoost — hold-out metrics")
+
+
+    for loss_key in ("mlogloss", "logloss"):
+        train_series = (evals.get(train_key) or {}).get(loss_key)
+        val_series = (evals.get(val_key) or {}).get(loss_key)
+        if train_series and val_series:
+            save_learning_curve_png(
+                list(range(1, len(train_series) + 1)),
+                train_series,
+                val_series,
+                plot_dir / "netflow_xgboost_loss_curve.png",
+                y_label=loss_key,
+                title="XGBoost — train vs validation loss",
+            )
+            break
