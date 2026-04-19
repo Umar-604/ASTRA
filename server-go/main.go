@@ -91,3 +91,12 @@ func main() {
         log.Fatalf("nats: %v", err)
     }
     defer pub.Close()
+
+    // Response bridge: terminates the engine ↔ agent response loop at the
+    // gateway over HTTPS so endpoints don't need direct NATS reachability.
+    if rb, err := internal.NewResponseBridge(pub); err != nil {
+        log.Printf("response bridge disabled: %v", err)
+    } else {
+        rb.RegisterRoutes(http.DefaultServeMux)
+        log.Printf("response bridge: routes /api/response/commands and /api/response/ack registered")
+    }
