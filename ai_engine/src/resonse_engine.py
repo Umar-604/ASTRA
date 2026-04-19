@@ -880,3 +880,14 @@ class ResponseEngine:
             "triggered_by": triggered_by,
             "tx_id": (details or {}).get("tx_id"),
         }
+        line = json.dumps(data, ensure_ascii=True)
+        with open(self.config.action_log_path, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+        with open(self.config.history_path, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+        rec.details = {
+            **(rec.details or {}),
+            "action_taken": action,
+            "triggered_by": triggered_by,
+            "tx_id": (details or {}).get("tx_id"),
+        }
