@@ -192,3 +192,6 @@ self.model = IsolationForest(
 def _train_autoencoder(self, X_train: np.ndarray, y_train: np.ndarray, plot_dir: str | None = None):
         """Train Autoencoder model: deeper architecture with L2 and dropout regularization."""
         print("🔧 Training Autoencoder (deep, regularized)...")
+# Train strictly on benign windows only (label=0)
+        benign_mask = y_train == 0
+        X_benign = X_train[benign_mask]
