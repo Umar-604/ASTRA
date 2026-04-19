@@ -71,3 +71,7 @@ def __init__(self, model_type: str = "isolation_forest"):
  # Split data (stratify only when both classes present)
         stratify_arg = y if len(np.unique(y)) > 1 else None
         X_train, X_test, y_train, y_test = train_test_split(
+  X, y, test_size=0.2, random_state=42, stratify=stratify_arg
+        )
+        
+        # Scale features
