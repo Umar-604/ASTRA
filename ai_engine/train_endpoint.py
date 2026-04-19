@@ -75,3 +75,6 @@ def __init__(self, model_type: str = "isolation_forest"):
         )
         
         # Scale features
+X_train_scaled = self.scaler.fit_transform(X_train)
+        X_test_scaled = self.scaler.transform(X_test)
+        
