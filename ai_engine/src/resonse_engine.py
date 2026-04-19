@@ -712,3 +712,10 @@ class ResponseEngine:
         else:
             cmd = None
         return {"status": "ok" if cmd else "error", "user": user, "command": cmd}
+
+    def force_logout(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if self._is_remote_target(payload):
+            return self._dispatch_to_endpoint("force_logout", payload, {"user": "user"})
+        user = str(payload.get("user") or "").strip()
+        if not user:
+            return {"status": "error", "error": "user required"}
