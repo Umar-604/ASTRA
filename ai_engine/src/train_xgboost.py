@@ -198,3 +198,12 @@ def train_xgboost_classifier(
         fit_params["sample_weight"] = sample_weights
     model.fit(X_train, y_train, **fit_params)
     return model
+
+
+    def save_feature_importance_png(
+    model: XGBClassifier,
+    feature_names: List[str],
+    path: Path,
+    top_k: int = 25,
+    title: str = "Feature Importance",
+) -> None:
