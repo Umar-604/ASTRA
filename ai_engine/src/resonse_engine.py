@@ -945,3 +945,13 @@ class ResponseEngine:
                 if t == c or t in c:
                     return f"trusted process: {t} (matched in event/event_data)"
 
+        # IPs: check both the canonical `ip_address` and the destination fields
+        # used by network telemetry. The agent's own beacon to the gateway
+        # appears here, so trusting the gateway IP suppresses the feedback loop.
+        ip_keys = ("ip_address", "dest_ip", "destination_ip", "remote_ip", "remote_address", "dst_ip", "DestinationIp")
+        for src in (event, event_data):
+            for key in ip_keys:
+                ip_val = str(src.get(key) or "").strip()
+                if ip_val and ip_val in self.config.trusted_ips:
+                    return f"trusted ip: {ip_val} ({key})"
+
