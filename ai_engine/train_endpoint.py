@@ -435,3 +435,9 @@ ax.tick_params(axis="both", labelsize=16, colors="#4B5563")
         if fp_rate_benign is not None:
             lines.append(f"FP rate: {fp_rate_benign * 100:.2f}%")
         if lines:
+ ax.text(
+                0.03, 0.97, "\n".join(lines),
+                transform=ax.transAxes, fontsize=14, verticalalignment="top", horizontalalignment="left",
+                bbox=dict(boxstyle="round,pad=0.5", facecolor="white", edgecolor="#d1d5db", alpha=0.95),
+                fontfamily="monospace", color="#374151",
+            )
