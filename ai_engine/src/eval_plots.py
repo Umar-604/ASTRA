@@ -68,3 +68,8 @@ def save_roc_curve_png(
     fig.tight_layout()
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+def save_pr_curve_png(
+    y_true: np.ndarray,
+    y_score: np.ndarray,
+    path: Path,
+    title: str = "Precision–Recall curve",
