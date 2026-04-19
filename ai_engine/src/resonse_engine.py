@@ -107,3 +107,11 @@ class EngineConfig:
         dry_run = str(os.getenv("AUTO_RESPONSE_DRY_RUN", "false")).strip().lower() in {"1", "true", "yes", "on"}
         chain = os.getenv("BLOCKCHAIN_HASH_API_URL")
         if not chain:
+            base = os.getenv("FABRIC_GATEWAY_URL", "https://127.0.0.1:8081").rstrip("/")
+            chain = f"{base}/audit/hash" if base else None
+        verify_tls = str(os.getenv("BLOCKCHAIN_HASH_API_VERIFY_TLS", "false")).strip().lower() in {"1", "true", "yes", "on"}
+
+        trusted_ips = {p.strip() for p in str(os.getenv("RESPONSE_TRUSTED_IPS", "")).split(",") if p.strip()}
+        trusted_processes = {
+            p.strip().lower() for p in str(os.getenv("RESPONSE_TRUSTED_PROCESSES", "")).split(",") if p.strip()
+        }
