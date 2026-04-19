@@ -148,3 +148,12 @@ def load_sampled_csv(
         total_kept += len(X_chunk)
         if max_rows is not None and total_kept >= max_rows:
             break
+        \
+        if not X_parts:
+        raise ValueError("No data loaded from CSV - adjust sampling parameters")
+    X = pd.concat(X_parts, axis=0, ignore_index=True)
+    y = pd.concat(y_parts, axis=0, ignore_index=True).iloc[: len(X)]
+    if max_rows is not None and len(X) > max_rows:
+        X = X.iloc[:max_rows].reset_index(drop=True)
+        y = y.iloc[:max_rows].reset_index(drop=True)
+    if y.dtype == object or isinstance(y.iloc[0], str):
