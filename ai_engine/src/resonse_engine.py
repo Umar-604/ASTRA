@@ -71,3 +71,14 @@ def _resolve_to_ips(host: str) -> Set[str]:
     except Exception:
         pass
     return out
+
+
+@dataclass
+class ActionRecord:
+    timestamp: str
+    event_id: str
+    action: str
+    status: str
+    details: Dict[str, Any] = field(default_factory=dict)
+    rollback_action: Optional[str] = None
+    rollback_payload: Optional[Dict[str, Any]] = None
