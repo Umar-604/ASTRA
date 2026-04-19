@@ -536,3 +536,8 @@ elif self.model_type == "lstm":
             X_test_reshaped = X_test.reshape(X_test.shape[0], 1, X_test.shape[1])
             y_proba = self.model.predict(X_test_reshaped).flatten()
             y_pred = (y_proba > 0.5).astype(int)
+# Calculate metrics
+        try:
+            auc = roc_auc_score(y_test, y_proba)
+        except:
+            auc = 0.5
