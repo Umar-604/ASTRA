@@ -521,3 +521,8 @@ class ResponseEngine:
         except psutil.AccessDenied:
             return {"status": "error", "error": "permission denied", "pid": pid}
 
+    def suspend_process(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        if self._is_remote_target(payload):
+            return self._dispatch_to_endpoint(
+                "suspend_process", payload, {"pid": "pid"}, rollback_action="resume_process"
+            )
