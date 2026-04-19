@@ -934,3 +934,14 @@ class ResponseEngine:
                 base = v.replace("\\", "/").rsplit("/", 1)[-1]
                 if base and base != v:
                     candidates.append(base)
+
+        for trusted in self.config.trusted_processes:
+            t = trusted.strip().lower()
+            if not t:
+                continue
+            for c in candidates:
+                # Substring match — the agent shows up as "python.exe ... win_agent.py"
+                # so we need contains-semantics, not just basename equality.
+                if t == c or t in c:
+                    return f"trusted process: {t} (matched in event/event_data)"
+
