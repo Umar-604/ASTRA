@@ -342,3 +342,12 @@ class ResponseEngine:
         host_norm = self._HOST_PLATFORM_NORMALIZED.get(host, host)
         target_norm = self._HOST_PLATFORM_NORMALIZED.get(target, target)
         return target_norm != host_norm
+
+    def _dispatch_to_endpoint(
+        self,
+        action: str,
+        payload: Dict[str, Any],
+        required: Dict[str, str],
+        rollback_action: Optional[str] = None,
+        extra: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
