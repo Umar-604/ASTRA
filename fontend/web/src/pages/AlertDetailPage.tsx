@@ -311,3 +311,11 @@ padding: 16,
                         <div style={{ opacity: 0.9, fontSize: 12, marginTop: 4, overflowWrap: 'anywhere' }}>
                           tx_id: {item.tx_id}
 </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+</div>
