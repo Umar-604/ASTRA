@@ -374,3 +374,12 @@ export function DashboardPage() {
                 labels: ['No alerts'],
                 datasets: [
                   {
+                    data: [1],
+                    backgroundColor: [gridColor || '#e2e8f0'],
+                    borderColor: [gridColor || '#e2e8f0'],
+                    borderWidth: 1
+                  }
+                ]
+              },
+          options: {
+            responsive: true,
