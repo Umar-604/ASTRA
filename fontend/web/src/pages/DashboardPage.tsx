@@ -393,3 +393,10 @@ export function DashboardPage() {
       }
     })();
 
+    return () => {
+      chartsRef.current.line?.destroy();
+      chartsRef.current.donut?.destroy();
+      mounted = false;
+    };
+  }, [themeKey(), chartTimeRange, JSON.stringify(dashboardSeries), severityData.critical, severityData.high, severityData.medium]);
+
