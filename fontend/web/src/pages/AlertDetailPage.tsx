@@ -239,3 +239,7 @@ padding: 16,
               <div>{record?.timestamp ?? (summary as AlertItem)?.['@timestamp'] ?? '—'}</div>
             </div>
           </section>
+ {/* 4) Event data (Sysmon / pipeline) – all details captured by the agent */}
+          {record?.data && Object.keys(record.data).length > 0 && (
+            <section
+              style={{
