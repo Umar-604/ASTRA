@@ -386,3 +386,7 @@ justifyContent: 'space-between',
                   ? '#7f1d1d'
                   : (a.severity || '').toUpperCase() === 'MEDIUM'
                     ? '#92400e'
+  : 'var(--accent)';
+              const rowKey = a.event_id ? `${a.event_id}-${index}` : `alert-${index}`;
+              const score = getAlertScoreDisplay(a, 0);
+              const status = a.alert_status || 'new';
