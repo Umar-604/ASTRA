@@ -111,4 +111,8 @@ if (hostFilter.trim()) {
  const handleExport = () => {
     const headers = ['Timestamp', 'Host', 'Event type', 'AI verdict', 'Score', 'Severity', 'Integrity'];
     const rows = filtered.map((a) => {
+const score = getAlertScoreDisplay(a, 0);
+      return [
+        a['@timestamp'] ?? '',
+        a.host_id ?? '',
 </svg>
