@@ -326,3 +326,16 @@ export function DashboardPage() {
                 position: 'top',
                 labels: { color: textColor, usePointStyle: true }
               },
+              tooltip: {
+                callbacks: {
+                  title: (items: any) => (items[0]?.label ? `Date: ${items[0].label}` : ''),
+                  label: (item: any) => `${item.dataset.label}: ${item.raw}`
+                }
+              }
+            },
+            scales: {
+              x: {
+                title: { display: true, text: chartTimeRange === '1h' ? 'Last 1 hour' : chartTimeRange === '24h' ? 'Last 24 hours' : 'Last 7 days', color: textColor },
+                grid: { display: false },
+                ticks: { color: textColor, maxRotation: 45 }
+              },
