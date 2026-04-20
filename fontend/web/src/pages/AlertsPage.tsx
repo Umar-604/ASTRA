@@ -256,3 +256,11 @@ justifyContent: 'space-between',
           </button>
           <button
             type="button"
+ onClick={fetchAlerts}
+            disabled={loading}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '8px 12px',
+              borderRadius: 8,
