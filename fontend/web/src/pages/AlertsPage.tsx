@@ -380,3 +380,9 @@ justifyContent: 'space-between',
   <div className="alerts-card-list" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             {pageItems.map((a, index) => {
               const onClick = () =>
+  navigate(`/alerts/${encodeURIComponent(a.event_id)}`, { state: { alert: a } });
+              const sevColor =
+                (a.severity || '').toUpperCase() === 'HIGH'
+                  ? '#7f1d1d'
+                  : (a.severity || '').toUpperCase() === 'MEDIUM'
+                    ? '#92400e'
