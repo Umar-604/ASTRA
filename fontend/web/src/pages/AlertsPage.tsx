@@ -414,3 +414,14 @@ justifyContent: 'space-between',
                       marginBottom: 10,
                     }}
                   >
+  {a['@timestamp'] || '—'}
+                  </div>
+                  <dl
+                    style={{
+                      margin: 0,
+                      display: 'grid',
+                      gridTemplateColumns: 'minmax(100px, 38%) 1fr',
+                      gap: '8px 12px',
+                      fontSize: 13,
+                    }}
+                  >
