@@ -377,3 +377,6 @@ justifyContent: 'space-between',
         ) : pageItems.length === 0 ? (
           <div style={{ padding: 48, textAlign: 'center', fontSize: 14, color: 'var(--gray-text, #64748b)' }}>No alerts</div>
         ) : narrow ? (
+  <div className="alerts-card-list" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            {pageItems.map((a, index) => {
+              const onClick = () =>
