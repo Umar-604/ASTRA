@@ -459,3 +459,30 @@ export function AuditPage() {
           <button
             type="button"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page >= totalPages}
+            style={{
+              padding: '6px 10px',
+              borderRadius: 6,
+              border: '1px solid var(--panel-border)',
+              background: 'var(--panel-bg)',
+              color: 'var(--fg)',
+              cursor: page >= totalPages ? 'not-allowed' : 'pointer',
+              opacity: page >= totalPages ? 0.5 : 1,
+            }}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+
+      <style>{`
+        .audit-row:hover { background: var(--muted, #f8fafc); }
+        body[data-theme="dark"] .audit-row:hover { background: var(--muted); }
+        body[data-theme="dark"] .audit-card { background: transparent; }
+        @media (max-width: 960px) {
+          .audit-card:last-child { border-bottom: none !important; }
+        }
+      `}</style>
+    </div>
+  );
+}
