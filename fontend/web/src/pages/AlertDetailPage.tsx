@@ -217,3 +217,9 @@ padding: 16,
               <div style={{ overflowWrap: 'anywhere' }}>{txId || '—'}</div>
             </div>
           </section>
+ {/* 3) Context (record from API or placeholder) */}
+          <section
+            style={{
+              border: '1px solid var(--panel-border)',
+              borderRadius: 12,
+              padding: 16,
