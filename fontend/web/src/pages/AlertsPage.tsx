@@ -41,4 +41,7 @@ export function AlertsPage() {
   const [loading, setLoading] = useState(false);
 const [ackLoading, setAckLoading] = useState<string | null>(null);
   const [severity, setSeverity] = useState<(typeof sevOptions)[number]>('ANY');
+  const [alertStatusFilter, setAlertStatusFilter] = useState<'ANY' | AlertStatus>('ANY');
+  const [integrity, setIntegrity] = useState<(typeof integrityOptions)[number]>('ANY');
+  const [hostFilter, setHostFilter] = useState('');
 </svg>
