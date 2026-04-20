@@ -22,3 +22,12 @@ function riskBadgeStyle(risk: number | null) {
   return { label: `Benign (${risk.toFixed(2)})` as const, bg: '#166534', fg: '#dcfce7' };
 }
 
+function integrityPill(integrity?: string | null) {
+  const status = (integrity || 'Pending').toUpperCase();
+  const label =
+    status === 'VERIFIED' ? '✅ Verified' : status === 'TAMPERED' ? '❌ Tampered' : 'Pending';
+  const bg = status === 'VERIFIED' ? '#14532d' : status === 'TAMPERED' ? '#7f1d1d' : '#334155';
+  const fg = status === 'VERIFIED' ? '#dcfce7' : status === 'TAMPERED' ? '#fee2e2' : '#f1f5f9';
+  return { label, bg, fg };
+}
+
