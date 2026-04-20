@@ -230,3 +230,8 @@ justifyContent: 'space-between',
             display: 'flex',
             alignItems: 'center',
             gap: 8,
+  flexWrap: 'wrap',
+            width: narrow ? '100%' : undefined,
+            justifyContent: narrow ? 'flex-start' : undefined,
+          }}
+        >
