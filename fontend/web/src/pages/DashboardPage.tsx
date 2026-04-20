@@ -56,3 +56,16 @@ function buildSeriesFromAlerts(items: AlertItem[], range: ChartTimeRange): Dashb
       key = `${String(d.getHours()).padStart(2, '0')}:${String(slot).padStart(2, '0')}`;
     } else if (range === '24h') {
       key = `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:00`;
+    } else {
+      key = ts.slice(0, 10);
+    }
+    if (!(key in byKey)) return;
+    byKey[key].totalEvents += 1;
+    const sev = (i.severity || '').toUpperCase();
+    if (sev === 'HIGH' || sev === 'CRITICAL') byKey[key].criticalAlerts += 1;
+    if (isAiDetection(i)) byKey[key].aiDetections += 1;
+    if ((i.integrity_status || '').toString().toUpperCase() === 'VERIFIED') byKey[key].logsSecured += 1;
+  });
+  return labels.map((date) => ({ date, ...byKey[date] }));
+}
+
