@@ -494,3 +494,18 @@ export function DashboardPage() {
                 <tr>
                   <th className="col-timestamp">Timestamp</th>
                   <th className="col-endpoint">Endpoint</th>
+                  <th>Detection</th>
+                  <th className="col-severity">Severity</th>
+                  <th className="col-status">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {latest.length === 0 ? (
+                  <tr>
+                    <td colSpan={5} className="empty-state">
+                      No alerts
+                    </td>
+                  </tr>
+                ) : (
+                  latest.map((a) => {
+                    const sev = (a.severity || '').toUpperCase();
