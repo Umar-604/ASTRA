@@ -350,3 +350,13 @@ export function DashboardPage() {
           }
         });
       }
+      if (donutRef.current) {
+        const sevCritical = styles.getPropertyValue('--severity-critical').trim() || '#ef4444';
+        const sevHigh = styles.getPropertyValue('--severity-high').trim() || '#f59e0b';
+        const sevMedium = styles.getPropertyValue('--severity-medium').trim() || '#fbbf24';
+        const total = severityData.critical + severityData.high + severityData.medium;
+        const ctx2 = donutRef.current.getContext('2d')!;
+        chartsRef.current.donut = new Chart(ctx2, {
+          type: 'doughnut',
+          data: total > 0
+            ? {
