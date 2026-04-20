@@ -137,4 +137,7 @@ const csv = [headers.join(','), ...rows.map((r) => r.map((c) => `"${String(c).re
 setHostFilter('');
     setPage(1);
   };
+const filterInputStyle: CSSProperties = {
+    background: 'var(--panel-bg)',
+    color: 'var(--fg)',
 </svg>
