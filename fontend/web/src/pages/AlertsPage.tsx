@@ -532,3 +532,12 @@ justifyContent: 'space-between',
                   color: 'var(--gray-text, #64748b)',
                 }}
               >
+<div>Timestamp</div>
+                <div>Host</div>
+                <div>Event type</div>
+                <div>AI verdict</div>
+                <div>Score</div>
+                <div>Severity</div>
+                <div>Status</div>
+                <div>Actions</div>
+              </div>
