@@ -569,3 +569,14 @@ justifyContent: 'space-between',
                       borderBottom: index < pageItems.length - 1 ? '1px solid var(--border-color)' : 'none',
                       cursor: 'pointer',
                     }}
+  className="alerts-row"
+                  >
+                    <div style={{ overflowWrap: 'anywhere', fontSize: 13 }} title={a['@timestamp']}>
+                      {a['@timestamp']}
+                    </div>
+                    <div style={{ overflowWrap: 'anywhere', fontSize: 13 }} title={a.host_id}>
+                      {a.host_id || ''}
+                    </div>
+                    <div style={{ overflowWrap: 'anywhere', fontSize: 13 }} title={a.event_type}>
+                      {a.event_type}
+                    </div>
