@@ -133,3 +133,8 @@ marginBottom: 12
               </div>
             </div>
           </section>
+  {/* 1b) Alert status & actions */}
+          <section
+            style={{
+              border: '1px solid var(--panel-border)',
+              borderRadius: 12,
