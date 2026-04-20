@@ -99,3 +99,12 @@ export function DashboardPage() {
     return d.toISOString();
   };
 
+  useEffect(() => {
+    let mounted = true;
+    const since24h = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
+    const since7d = sinceForRange('7d');
+    Promise.allSettled([
+      getOverview(),
+      apiClient.get<{ total?: number; by_severity?: Record<string, number>; by_ai_label?: Record<string, number> }>(
+        '/ui/threats/summary'
+      ),
