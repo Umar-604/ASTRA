@@ -108,3 +108,8 @@ export function DashboardPage() {
       apiClient.get<{ total?: number; by_severity?: Record<string, number>; by_ai_label?: Record<string, number> }>(
         '/ui/threats/summary'
       ),
+      getAlerts({ since: since24h, limit: 500 }),
+      getAlerts({ severity: 'HIGH', since: since24h, limit: 3 }),
+      getDashboardMetrics(chartTimeRange),
+      getAlerts({ since: sinceForRange(chartTimeRange), limit: 2000 })
+    ]).then((results) => {
