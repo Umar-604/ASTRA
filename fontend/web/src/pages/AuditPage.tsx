@@ -241,3 +241,18 @@ export function AuditPage() {
               setHostFilter(e.target.value);
               setPage(1);
             }}
+            placeholder="hostname"
+            style={filterInputStyle}
+          />
+        </label>
+        <label style={{ display: 'flex', flexDirection: 'column', fontSize: 12, opacity: 0.8, gap: 4 }}>
+          Page size
+          <select
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(parseInt(e.target.value, 10));
+              setPage(1);
+            }}
+            style={{ ...filterInputStyle, cursor: 'pointer' }}
+          >
+            {[10, 20, 50].map((n) => (
