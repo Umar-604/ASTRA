@@ -103,3 +103,8 @@ border: '1px solid var(--panel-border)',
 marginBottom: 12
             }}
           >
+ <h3 style={{ marginTop: 0, marginBottom: 8, fontSize: 16 }}>Summary</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', rowGap: 6 }}>
+              <div style={{ opacity: 0.7 }}>Event ID</div>
+              <div style={{ overflowWrap: 'break-word' }}>{event?.event_id ?? alertId ?? '—'}</div>
+              <div style={{ opacity: 0.7 }}>Endpoint</div>
