@@ -293,3 +293,11 @@ justifyContent: 'space-between',
         </div>
       </div>
 
+ {/* Secondary filters: Integrity, Host, Page size */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fill, minmax(200px, 1fr))',
+          gap: 12,
+          marginBottom: 12,
+          alignItems: 'start',
