@@ -9,4 +9,9 @@ const severityChips: { value: (typeof sevOptions)[number]; label: string }[] = [
 { value: 'ANY', label: 'All' },
   { value: 'CRITICAL', label: 'Critical' },
   { value: 'HIGH', label: 'High' },
-  { value: 'MEDIUM', label: 'Medium' },
+  { value: 'MEDIUM', label: 'Medium' },];
+const alertStatusOptions: { value: 'ANY' | AlertStatus; label: string }[] = [
+  { value: 'ANY', label: 'All' },
+  ];
+const alertStatusOptions: { value: 'ANY' | AlertStatus; label: string }[] = [
+  { value: 'ANY', label: 'All' },
