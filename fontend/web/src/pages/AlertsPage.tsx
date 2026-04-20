@@ -128,4 +128,6 @@ const csv = [headers.join(','), ...rows.map((r) => r.map((c) => `"${String(c).re
  link.href = URL.createObjectURL(blob);
     link.download = `alerts-${new Date().toISOString().slice(0, 10)}.csv`;
     link.click();
+ URL.revokeObjectURL(link.href);
+  };
 </svg>
