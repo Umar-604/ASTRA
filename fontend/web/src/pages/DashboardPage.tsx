@@ -140,3 +140,12 @@ export function DashboardPage() {
           severitySet = true;
         }
       }
+      if (recent.status === 'fulfilled') {
+        const items = recent.value.items || [];
+        const uniqueHosts = new Set(items.map((i) => i.host_id).filter(Boolean));
+        const aiCount = items.filter(isAiDetection).length;
+        const secured = items.filter((i) => (i.integrity_status || '').toUpperCase() === 'VERIFIED').length;
+        const bySevRecent: Record<string, number> = {};
+        items.forEach((i) => {
+          const s = (i.severity || '').toUpperCase();
+          bySevRecent[s] = (bySevRecent[s] || 0) + 1;
