@@ -197,3 +197,25 @@ export function DashboardPage() {
     return () => { mounted = false; };
   }, [chartTimeRange]);
 
+  // Poll chart data when viewing 24h or 1h for near real-time updates
+  useEffect(() => {
+    if (chartTimeRange !== '24h' && chartTimeRange !== '1h') return;
+    const expectedLen = chartTimeRange === '1h' ? 6 : 24;
+    const intervalMs = chartTimeRange === '1h' ? 60_000 : 90_000;
+    const t = setInterval(() => {
+      getDashboardMetrics(chartTimeRange).then((res) => {
+        const raw = res?.series;
+        if (Array.isArray(raw) && raw.length >= expectedLen) {
+          setDashboardSeries(raw.slice(-expectedLen).map((p) => ({
+            date: String(p?.date ?? ''),
+            criticalAlerts: Number(p?.criticalAlerts) || 0,
+            aiDetections: Number(p?.aiDetections) || 0,
+            logsSecured: Number(p?.logsSecured) || 0,
+            totalEvents: Number(p?.totalEvents) || 0
+          })));
+        }
+      }).catch(() => {});
+    }, intervalMs);
+    return () => clearInterval(t);
+  }, [chartTimeRange]);
+
