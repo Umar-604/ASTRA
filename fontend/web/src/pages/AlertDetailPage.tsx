@@ -190,3 +190,7 @@ padding: 16,
                     border: 'none',
                     background: '#15803d',
                     color: '#fff',
+ cursor: ackLoading ? 'wait' : 'pointer',
+                    fontWeight: 600
+                  }}
+                >
