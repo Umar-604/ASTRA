@@ -169,3 +169,12 @@ export function DashboardPage() {
       const alertsItems = alertsRange.status === 'fulfilled' ? alertsRange.value?.items ?? [] : [];
       const defaultSeries = getDefaultSeriesForRange(chartTimeRange);
 
+      // Normalize API series: ensure correct length and numeric fields for Chart.js
+      const normalize = (arr: DashboardMetricsPoint[]) =>
+        arr.map((p) => ({
+          date: String(p?.date ?? ''),
+          criticalAlerts: Number(p?.criticalAlerts) || 0,
+          aiDetections: Number(p?.aiDetections) || 0,
+          logsSecured: Number(p?.logsSecured) || 0,
+          totalEvents: Number(p?.totalEvents) || 0
+        }));
