@@ -178,3 +178,17 @@ _LOGIN_RATE_LIMIT_PER_MIN = int(os.getenv("LOGIN_RATE_LIMIT_PER_MIN", "30"))
 _LOGIN_MAX_FAILURES = int(os.getenv("LOGIN_MAX_FAILURES", "5"))
 _LOGIN_LOCKOUT_MIN = int(os.getenv("LOGIN_LOCKOUT_MIN", "15"))
 _PASSWORD_MIN_LEN = int(os.getenv("PASSWORD_MIN_LEN", "12"))
+
+
+_rl_state: dict[str, tuple[int, int]] = {}  # ip -> (window_start_ts, count)
+_login_rl: dict[str, tuple[int, int]] = {}  # ip -> (window_start_ts, count)
+
+def _path_allowed(path: str) -> bool:
+    for p in _ALLOWLIST_PATHS:
+        if p.endswith("/"):
+            if path.startswith(p.rstrip("/")):
+                return True
+        else:
+            if path == p:
+                return True
+    return False
