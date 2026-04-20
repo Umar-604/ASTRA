@@ -116,4 +116,7 @@ marginBottom: 12
               <div style={{ opacity: 0.7 }}>Severity</div>
               <div>
                 <span
-                  style={{
+                  style={{  padding: '2px 8px',
+                    borderRadius: 999,
+                    background:
+                      severity.toUpperCase() === 'HIGH'
