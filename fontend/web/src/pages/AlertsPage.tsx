@@ -451,3 +451,19 @@ justifyContent: 'space-between',
      display: 'inline-block',
                         }}
                       >
+ {a.severity || '—'}
+                      </span>
+                    </dd>
+                    <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Status</dt>
+                    <dd style={{ margin: 0 }}>
+                      <span
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: 999,
+                          background: statusBg,
+                          color: '#fff',
+                          fontSize: 12,
+                          fontWeight: 600,
+                          display: 'inline-block',
+                        }}
+                      >
