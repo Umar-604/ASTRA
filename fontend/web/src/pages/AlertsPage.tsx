@@ -51,4 +51,8 @@ const [page, setPage] = useState(1);
 useEffect(() => {
     const mq = window.matchMedia('(max-width: 960px)');
     const apply = () => setNarrow(mq.matches);
+apply();
+    mq.addEventListener?.('change', apply);
+    return () => mq.removeEventListener?.('change', apply);
+  }, []);
 </svg>
