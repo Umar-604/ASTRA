@@ -438,3 +438,13 @@ justifyContent: 'space-between',
                         <span style={{ fontSize: 10, opacity: 0.8, display: 'block' }}>Anomaly</span>
                       )}
                     </dd>
+   <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Severity</dt>
+                    <dd style={{ margin: 0 }}>
+                      <span
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: 999,
+                          background: sevColor,
+                          color: '#fff',
+                          fontSize: 12,
+                          fontWeight: 600,
