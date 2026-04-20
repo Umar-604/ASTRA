@@ -671,3 +671,13 @@ justifyContent: 'space-between',
           gap: 12,
         }}
       >
+ <div style={{ opacity: 0.8, fontSize: 12 }}>
+          Page {page} / {totalPages} • {filtered.length} items
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page <= 1}
+            style={{
+              padding: '6px 10px',
+              borderRadius: 6,
