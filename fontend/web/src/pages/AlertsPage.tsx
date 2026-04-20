@@ -716,3 +716,6 @@ justifyContent: 'space-between',
 .alerts-card:last-child { border-bottom: none !important; }
         }
       `}</style>
+  </div>
+  );
+}
