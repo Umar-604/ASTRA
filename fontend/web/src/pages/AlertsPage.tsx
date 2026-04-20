@@ -14,4 +14,5 @@ const alertStatusOptions: { value: 'ANY' | AlertStatus; label: string }[] = [
   { value: 'ANY', label: 'All' },
   ];
 const alertStatusOptions: { value: 'ANY' | AlertStatus; label: string }[] = [
-  { value: 'ANY', label: 'All' },
+  { value: 'ANY', label: 'All' }, { value: 'new', label: 'New' },
+  { value: 'acknowledged', label: 'Acknowledged' },
