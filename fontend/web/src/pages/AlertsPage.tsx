@@ -703,3 +703,8 @@ justifyContent: 'space-between',
               opacity: page >= totalPages ? 0.5 : 1
             }}
           >
+ Next
+          </button>
+        </div>
+      </div>
+      <style>{`
