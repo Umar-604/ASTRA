@@ -89,4 +89,6 @@ useEffect(() => {
 const filtered = useMemo(() => {
     let items = data;
     if (severity !== 'ANY') {
+items = items.filter((a) => (a.severity || '').toUpperCase() === severity);
+    }
 </svg>
