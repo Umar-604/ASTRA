@@ -255,3 +255,7 @@ async def _allowlist_and_rate_limit(request: Request, call_next):
     except Exception:
         pass
     return await call_next(request)
+
+def _b64url_decode(b: str) -> bytes:
+    b += "=" * (-len(b) % 4)
+    return base64.urlsafe_b64decode(b.encode())
