@@ -128,3 +128,20 @@ export function AuditPage() {
           borderRadius: 10,
         }}
       >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', flex: narrow ? '1 1 100%' : undefined }}>
+          <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--fg)' }}>Integrity:</span>
+          {[
+            { value: 'ANY', label: 'All' },
+            { value: 'VERIFIED', label: 'Verified' },
+            { value: 'TAMPERED', label: 'Tampered' },
+            { value: 'PENDING', label: 'Pending' },
+          ].map(({ value, label }) => {
+            const selected = integrityFilter === value;
+            return (
+              <button
+                key={value}
+                type="button"
+                onClick={() => {
+                  setIntegrityFilter(value as 'ANY' | 'VERIFIED' | 'TAMPERED' | 'PENDING');
+                  setPage(1);
+                }}
