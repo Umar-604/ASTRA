@@ -580,3 +580,11 @@ justifyContent: 'space-between',
                     <div style={{ overflowWrap: 'anywhere', fontSize: 13 }} title={a.event_type}>
                       {a.event_type}
                     </div>
+ <div style={{ overflowWrap: 'anywhere', fontSize: 13 }} title={a.ai_label || ''}>
+                      {a.ai_label || ''}
+                    </div>
+                    <div style={{ fontSize: 13 }} title={score.tooltip ?? undefined}>
+                      {score.value}
+                      {score.isBehavioral && (
+                        <span style={{ fontSize: 10, opacity: 0.8, display: 'block' }}>Anomaly</span>
+                      )}
