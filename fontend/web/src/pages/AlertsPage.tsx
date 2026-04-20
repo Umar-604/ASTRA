@@ -612,3 +612,22 @@ justifyContent: 'space-between',
                           fontSize: 12,
                         }}
                       >
+ {statusLabel}
+                      </span>
+                    </div>
+                    <div onClick={(e) => e.stopPropagation()}>
+                      {status === 'new' && (
+                        <button
+                          type="button"
+                          disabled={isAckLoading}
+                          onClick={(e) => handleAcknowledge(e, a.event_id, 'acknowledged')}
+                          style={{
+                            padding: '4px 8px',
+                            fontSize: 11,
+                            borderRadius: 6,
+                            border: 'none',
+                            background: 'var(--accent)',
+                            color: '#fff',
+                            cursor: isAckLoading ? 'wait' : 'pointer',
+                          }}
+                        >
