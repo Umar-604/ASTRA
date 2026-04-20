@@ -408,3 +408,9 @@ justifyContent: 'space-between',
                     style={{
                       fontSize: 11,
                       fontWeight: 600,
+    textTransform: 'uppercase',
+                      letterSpacing: '0.04em',
+                      color: 'var(--gray-text, #64748b)',
+                      marginBottom: 10,
+                    }}
+                  >
