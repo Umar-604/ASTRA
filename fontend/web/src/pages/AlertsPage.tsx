@@ -649,3 +649,16 @@ justifyContent: 'space-between',
                             cursor: isAckLoading ? 'wait' : 'pointer',
                           }}
                         >
+   {isAckLoading ? '…' : 'Resolve'}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </Card>
+
+      <div
