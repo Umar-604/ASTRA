@@ -67,3 +67,14 @@ _INGEST_SUBJECT = os.getenv("INGEST_SUBJECT", "astra.events.ingest")
 _RESPONSE_CMD_SUBJECT_PREFIX = os.getenv("RESPONSE_CMD_SUBJECT_PREFIX", "astra.response.commands.agent")
 _RESPONSE_ACK_SUBJECT = os.getenv("RESPONSE_ACK_SUBJECT", "astra.response.acks")
 _RESPONSE_DELIVERY_MODE = os.getenv("RESPONSE_DELIVERY_MODE", "hybrid").strip().lower()  # server | agent | hybrid
+
+
+# Ensure all server output is also written to logs/logs.txt
+try:
+    os.makedirs("logs", exist_ok=True)
+    _log_file_path = os.path.join("logs", "logs.txt")
+
+    class _Tee:
+        def __init__(self, stream, fh):
+            self._stream = stream
+            self._fh = fh
