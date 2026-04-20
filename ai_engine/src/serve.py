@@ -113,3 +113,13 @@ def _wire_postgres_logging() -> None:
     if not attach_postgres_handler:
         return
     # Resolve DSN from env or settings
+
+    dsn = os.getenv("POSTGRES_DSN") or os.getenv("DATABASE_URL") or getattr(settings, "DATABASE_URL", None)
+    try:
+        targets = [
+            logging.getLogger(),  # root
+            logging.getLogger("uvicorn"),
+            logging.getLogger("uvicorn.error"),
+            logging.getLogger("uvicorn.access"),
+            logging.getLogger(__name__),
+        ]
