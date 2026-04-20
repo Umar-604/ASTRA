@@ -416,3 +416,15 @@ export function DashboardPage() {
         onClick={() => navigate('/alerts?severity=CRITICAL')}
         onKeyDown={(e) => e.key === 'Enter' && navigate('/alerts?severity=CRITICAL')}
         >
+          <div className="card-icon">⚠️</div>
+          <div className="card-info">
+            <h4>Critical Alerts</h4>
+            <p>{metrics.critical}</p>
+          </div>
+        </div>
+        <div className="card clickable"
+          role="button"
+          tabIndex={0}
+          onClick={() => navigate('/hosts')}
+          onKeyDown={(e) => e.key === 'Enter' && navigate('/hosts')}>
+
