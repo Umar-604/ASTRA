@@ -143,3 +143,7 @@ padding: 16,
               marginBottom: 12
             }}
           >
+ <h3 style={{ marginTop: 0, marginBottom: 8, fontSize: 16 }}>Alert status</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <span
+                style={{
