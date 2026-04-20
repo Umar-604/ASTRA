@@ -390,3 +390,7 @@ justifyContent: 'space-between',
               const rowKey = a.event_id ? `${a.event_id}-${index}` : `alert-${index}`;
               const score = getAlertScoreDisplay(a, 0);
               const status = a.alert_status || 'new';
+  const statusLabel = status === 'new' ? 'New' : status === 'acknowledged' ? 'Acknowledged' : 'Resolved';
+              const statusBg = status === 'new' ? '#b91c1c' : status === 'acknowledged' ? '#b45309' : '#15803d';
+              const isAckLoading = ackLoading === a.event_id;
+              return (
