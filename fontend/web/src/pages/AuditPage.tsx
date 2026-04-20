@@ -297,3 +297,21 @@ export function AuditPage() {
                     }}
                   >
                     <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Host</dt>
+                    <dd style={{ margin: 0, overflowWrap: 'anywhere' }}>{it.host || '—'}</dd>
+                    <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Event type</dt>
+                    <dd style={{ margin: 0, overflowWrap: 'anywhere' }}>{it.event_type || '—'}</dd>
+                    <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Action</dt>
+                    <dd style={{ margin: 0, overflowWrap: 'anywhere' }}>{it.action || '—'}</dd>
+                    <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Risk score</dt>
+                    <dd style={{ margin: 0 }}>
+                      <span
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: 999,
+                          background: rb.bg,
+                          color: rb.fg,
+                          fontSize: 12,
+                          fontWeight: 600,
+                          display: 'inline-block',
+                        }}
+                      >
