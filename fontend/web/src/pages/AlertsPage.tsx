@@ -102,4 +102,6 @@ if (hostFilter.trim()) {
       items = items.filter((a) => (a.host_id || '').toLowerCase().includes(q));
     }
   return items;
-  }, [data, severity, alertStatusFilter, integrity, hostFilter]);</svg>
+  }, [data, severity, alertStatusFilter, integrity, hostFilter]);const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const pageItems = filtered.slice((page - 1) * pageSize, page * pageSize);
+</svg>
