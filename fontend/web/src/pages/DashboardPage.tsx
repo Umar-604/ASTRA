@@ -219,3 +219,12 @@ export function DashboardPage() {
     return () => clearInterval(t);
   }, [chartTimeRange]);
 
+  const totalAlerts24h = overview?.events?.total ?? 0;
+  const activeThreats = overview?.events?.by_severity?.HIGH ?? 0;
+  // Healthy hosts: derived from summary if available; otherwise N/A
+  const healthyHosts = useMemo(() => {
+    const hosts = summary?.hosts_total ?? null;
+    const unhealthy = summary?.hosts_unhealthy ?? 0;
+    return hosts != null ? Math.max(0, hosts - unhealthy) : 'N/A';
+  }, [summary]);
+  // Integrity summary (verified/pending/tampered) from summary if available
