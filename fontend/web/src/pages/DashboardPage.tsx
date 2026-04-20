@@ -117,4 +117,11 @@ export function DashboardPage() {
       const [ov, sev, recent, latestHigh, dashboard, alertsRange] = results;
       const apiBase = apiClient.BASE_URL || '(same origin)';
       const dashboardStatus = dashboard.status === 'fulfilled' ? `OK (${Array.isArray((dashboard as PromiseFulfilledResult<any>).value?.series) ? (dashboard as PromiseFulfilledResult<any>).value.series.length : 0} points)` : `Failed: ${(dashboard as PromiseRejectedResult).reason?.message ?? 'network/error'}`;
-      const alertsStatus = alertsRange.status === 'fulfilled' ? `OK (${(alertsRange as 
+      const alertsStatus = alertsRange.status === 'fulfilled' ? `OK (${(alertsRange as PromiseFulfilledResult<any>).value?.items?.length ?? 0} items)` : `Failed: ${(alertsRange as PromiseRejectedResult).reason?.message ?? 'network/error'}`;
+      if (typeof window !== 'undefined') {
+        console.log('[Dashboard] API base:', apiBase);
+        console.log('[Dashboard] Dashboard metrics:', dashboard.status, dashboard.status === 'fulfilled' ? (dashboard as any).value?.series?.length : (dashboard as PromiseRejectedResult).reason);
+        console.log('[Dashboard] Alerts:', alertsRange.status, alertsRange.status === 'fulfilled' ? (alertsRange as any).value?.items?.length : (alertsRange as PromiseRejectedResult).reason);
+      }
+      if (ov.status === 'fulfilled') setOverview(ov.value);
+
