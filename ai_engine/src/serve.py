@@ -160,3 +160,8 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
+
+@app.exception_handler(RequestValidationError)
+async def _hide_validation_details(request: Request, exc: RequestValidationError):
+    # Reduce attack surface: never leak validation structure/details
+    return JSONResponse({"detail": "Invalid request"}, status_code=400)
