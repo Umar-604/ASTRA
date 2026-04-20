@@ -76,4 +76,8 @@ useEffect(() => {
         if (!mounted) return;
         setData(res.items || []);
       })
+.catch(() => {
+        if (!mounted) return;
+        setData([]);
+      })
 </svg>
