@@ -360,3 +360,17 @@ export function DashboardPage() {
           type: 'doughnut',
           data: total > 0
             ? {
+                labels: ['Critical', 'High', 'Medium'],
+                datasets: [
+                  {
+                    data: [severityData.critical, severityData.high, severityData.medium],
+                    backgroundColor: [sevCritical, sevHigh, sevMedium],
+                    borderColor: [sevCritical, sevHigh, sevMedium],
+                    borderWidth: 1
+                  }
+                ]
+              }
+            : {
+                labels: ['No alerts'],
+                datasets: [
+                  {
