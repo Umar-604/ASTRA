@@ -272,3 +272,13 @@ export function DashboardPage() {
             labels,
             datasets: [
               {
+                label: 'Critical Alerts',
+                data: criticalAlerts,
+                borderColor: '#dc2626',
+                backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                tension: 0.35,
+                fill: true,
+                pointRadius: 3,
+                pointHoverRadius: 5
+              },
+              {
