@@ -204,4 +204,11 @@ justifyContent: 'space-between',
                 type="button"
                 onClick={() => {
                   setSeverity(value);
-                  setPage(1);
+                  setPage(1);  }}
+                style={{
+                  padding: '8px 14px',
+                  borderRadius: 8,
+                  border: `1px solid ${selected ? 'var(--accent)' : 'var(--border-color)'}`,
+                  background: selected ? 'rgba(var(--accent-rgb), 0.12)' : 'var(--widget-bg)',
+                  color: selected ? 'var(--accent)' : 'var(--fg)',
+                  fontWeight: selected ? 600 : 500,
