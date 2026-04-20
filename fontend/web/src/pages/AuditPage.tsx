@@ -357,3 +357,20 @@ export function AuditPage() {
                   color: 'var(--gray-text, #64748b)',
                 }}
               >
+                <div>Timestamp</div>
+                <div>Host</div>
+                <div>Event Type</div>
+                <div>Action</div>
+                <div>Risk Score</div>
+                <div>Integrity Status</div>
+              </div>
+              {pageItems.map((it, idx) => {
+                const risk = typeof it.risk_score === 'number' ? it.risk_score : null;
+                const rb = riskBadgeStyle(risk);
+                const ip = integrityPill(it.integrity);
+                return (
+                  <div
+                    key={it.event_id}
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: TABLE_GRID_COLS,
