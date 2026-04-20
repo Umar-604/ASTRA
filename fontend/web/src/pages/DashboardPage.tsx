@@ -69,3 +69,14 @@ function buildSeriesFromAlerts(items: AlertItem[], range: ChartTimeRange): Dashb
   return labels.map((date) => ({ date, ...byKey[date] }));
 }
 
+export function DashboardPage() {
+  const navigate = useNavigate();
+  const [overview, setOverview] = useState<OverviewResponse | null>(null);
+  const [summary, setSummary] = useState<any>(null);
+  const [latest, setLatest] = useState<AlertItem[]>([]);
+  const [metrics, setMetrics] = useState<{ critical: number; endpoints: number; ai: number; secured: number }>({
+    critical: 0,
+    endpoints: 0,
+    ai: 0,
+    secured: 0
+  });
