@@ -7,3 +7,6 @@ import { getResponseHistory } from '@api/response';
 import { BackButton } from '@components/ui/BackButton';
 import type { EventSummary, AlertItem, AlertStatus, ResponseHistoryItem } from '@app-types/api';
 import { getAlertScoreDisplay } from '../utils/alertScore';
+export function AlertDetailPage() {
+  const { alertId } = useParams();
+  const location = useLocation();
