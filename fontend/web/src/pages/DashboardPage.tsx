@@ -291,3 +291,13 @@ export function DashboardPage() {
                 pointRadius: 3,
                 pointHoverRadius: 5
               },
+              {
+                label: 'Logs Secured',
+                data: logsSecured,
+                borderColor: '#059669',
+                backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                tension: 0.35,
+                fill: true,
+                pointRadius: 3,
+                pointHoverRadius: 5
+              },
