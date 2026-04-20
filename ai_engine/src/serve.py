@@ -192,3 +192,52 @@ def _path_allowed(path: str) -> bool:
             if path == p:
                 return True
     return False
+
+
+@app.middleware("http")
+async def _allowlist_and_rate_limit(request: Request, call_next):
+    path = request.url.path
+    # Let CORSMiddleware handle preflight and attach proper CORS headers
+    if request.method == "OPTIONS":
+        return await call_next(request)
+    # Always allow authentication endpoints (defensive default)
+    if path.startswith("/auth/"):
+        return await call_next(request)
+    # Allow agent provisioning endpoints (admin-protected at route level)
+    if path.startswith("/agents"):
+        return await call_next(request)
+    # Allow UI summary endpoints (read-only, still RBAC'd at route level)
+    if path.startswith("/ui/"):
+        return await call_next(request)
+    # Allow OpenAPI/docs endpoints (useful for dev/testing)
+    if path in ("/openapi.json", "/docs", "/redoc") or path.startswith("/docs/") or path.startswith("/redoc/"):
+        return await call_next(request)
+    # Allow audit verify endpoint (RBAC at route level)
+    if path.startswith("/audit/verify"):
+        return await call_next(request)
+    # Allow audit listing endpoint for UI
+    if path == "/audit":
+        return await call_next(request)
+    # Allow audit logs endpoint for UI
+    if path.startswith("/audit/logs"):
+        return await call_next(request)
+    # Allow hosts list and per-host alerts (RBAC at route level)
+    if path.startswith("/hosts"):
+        return await call_next(request)
+    # Allow observability endpoints (read-only, for dashboard charts)
+    if path.startswith("/observability"):
+        return await call_next(request)
+    # Allow event detail and other UI/API paths (RBAC at route level)
+    if path.startswith("/events") or path.startswith("/alerts"):
+        return await call_next(request)
+    # Admin settings (RBAC at route level; admin only)
+    if path.startswith("/admin"):
+        return await call_next(request)
+    # Allow response endpoints (RBAC at route level)
+    if path.startswith("/response"):
+        return await call_next(request)
+    # Allowlist
+    if not _path_allowed(path):
+        return JSONResponse({"detail": "Not found"}, status_code=404)
+    # Rate limit (simple fixed window per IP)
+    try:
