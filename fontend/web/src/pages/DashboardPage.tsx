@@ -20,3 +20,8 @@ function getDefaultSeriesForRange(range: ChartTimeRange): DashboardMetricsPoint[
       d.setMinutes(Math.floor(d.getMinutes() / 10) * 10, 0, 0);
       out.push({ date: `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`, criticalAlerts: 0, aiDetections: 0, logsSecured: 0, totalEvents: 0 });
     }
+  } else if (range === '24h') {
+    for (let i = 0; i < 24; i++) {
+      const d = new Date(now);
+      d.setHours(d.getHours() - 23 + i, 0, 0, 0);
+      out.push({ date: `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')} 
