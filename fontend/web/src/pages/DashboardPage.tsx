@@ -113,3 +113,8 @@ export function DashboardPage() {
       getDashboardMetrics(chartTimeRange),
       getAlerts({ since: sinceForRange(chartTimeRange), limit: 2000 })
     ]).then((results) => {
+      if (!mounted) return;
+      const [ov, sev, recent, latestHigh, dashboard, alertsRange] = results;
+      const apiBase = apiClient.BASE_URL || '(same origin)';
+      const dashboardStatus = dashboard.status === 'fulfilled' ? `OK (${Array.isArray((dashboard as PromiseFulfilledResult<any>).value?.series) ? (dashboard as PromiseFulfilledResult<any>).value.series.length : 0} points)` : `Failed: ${(dashboard as PromiseRejectedResult).reason?.message ?? 'network/error'}`;
+      const alertsStatus = alertsRange.status === 'fulfilled' ? `OK (${(alertsRange as 
