@@ -301,3 +301,15 @@ export function DashboardPage() {
                 pointRadius: 3,
                 pointHoverRadius: 5
               },
+              {
+                label: 'Total events',
+                data: totalEvents,
+                borderColor: '#0ea5e9',
+                backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                tension: 0.35,
+                fill: true,
+                pointRadius: 3,
+                pointHoverRadius: 5
+              }
+            ]
+          },
