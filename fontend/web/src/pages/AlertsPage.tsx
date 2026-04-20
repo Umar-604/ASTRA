@@ -39,4 +39,6 @@ const IconRefresh = () => (
 export function AlertsPage() {
   const [data, setData] = useState<AlertItem[]>([]);
   const [loading, setLoading] = useState(false);
+const [ackLoading, setAckLoading] = useState<string | null>(null);
+  const [severity, setSeverity] = useState<(typeof sevOptions)[number]>('ANY');
 </svg>
