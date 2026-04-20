@@ -80,3 +80,10 @@ export function DashboardPage() {
     ai: 0,
     secured: 0
   });
+  const [chartTimeRange, setChartTimeRange] = useState<ChartTimeRange>('7d');
+  const [dashboardSeries, setDashboardSeries] = useState<DashboardMetricsPoint[]>(() => getDefaultSeriesForRange('7d'));
+  const [severityData, setSeverityData] = useState<{ critical: number; high: number; medium: number }>({
+    critical: 0,
+    high: 0,
+    medium: 0
+  });
