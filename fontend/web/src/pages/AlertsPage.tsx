@@ -541,3 +541,12 @@ justifyContent: 'space-between',
                 <div>Status</div>
                 <div>Actions</div>
               </div>
+  {pageItems.map((a, index) => {
+                const onClick = () =>
+                  navigate(`/alerts/${encodeURIComponent(a.event_id)}`, { state: { alert: a } });
+                const sevColor =
+                  (a.severity || '').toUpperCase() === 'HIGH'
+                    ? '#7f1d1d'
+                    : (a.severity || '').toUpperCase() === 'MEDIUM'
+                      ? '#92400e'
+                      : 'var(--accent)';
