@@ -407,3 +407,12 @@ export function DashboardPage() {
     }`;
   }
 
+  return (
+    <div>
+      <section className="stat-cards">
+        <div className="card card-critical clickable"
+        role="button"
+        tabIndex={0}
+        onClick={() => navigate('/alerts?severity=CRITICAL')}
+        onKeyDown={(e) => e.key === 'Enter' && navigate('/alerts?severity=CRITICAL')}
+        >
