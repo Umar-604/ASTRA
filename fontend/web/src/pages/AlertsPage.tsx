@@ -641,3 +641,11 @@ justifyContent: 'space-between',
                           onClick={(e) => handleAcknowledge(e, a.event_id, 'resolved')}
                           style={{
                             padding: '4px 8px',
+  fontSize: 11,
+                            borderRadius: 6,
+                            border: 'none',
+                            background: '#15803d',
+                            color: '#fff',
+                            cursor: isAckLoading ? 'wait' : 'pointer',
+                          }}
+                        >
