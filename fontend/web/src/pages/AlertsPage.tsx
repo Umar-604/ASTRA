@@ -343,3 +343,9 @@ justifyContent: 'space-between',
         </label>
         <label style={{ display: 'flex', flexDirection: 'column', fontSize: 12, opacity: 0.8, gap: 4 }}>
           Host filter
+  <input
+            value={hostFilter}
+            onChange={(e) => {
+              setHostFilter(e.target.value);
+              setPage(1);
+            }}
