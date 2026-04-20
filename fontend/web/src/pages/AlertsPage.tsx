@@ -523,3 +523,12 @@ justifyContent: 'space-between',
                   gap: 16,
                   alignItems: 'center',
                   padding: '14px 20px',
+ background: 'var(--muted-strong, #f1f5f9)',
+                  borderBottom: '1px solid var(--border-color)',
+                  fontSize: 11,
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  color: 'var(--gray-text, #64748b)',
+                }}
+              >
