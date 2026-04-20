@@ -402,3 +402,9 @@ justifyContent: 'space-between',
                     borderBottom: index < pageItems.length - 1 ? '1px solid var(--border-color)' : 'none',
                     cursor: 'pointer',
                   }}
+ onClick={onClick}
+                >
+                  <div
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 600,
