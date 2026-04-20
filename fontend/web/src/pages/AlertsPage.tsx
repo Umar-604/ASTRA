@@ -448,3 +448,6 @@ justifyContent: 'space-between',
                           color: '#fff',
                           fontSize: 12,
                           fontWeight: 600,
+     display: 'inline-block',
+                        }}
+                      >
