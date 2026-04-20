@@ -708,3 +708,6 @@ justifyContent: 'space-between',
         </div>
       </div>
       <style>{`
+ .alerts-row:hover { background: var(--muted, #f8fafc); }
+        body[data-theme="dark"] .alerts-row:hover { background: var(--muted); }
+        .alerts-card:hover { background: var(--muted, #f8fafc); }
