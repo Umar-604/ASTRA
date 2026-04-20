@@ -264,3 +264,11 @@ export function DashboardPage() {
       chartsRef.current.line?.destroy();
       chartsRef.current.donut?.destroy();
 
+      if (lineRef.current) {
+        const ctx = lineRef.current.getContext('2d')!;
+        chartsRef.current.line = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels,
+            datasets: [
+              {
