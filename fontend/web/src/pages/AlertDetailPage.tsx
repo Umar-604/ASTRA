@@ -223,3 +223,7 @@ padding: 16,
               border: '1px solid var(--panel-border)',
               borderRadius: 12,
               padding: 16,
+  background: 'var(--panel-bg)',
+              marginBottom: 12
+            }}
+          >
