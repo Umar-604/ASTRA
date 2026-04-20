@@ -17,3 +17,10 @@ try:
     _AGG_AVAILABLE = True
 except Exception:
     _AGG_AVAILABLE = False
+    # Fallback no-ops to keep server booting without aggregator
+    def create_flow_aggregator(*args, **kwargs):  # type: ignore
+        return None
+    def extract_cicids_features(*args, **kwargs):  # type: ignore
+        return {}
+    def normalize_cicids_features(*args, **kwargs):  # type: ignore
+        return {}
