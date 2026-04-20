@@ -62,3 +62,8 @@ try:
     _NATS_AVAILABLE = True
 except Exception:
     _NATS_AVAILABLE = False
+
+_INGEST_SUBJECT = os.getenv("INGEST_SUBJECT", "astra.events.ingest")
+_RESPONSE_CMD_SUBJECT_PREFIX = os.getenv("RESPONSE_CMD_SUBJECT_PREFIX", "astra.response.commands.agent")
+_RESPONSE_ACK_SUBJECT = os.getenv("RESPONSE_ACK_SUBJECT", "astra.response.acks")
+_RESPONSE_DELIVERY_MODE = os.getenv("RESPONSE_DELIVERY_MODE", "hybrid").strip().lower()  # server | agent | hybrid
