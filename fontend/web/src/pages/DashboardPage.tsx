@@ -313,3 +313,16 @@ export function DashboardPage() {
               }
             ]
           },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              mode: 'index',
+              intersect: false
+            },
+            plugins: {
+              legend: {
+                display: true,
+                position: 'top',
+                labels: { color: textColor, usePointStyle: true }
+              },
