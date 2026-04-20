@@ -318,3 +318,9 @@ justifyContent: 'space-between',
                 {o.label}
               </option>
             ))}
+    </select>
+        </label>
+        <label style={{ display: 'flex', flexDirection: 'column', fontSize: 12, opacity: 0.8, gap: 4 }}>
+          Integrity
+          <select
+            value={integrity}
