@@ -83,3 +83,18 @@ export function AuditPage() {
       it.risk_score != null ? String(it.risk_score) : '',
       it.integrity ?? 'Pending',
     ]);
+    const csv = [headers.join(','), ...rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(','))].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `audit-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
+  const handleClear = () => {
+    setIntegrityFilter('ANY');
+    setHostFilter('');
+    setPage(1);
+  };
+
