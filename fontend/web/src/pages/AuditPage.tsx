@@ -330,3 +330,16 @@ export function AuditPage() {
                           fontWeight: 600,
                         }}
                       >
+                        {ip.label}
+                      </span>
+                    </dd>
+                  </dl>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="audit-table-scroll" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+            <div style={{ minWidth: 720 }}>
+              <div
+                style={{
