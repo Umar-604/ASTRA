@@ -63,4 +63,9 @@ const fetchAlerts = () => {
       .finally(() => setLoading(false));
   };
 
+.then((res) => setData(res.items || []))
+      .catch(() => setData([]))
+      .finally(() => setLoading(false));
+  };
+
 </svg>
