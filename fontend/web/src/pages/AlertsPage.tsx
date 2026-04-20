@@ -55,4 +55,7 @@ apply();
     mq.addEventListener?.('change', apply);
     return () => mq.removeEventListener?.('change', apply);
   }, []);
+const fetchAlerts = () => {
+    setLoading(true);
+    getAlerts({ limit: 200 })
 </svg>
