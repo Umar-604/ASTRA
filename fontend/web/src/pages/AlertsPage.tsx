@@ -434,3 +434,7 @@ justifyContent: 'space-between',
                     <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Score</dt>
                     <dd style={{ margin: 0 }} title={score.tooltip ?? undefined}>
                       {score.value}
+   {score.isBehavioral && (
+                        <span style={{ fontSize: 10, opacity: 0.8, display: 'block' }}>Anomaly</span>
+                      )}
+                    </dd>
