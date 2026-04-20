@@ -199,3 +199,8 @@ padding: 16,
               )}
             </div>
           </section>
+  {/* 2) Integrity panel */}
+          <section
+            style={{
+              border: '1px solid var(--panel-border)',
+              borderRadius: 12,
