@@ -428,3 +428,10 @@ export function DashboardPage() {
           onClick={() => navigate('/hosts')}
           onKeyDown={(e) => e.key === 'Enter' && navigate('/hosts')}>
 
+          <div className="card-icon">🖥️</div>
+          <div className="card-info">
+            <h4>Endpoints Monitored</h4>
+            <p>{metrics.endpoints}</p>
+          </div>
+        </div>
+        <div className="card">
