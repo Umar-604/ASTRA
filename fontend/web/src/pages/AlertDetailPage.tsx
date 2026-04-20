@@ -70,3 +70,6 @@ const integBadge = (() => {
 const showContent = summary || alertFromList;
   return (
     <div>
+<BackButton fallbackTo="/alerts" />
+      <h2 style={{ marginTop: 0 }}>Alert Details</h2>
+      {loading ? (
