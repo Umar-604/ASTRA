@@ -85,3 +85,7 @@ try:
             except Exception:
                 pass
             try:
+                self._fh.write(data)
+                self._fh.flush()
+            except Exception:
+                pass
