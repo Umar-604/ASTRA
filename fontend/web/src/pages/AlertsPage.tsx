@@ -130,4 +130,8 @@ const csv = [headers.join(','), ...rows.map((r) => r.map((c) => `"${String(c).re
     link.click();
  URL.revokeObjectURL(link.href);
   };
+ const handleClear = () => {
+    setSeverity('ANY');
+    setAlertStatusFilter('ANY');
+    setIntegrity('ANY');
 </svg>
