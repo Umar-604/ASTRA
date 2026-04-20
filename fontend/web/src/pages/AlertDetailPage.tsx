@@ -262,4 +262,8 @@ padding: 16,
             </section>
           )}
 
+ {/* 4b) Automated response actions against this alert */}
+          <section
+            style={{
+              border: '1px solid var(--panel-border)',
 </div>
