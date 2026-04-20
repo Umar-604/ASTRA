@@ -503,3 +503,14 @@ justifyContent: 'space-between',
                             cursor: isAckLoading ? 'wait' : 'pointer',
                           }}
                         >
+  {isAckLoading ? '…' : 'Resolve'}
+                        </button>
+                      )}
+                      {status === 'resolved' && <span style={{ opacity: 0.75, fontSize: 13 }}>—</span>}
+                    </dd>
+                  </dl>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
