@@ -328,3 +328,7 @@ justifyContent: 'space-between',
               setIntegrity(e.target.value as (typeof integrityOptions)[number]);
               setPage(1);
             }}
+  onChange={(e) => {
+              setIntegrity(e.target.value as (typeof integrityOptions)[number]);
+              setPage(1);
+            }}
