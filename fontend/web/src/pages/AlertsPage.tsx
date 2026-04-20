@@ -338,3 +338,8 @@ justifyContent: 'space-between',
               <option key={s} value={s}>
                 {s}
               </option>
+))}
+          </select>
+        </label>
+        <label style={{ display: 'flex', flexDirection: 'column', fontSize: 12, opacity: 0.8, gap: 4 }}>
+          Host filter
