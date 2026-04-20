@@ -353,3 +353,8 @@ justifyContent: 'space-between',
             style={filterInputStyle}
           />
         </label>
+ <label style={{ display: 'flex', flexDirection: 'column', fontSize: 12, opacity: 0.8, gap: 4 }}>
+          Page size
+          <select
+            value={pageSize}
+            onChange={(e) => {
