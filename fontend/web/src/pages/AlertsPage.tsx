@@ -94,4 +94,7 @@ items = items.filter((a) => (a.severity || '').toUpperCase() === severity);
   if (alertStatusFilter !== 'ANY') {
       items = items.filter((a) => (a.alert_status || 'new') === alertStatusFilter);
     }
+ if (integrity !== 'ANY') {
+      items = items.filter((a) => (a.integrity_status || 'Pending') === integrity);
+    }
 </svg>
