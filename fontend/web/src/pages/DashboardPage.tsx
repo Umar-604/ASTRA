@@ -400,3 +400,10 @@ export function DashboardPage() {
     };
   }, [themeKey(), chartTimeRange, JSON.stringify(dashboardSeries), severityData.critical, severityData.high, severityData.medium]);
 
+  // Recompute a simple key whenever theme/accent changes (reads from localStorage)
+  function themeKey() {
+    return `${localStorage.getItem('astra-theme') || 'light'}:${
+      localStorage.getItem('astra-accent') || 'ocean'
+    }`;
+  }
+
