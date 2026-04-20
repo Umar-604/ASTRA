@@ -159,3 +159,7 @@ padding: 16,
                   fontWeight: 600
                 }}
               >
+ {alertStatus === 'new' ? 'New' : alertStatus === 'acknowledged' ? 'Acknowledged' : 'Resolved'}
+              </span>
+              {alertStatus === 'new' && (
+                <button
