@@ -54,3 +54,6 @@ Promise.all([
   const summary = event?.summary ?? (alertFromList ? { ...alertFromList, integrity_status: alertFromList.integrity_status } : null);
   const record = event?.record ?? null;
   const aiLabel = summary?.ai_label ?? '';
+const score = getAlertScoreDisplay(summary as AlertItem | undefined, 0);
+  const severity = summary?.severity ?? '—';
+  const integrity = status ?? (summary?.integrity_status ? 
