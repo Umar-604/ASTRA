@@ -514,3 +514,12 @@ justifyContent: 'space-between',
             })}
           </div>
         ) : (
+<div className="alerts-table-scroll" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+            <div style={{ minWidth: 980 }}>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: ALERTS_GRID_COLS,
+                  gap: 16,
+                  alignItems: 'center',
+                  padding: '14px 20px',
