@@ -10,3 +10,10 @@ from src.config import settings
 from src.response_engine import ResponseEngine, EngineConfig
 import json
 from datetime import datetime
+
+try:
+    # Optional aggregator (may not be present)
+    from src.aggregator import create_flow_aggregator, extract_cicids_features, normalize_cicids_features  # type: ignore
+    _AGG_AVAILABLE = True
+except Exception:
+    _AGG_AVAILABLE = False
