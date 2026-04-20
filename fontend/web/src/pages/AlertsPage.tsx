@@ -16,3 +16,5 @@ const alertStatusOptions: { value: 'ANY' | AlertStatus; label: string }[] = [
 const alertStatusOptions: { value: 'ANY' | AlertStatus; label: string }[] = [
   { value: 'ANY', label: 'All' }, { value: 'new', label: 'New' },
   { value: 'acknowledged', label: 'Acknowledged' },
+{ value: 'resolved', label: 'Resolved' },
+];
