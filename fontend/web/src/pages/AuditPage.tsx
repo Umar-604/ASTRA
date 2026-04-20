@@ -56,3 +56,17 @@ export function AuditPage() {
       .finally(() => setLoading(false));
   };
 
+  useEffect(() => {
+    fetchAuditLogs();
+  }, []);
+
+  const filtered = items.filter((it) => {
+    const integrity = String(it.integrity || 'Pending').toUpperCase();
+    if (integrityFilter !== 'ANY' && integrity !== integrityFilter) return false;
+    if (hostFilter.trim()) {
+      const q = hostFilter.trim().toLowerCase();
+      if (!(it.host || '').toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+
