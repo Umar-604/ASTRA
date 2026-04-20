@@ -394,3 +394,11 @@ justifyContent: 'space-between',
               const statusBg = status === 'new' ? '#b91c1c' : status === 'acknowledged' ? '#b45309' : '#15803d';
               const isAckLoading = ackLoading === a.event_id;
               return (
+ <article
+                  key={rowKey}
+                  className="alerts-card"
+                  style={{
+                    padding: '16px',
+                    borderBottom: index < pageItems.length - 1 ? '1px solid var(--border-color)' : 'none',
+                    cursor: 'pointer',
+                  }}
