@@ -113,3 +113,18 @@ export function AuditPage() {
     <div className="audit-page-root" style={{ maxWidth: 'min(1200px, 100%)', margin: '0 auto', padding: '0 12px' }}>
       <h2 style={{ marginTop: 0 }}>Audit</h2>
 
+      {/* Toolbar: Integrity chips, results count, Export / Refresh / Clear */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: 12,
+          marginBottom: 12,
+          padding: '12px 16px',
+          background: 'var(--muted)',
+          border: '1px solid var(--border-color)',
+          borderRadius: 10,
+        }}
+      >
