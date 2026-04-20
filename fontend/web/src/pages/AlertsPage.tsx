@@ -140,4 +140,9 @@ setHostFilter('');
 const filterInputStyle: CSSProperties = {
     background: 'var(--panel-bg)',
     color: 'var(--fg)',
+border: '1px solid var(--panel-border)',
+    borderRadius: 6,
+    padding: '6px 8px',
+    width: narrow ? '100%' : undefined,
+    minWidth: narrow ? 0 : 160,
 </svg>
