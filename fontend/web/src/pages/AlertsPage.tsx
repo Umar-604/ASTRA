@@ -179,3 +179,7 @@ justifyContent: 'space-between',
           marginBottom: 12,
           padding: '12px 16px',
           background: 'var(--muted)',
+ border: '1px solid var(--border-color)',
+          borderRadius: 10,
+        }}
+      >
