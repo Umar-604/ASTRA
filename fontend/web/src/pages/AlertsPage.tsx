@@ -219,3 +219,5 @@ justifyContent: 'space-between',
                 {label}
               </button>
             );
+  })}
+        </div>
