@@ -70,3 +70,16 @@ export function AuditPage() {
     return true;
   });
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const pageItems = filtered.slice((page - 1) * pageSize, page * pageSize);
+
+  const handleExport = () => {
+    const headers = ['Timestamp', 'Host', 'Event Type', 'Action', 'Risk Score', 'Integrity'];
+    const rows = filtered.map((it) => [
+      it.timestamp ?? '',
+      it.host ?? '',
+      it.event_type ?? '',
+      it.action ?? '',
+      it.risk_score != null ? String(it.risk_score) : '',
+      it.integrity ?? 'Pending',
+    ]);
