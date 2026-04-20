@@ -67,3 +67,6 @@ const integBadge = (() => {
         {s}</span>
     );
   })();
+const showContent = summary || alertFromList;
+  return (
+    <div>
