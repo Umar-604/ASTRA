@@ -327,4 +327,9 @@ padding: 16,
                 padding: 16,
                 background: 'var(--panel-bg)'
               }}
-</div>
+ >
+              <h3 style={{ marginTop: 0, marginBottom: 8, fontSize: 16 }}>Metadata</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', rowGap: 6, fontSize: 14 }}>
+                {Object.entries(record.metadata).map(([k, v]) => (
+                  <div key={k} style={{ display: 'contents' }}>
+                    <span style={{ opacity: 0.85 }}>{k}</span></div>
