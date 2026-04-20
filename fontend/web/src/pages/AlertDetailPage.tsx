@@ -40,3 +40,7 @@ Promise.all([
     return () => {
       mounted = false; };
   }, [alertId, location.state]);
+ const handleAcknowledge = async (newStatus: 'acknowledged' | 'resolved') => {
+    const id = alertId || (summary as AlertItem)?.event_id;
+    if (!id) return;
+    setAckLoading(true);
