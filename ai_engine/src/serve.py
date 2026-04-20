@@ -107,3 +107,9 @@ try:
 except Exception as _e:
     # If logging setup fails, continue without file logging
     pass
+
+# Also send logs to PostgreSQL when configured
+def _wire_postgres_logging() -> None:
+    if not attach_postgres_handler:
+        return
+    # Resolve DSN from env or settings
