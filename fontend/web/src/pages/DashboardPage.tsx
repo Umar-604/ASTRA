@@ -471,3 +471,26 @@ export function DashboardPage() {
                     cursor: 'pointer',
                     fontSize: '0.875rem'
                   }}
+                >
+                  {r === '1h' ? '1 hour' : r === '24h' ? '24 hours' : '7 days'}
+                </button>
+              ))}
+            </div>
+          </div>
+          <p className="widget-desc">
+            {chartTimeRange === '1h' ? 'Last 1 hour (10-min buckets)' : chartTimeRange === '24h' ? 'Last 24 hours (hourly)' : 'Last 7 days (daily)'}. Critical alerts, AI detections, logs secured.
+          </p>
+          <canvas ref={lineRef} height={250} aria-label="Security metrics over time: critical alerts, AI detections, logs secured" role="img" />
+        </div>
+        <div className="widget widget-medium">
+          <h3>Alerts by Severity</h3>
+          <canvas ref={donutRef} height={250} aria-label="Alerts by severity chart" role="img" />
+        </div>
+        <div className="widget widget-full">
+          <h3>Latest High-Priority Alerts</h3>
+          <div className="table-responsive">
+            <table className="log-table" role="table" aria-label="Latest high priority alerts">
+              <thead>
+                <tr>
+                  <th className="col-timestamp">Timestamp</th>
+                  <th className="col-endpoint">Endpoint</th>
