@@ -531,3 +531,22 @@ export function DashboardPage() {
                         <td className="truncate" title={a.ai_label || a.event_type}>
                           {a.ai_label || a.event_type || '—'}
                         </td>
+                        <td>
+                      <span className={sevClass}>{sevLabel}</span>
+                        </td>
+                        <td>
+                      <span className={`status-pill ${statusClass}`}>{statusLabel}</span>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
