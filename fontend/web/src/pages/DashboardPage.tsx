@@ -178,3 +178,22 @@ export function DashboardPage() {
           logsSecured: Number(p?.logsSecured) || 0,
           totalEvents: Number(p?.totalEvents) || 0
         }));
+      let nextSeries: DashboardMetricsPoint[];
+      if (apiSeries && apiSeries.length >= expectedLen) {
+        nextSeries = normalize(apiSeries.slice(-expectedLen));
+      } else if (apiSeries && apiSeries.length > 0) {
+        const padded = defaultSeries.map((d, i) => (apiSeries[i] ? { ...d, ...normalize([apiSeries[i]])[0] } : d));
+        nextSeries = padded;
+      } else if (alertsItems.length > 0) {
+        nextSeries = buildSeriesFromAlerts(alertsItems, chartTimeRange);
+      } else {
+        nextSeries = defaultSeries;
+      }
+      setDashboardSeries(nextSeries);
+      if (typeof window !== 'undefined') {
+        console.log('[Dashboard] Chart series source:', (apiSeries?.length ?? 0) >= expectedLen ? 'API' : alertsItems.length ? 'alerts' : 'default', '| points:', nextSeries.length);
+      }
+    });
+    return () => { mounted = false; };
+  }, [chartTimeRange]);
+
