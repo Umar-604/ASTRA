@@ -163,3 +163,9 @@ padding: 16,
               </span>
               {alertStatus === 'new' && (
                 <button
+ type="button"
+                  disabled={ackLoading}
+                  onClick={() => handleAcknowledge('acknowledged')}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: 8,
