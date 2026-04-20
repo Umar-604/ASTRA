@@ -183,3 +183,7 @@ justifyContent: 'space-between',
           borderRadius: 10,
         }}
       >
+ <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
