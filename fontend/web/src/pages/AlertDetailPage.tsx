@@ -318,4 +318,13 @@ padding: 16,
               </div>
             )}
           </section>
+ {/* 5) Metadata */}
+          {record?.metadata && Object.keys(record.metadata).length > 0 && (
+            <section
+              style={{
+                border: '1px solid var(--panel-border)',
+                borderRadius: 12,
+                padding: 16,
+                background: 'var(--panel-bg)'
+              }}
 </div>
