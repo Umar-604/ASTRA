@@ -91,3 +91,11 @@ export function DashboardPage() {
   const donutRef = useRef<HTMLCanvasElement | null>(null);
   const chartsRef = useRef<{ line?: any; donut?: any }>({});
 
+  const sinceForRange = (range: ChartTimeRange) => {
+    const d = new Date();
+    if (range === '1h') d.setHours(d.getHours() - 1, 0, 0, 0);
+    else if (range === '24h') d.setHours(d.getHours() - 24, 0, 0, 0);
+    else { d.setDate(d.getDate() - 6); d.setHours(0, 0, 0, 0); }
+    return d.toISOString();
+  };
+
