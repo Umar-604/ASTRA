@@ -212,3 +212,8 @@ padding: 16,
 <h3 style={{ marginTop: 0, marginBottom: 8, fontSize: 16 }}>Integrity</h3>
             <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', rowGap: 6 }}>
               <div style={{ opacity: 0.7 }}>Status</div>
+<div>{integBadge}</div>
+              <div style={{ opacity: 0.7 }}>Blockchain Tx</div>
+              <div style={{ overflowWrap: 'anywhere' }}>{txId || '—'}</div>
+            </div>
+          </section>
