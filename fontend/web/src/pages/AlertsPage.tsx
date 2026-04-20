@@ -97,4 +97,8 @@ items = items.filter((a) => (a.severity || '').toUpperCase() === severity);
  if (integrity !== 'ANY') {
       items = items.filter((a) => (a.integrity_status || 'Pending') === integrity);
     }
+if (hostFilter.trim()) {
+      const q = hostFilter.trim().toLowerCase();
+      items = items.filter((a) => (a.host_id || '').toLowerCase().includes(q));
+    }
 </svg>
