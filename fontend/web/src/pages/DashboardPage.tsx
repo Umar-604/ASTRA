@@ -15,3 +15,8 @@ function getDefaultSeriesForRange(range: ChartTimeRange): DashboardMetricsPoint[
   const now = new Date();
   if (range === '1h') {
     // Last 6 x 10min slots ending at now (align with backend)
+    for (let i = 0; i < 6; i++) {
+      const d = new Date(now.getTime() - (50 - i * 10) * 60 * 1000);
+      d.setMinutes(Math.floor(d.getMinutes() / 10) * 10, 0, 0);
+      out.push({ date: `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`, criticalAlerts: 0, aiDetections: 0, logsSecured: 0, totalEvents: 0 });
+    }
