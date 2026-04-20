@@ -119,4 +119,7 @@ a.event_type ?? '',
         a.ai_label ?? '',
         score.value,
         a.severity ?? '',
+a.integrity_status ?? 'Pending',
+      ];
+    });
 </svg>
