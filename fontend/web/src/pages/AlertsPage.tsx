@@ -84,4 +84,6 @@ useEffect(() => {
         if (!mounted) return;
         setLoading(false);
       });
+ return () => { mounted = false; };
+  }, []);
 </svg>
