@@ -59,3 +59,6 @@ const score = getAlertScoreDisplay(summary as AlertItem | undefined, 0);
   const integrity = status ?? (summary?.integrity_status ? summary.integrity_status.toUpperCase() : 'PENDING');
   const hasDetails = Boolean(event?.summary || event?.record);
 
+const integBadge = (() => {
+    const s = integrity;
+    const bg = s === 'VERIFIED' ? '#14532d' : s === 'TAMPERED' ? '#7f1d1d' : '#334155';
