@@ -112,3 +112,8 @@ marginBottom: 12
               <div style={{ opacity: 0.7 }}>AI decision</div>
               <div>{aiLabel || '—'}</div>
               <div style={{ opacity: 0.7 }}>{score.label}</div>
+ <div title={score.tooltip ?? undefined}>{score.value}</div>
+              <div style={{ opacity: 0.7 }}>Severity</div>
+              <div>
+                <span
+                  style={{
