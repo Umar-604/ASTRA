@@ -467,3 +467,12 @@ justifyContent: 'space-between',
                           display: 'inline-block',
                         }}
                       >
+    {statusLabel}
+                      </span>
+                    </dd>
+                    <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Actions</dt>
+                    <dd style={{ margin: 0 }} onClick={(e) => e.stopPropagation()}>
+                      {status === 'new' && (
+                        <button
+                          type="button"
+                          disabled={isAckLoading}
