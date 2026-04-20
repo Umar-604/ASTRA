@@ -83,3 +83,8 @@ const showContent = summary || alertFromList;
               style={{
                 padding: 12,
                 marginBottom: 12,
+background: 'var(--muted)',
+                border: '1px solid var(--panel-border)',
+                borderRadius: 8,
+                fontSize: 14,
+                opacity: 0.9
