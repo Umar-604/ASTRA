@@ -332,3 +332,9 @@ justifyContent: 'space-between',
               setIntegrity(e.target.value as (typeof integrityOptions)[number]);
               setPage(1);
             }}
+ style={{ ...filterInputStyle, cursor: 'pointer' }}
+          >
+            {integrityOptions.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
