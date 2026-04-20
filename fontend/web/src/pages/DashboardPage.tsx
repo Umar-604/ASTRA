@@ -228,3 +228,9 @@ export function DashboardPage() {
     return hosts != null ? Math.max(0, hosts - unhealthy) : 'N/A';
   }, [summary]);
   // Integrity summary (verified/pending/tampered) from summary if available
+  const integrity = {
+    verified: summary?.integrity?.verified ?? 0,
+    pending: summary?.integrity?.pending ?? 0,
+    tampered: summary?.integrity?.tampered ?? 0
+  };
+
