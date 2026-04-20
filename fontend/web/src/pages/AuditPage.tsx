@@ -426,3 +426,36 @@ export function AuditPage() {
         )}
       </Card>
 
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 12,
+          flexWrap: 'wrap',
+          gap: 12,
+        }}
+      >
+        <div style={{ opacity: 0.8, fontSize: 12 }}>
+          Page {page} / {totalPages} • {filtered.length} items
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page <= 1}
+            style={{
+              padding: '6px 10px',
+              borderRadius: 6,
+              border: '1px solid var(--panel-border)',
+              background: 'var(--panel-bg)',
+              color: 'var(--fg)',
+              cursor: page <= 1 ? 'not-allowed' : 'pointer',
+              opacity: page <= 1 ? 0.5 : 1,
+            }}
+          >
+            Previous
+          </button>
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
