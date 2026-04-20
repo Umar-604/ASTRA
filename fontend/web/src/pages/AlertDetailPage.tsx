@@ -152,4 +152,10 @@ padding: 16,
                   background:
                     alertStatus === 'new'
                       ? '#b91c1c'
-                      : alertStatus === 'acknowledged'
+                      : alertStatus === 'acknowledged'? '#b45309'
+                        : '#15803d',
+                  color: '#fff',
+                  fontSize: 13,
+                  fontWeight: 600
+                }}
+              >
