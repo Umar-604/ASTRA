@@ -281,3 +281,12 @@ def _verify_jwt(token: str, secret: str) -> dict | None:
     
 def _b64url_encode(b: bytes) -> str:
     return base64.urlsafe_b64encode(b).decode().rstrip("=")
+
+def _encode_jwt(payload: dict, secret: str) -> str:
+    header = {"alg": "HS256", "typ": "JWT"}
+    header_b = _b64url_encode(json.dumps(header, separators=(",", ":")).encode("utf-8"))
+    payload_b = _b64url_encode(json.dumps(payload, separators=(",", ":")).encode("utf-8"))
+    signing_input = (header_b + "." + payload_b).encode()
+    sig = hmac.new(secret.encode(), signing_input, _hashlib.sha256).digest()
+    sig_b = _b64url_encode(sig)
+    return f"{header_b}.{payload_b}.{sig_b}"
