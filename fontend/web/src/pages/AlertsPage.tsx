@@ -165,3 +165,6 @@ border: '1px solid var(--panel-border)',
       setAckLoading(null);
     }
   };
+return (
+    <div className="alerts-page-root" style={{ maxWidth: 'min(1200px, 100%)', margin: '0 auto', padding: '0 12px' }}>
+      <h2 style={{ marginTop: 0 }}>Alerts</h2>
