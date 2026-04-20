@@ -182,3 +182,24 @@ export function AuditPage() {
               cursor: 'pointer',
               fontSize: 13,
             }}
+          >
+            Export
+          </button>
+          <button
+            type="button"
+            onClick={fetchAuditLogs}
+            disabled={loading}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '8px 12px',
+              borderRadius: 8,
+              border: '1px solid var(--border-color)',
+              background: 'var(--widget-bg)',
+              color: 'var(--fg)',
+              cursor: loading ? 'wait' : 'pointer',
+              fontSize: 13,
+              opacity: loading ? 0.7 : 1,
+            }}
+          >
