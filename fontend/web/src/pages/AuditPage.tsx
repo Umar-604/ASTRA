@@ -162,3 +162,23 @@ export function AuditPage() {
           })}
         </div>
 
+        <div style={{ fontSize: 14, color: 'var(--fg)', opacity: 0.9, width: narrow ? '100%' : undefined }}>
+          {filtered.length} result{filtered.length !== 1 ? 's' : ''}
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', width: narrow ? '100%' : undefined, justifyContent: narrow ? 'flex-start' : undefined }}>
+          <button
+            type="button"
+            onClick={handleExport}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '8px 12px',
+              borderRadius: 8,
+              border: '1px solid var(--border-color)',
+              background: 'var(--widget-bg)',
+              color: 'var(--fg)',
+              cursor: 'pointer',
+              fontSize: 13,
+            }}
