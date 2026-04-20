@@ -51,3 +51,9 @@ except Exception:
     attach_postgres_handler = None
 # Load environment variables from .env if present (to get POSTGRES_DSN/DATABASE_URL)
 try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    pass
+
+try:
