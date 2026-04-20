@@ -264,3 +264,23 @@ export function AuditPage() {
         </label>
       </div>
 
+      <Card style={{ overflow: 'hidden', padding: 0 }}>
+        {loading ? (
+          <div style={{ padding: 48, textAlign: 'center', fontSize: 14, color: 'var(--gray-text, #64748b)' }}>Loading…</div>
+        ) : pageItems.length === 0 ? (
+          <div style={{ padding: 48, textAlign: 'center', fontSize: 14, color: 'var(--gray-text, #64748b)' }}>No audit entries</div>
+        ) : narrow ? (
+          <div className="audit-card-list" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            {pageItems.map((it) => {
+              const risk = typeof it.risk_score === 'number' ? it.risk_score : null;
+              const rb = riskBadgeStyle(risk);
+              const ip = integrityPill(it.integrity);
+              return (
+                <article
+                  key={it.event_id}
+                  className="audit-card"
+                  style={{
+                    padding: '16px',
+                    borderBottom: '1px solid var(--border-color)',
+                  }}
+                >
