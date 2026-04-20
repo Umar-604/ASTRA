@@ -58,4 +58,9 @@ apply();
 const fetchAlerts = () => {
     setLoading(true);
     getAlerts({ limit: 200 })
+.then((res) => setData(res.items || []))
+      .catch(() => setData([]))
+      .finally(() => setLoading(false));
+  };
+
 </svg>
