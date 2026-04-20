@@ -96,3 +96,7 @@ Full event details could not be loaded; showing summary from alerts list.
           {/* 1) Summary */}
           <section
             style={{
+border: '1px solid var(--panel-border)',
+              borderRadius: 12,
+              padding: 16,
+              background: 'var(--panel-bg)',
