@@ -61,4 +61,7 @@ const score = getAlertScoreDisplay(summary as AlertItem | undefined, 0);
 
 const integBadge = (() => {
     const s = integrity;
-    const bg = s === 'VERIFIED' ? '#14532d' : s === 'TAMPERED' ? '#7f1d1d' : '#334155';
+    const bg = s === 'VERIFIED' ? '#14532d' : s === 'TAMPERED' ? '#7f1d1d' : '#334155';const fg = s === 'VERIFIED' ? '#dcfce7' : s === 'TAMPERED' ? '#fee2e2' : '#f1f5f9';
+    return (
+      <span style={{ padding: '2px 8px', borderRadius: 999, background: bg, color: fg, fontSize: 12 }}>
+        {s}
