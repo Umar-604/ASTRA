@@ -141,3 +141,22 @@ os.environ['OMP_NUM_THREADS'] = '1'
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 os.environ['MKL_NUM_THREADS'] = '1'
 os.environ['NUMEXPR_NUM_THREADS'] = '1'
+
+# Suppress specific warnings
+warnings.filterwarnings('ignore', category=UserWarning, module='xgboost')
+
+
+app = FastAPI(title="ASTRA-ML")
+
+# -------------------- Security: CORS, Allowlist, Rate limit, JWT/RBAC --------------------
+_ALLOWED_ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
+_STRICT_CORS = os.getenv("STRICT_CORS", "1") == "1"
+if not _ALLOWED_ORIGINS and _STRICT_CORS:
+    raise RuntimeError("CORS is strict and ALLOWED_ORIGINS is empty. Set ALLOWED_ORIGINS for production.")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_ALLOWED_ORIGINS if _ALLOWED_ORIGINS else ["https://127.0.0.1:5173", "https://localhost:5173"],  # minimal fallback in dev
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
