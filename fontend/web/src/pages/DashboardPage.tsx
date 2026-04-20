@@ -24,4 +24,15 @@ function getDefaultSeriesForRange(range: ChartTimeRange): DashboardMetricsPoint[
     for (let i = 0; i < 24; i++) {
       const d = new Date(now);
       d.setHours(d.getHours() - 23 + i, 0, 0, 0);
-      out.push({ date: `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')} 
+      out.push({ date: `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:00`, criticalAlerts: 0, aiDetections: 0, logsSecured: 0, totalEvents: 0 });
+    }
+  } else {
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(d.getDate() - i);
+      out.push({ date: d.toISOString().slice(0, 10), criticalAlerts: 0, aiDetections: 0, logsSecured: 0, totalEvents: 0 });
+    }
+  }
+  return out;
+}
+
