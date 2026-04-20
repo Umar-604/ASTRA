@@ -383,3 +383,13 @@ export function DashboardPage() {
               },
           options: {
             responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%',
+            plugins: {
+              legend: { display: total > 0 }
+            }
+          }
+        });
+      }
+    })();
+
