@@ -374,3 +374,22 @@ export function AuditPage() {
                     style={{
                       display: 'grid',
                       gridTemplateColumns: TABLE_GRID_COLS,
+                      gap: 16,
+                      alignItems: 'center',
+                      padding: '14px 20px',
+                      borderBottom: idx < pageItems.length - 1 ? '1px solid var(--border-color)' : 'none',
+                    }}
+                    className="audit-row"
+                  >
+                    <div style={{ overflowWrap: 'anywhere', fontSize: 13 }}>{it.timestamp ? String(it.timestamp) : '—'}</div>
+                    <div title={it.host || ''} style={{ fontSize: 13 }}>
+                      {truncate(it.host || '', 22)}
+                    </div>
+                    <div title={it.event_type || ''} style={{ fontSize: 13 }}>
+                      {truncate(it.event_type || '', 18)}
+                    </div>
+                    <div title={it.action || ''} style={{ fontSize: 13 }}>
+                      {truncate(it.action || '', 18)}
+                    </div>
+                    <div>
+                      <span
