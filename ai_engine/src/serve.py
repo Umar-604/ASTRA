@@ -259,3 +259,22 @@ async def _allowlist_and_rate_limit(request: Request, call_next):
 def _b64url_decode(b: str) -> bytes:
     b += "=" * (-len(b) % 4)
     return base64.urlsafe_b64decode(b.encode())
+
+
+def _verify_jwt(token: str, secret: str) -> dict | None:
+    try:
+        parts = token.split(".")
+        if len(parts) != 3:
+            return None
+        header_b, payload_b, sig_b = parts
+        signing_input = (header_b + "." + payload_b).encode()
+        expected = hmac.new(secret.encode(), signing_input, _hashlib.sha256).digest()
+        sig = _b64url_decode(sig_b)
+        if not hmac.compare_digest(expected, sig):
+            return None
+        payload = _b64url_decode(payload_b)
+        data = json.loads(payload.decode("utf-8"))
+        # Optional exp/nbf checks can be added here
+        return data
+    except Exception:
+        return None
