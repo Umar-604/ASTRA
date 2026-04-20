@@ -99,3 +99,11 @@ try:
                 self._fh.flush()
             except Exception:
                 pass
+
+        _log_fh = open(_log_file_path, "a", buffering=1, encoding="utf-8", errors="replace")
+    sys.stdout = _Tee(sys.stdout, _log_fh)
+    sys.stderr = _Tee(sys.stderr, _log_fh)
+    print(f"📝 Logging to {_log_file_path}")
+except Exception as _e:
+    # If logging setup fails, continue without file logging
+    pass
