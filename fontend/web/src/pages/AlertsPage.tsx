@@ -713,3 +713,6 @@ justifyContent: 'space-between',
         .alerts-card:hover { background: var(--muted, #f8fafc); } body[data-theme="dark"] .alerts-card { background: transparent; }
         body[data-theme="dark"] .alerts-card:hover { background: var(--muted); }
         @media (max-width: 960px) {
+.alerts-card:last-child { border-bottom: none !important; }
+        }
+      `}</style>
