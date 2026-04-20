@@ -221,3 +221,7 @@ justifyContent: 'space-between',
             );
   })}
         </div>
+
+        <div style={{ fontSize: 14, color: 'var(--fg)', opacity: 0.9, width: narrow ? '100%' : undefined }}>
+          {filtered.length} result{filtered.length !== 1 ? 's' : ''}
+        </div>
