@@ -123,3 +123,12 @@ def _wire_postgres_logging() -> None:
             logging.getLogger("uvicorn.access"),
             logging.getLogger(__name__),
         ]
+        for lg in targets:
+            try:
+                attach_postgres_handler(lg, dsn=dsn)
+            except Exception:
+                # Never break logging due to handler issues
+                pass
+        # Emit one line to ensure table exists and first insert happens
+        logging.getLogger(__name__).info("Startup: PostgreSQL logging wired")
+    except Exception:
