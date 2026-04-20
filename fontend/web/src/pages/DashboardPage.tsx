@@ -125,3 +125,10 @@ export function DashboardPage() {
       }
       if (ov.status === 'fulfilled') setOverview(ov.value);
 
+      // Severity for donut: prefer /ui/threats/summary, fallback to alerts we already fetched
+      let severitySet = false;
+      const sevPayload = sev.status === 'fulfilled' ? (sev.value as { by_severity?: Record<string, number>; error?: string }) : null;
+      if (sevPayload && !('error' in sevPayload && sevPayload.error)) {
+        const bySev = sevPayload.by_severity || {};
+        const total = (bySev['CRITICAL'] || 0) + (bySev['HIGH'] || 0) + (bySev['MEDIUM'] || 0);
+        if (total > 0) {
