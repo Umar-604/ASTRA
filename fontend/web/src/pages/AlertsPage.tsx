@@ -371,3 +371,9 @@ justifyContent: 'space-between',
           </select>
         </label>
       </div>
+<Card style={{ overflow: 'hidden', padding: 0 }}>
+        {loading ? (
+          <div style={{ padding: 48, textAlign: 'center', fontSize: 14, color: 'var(--gray-text, #64748b)' }}>Loading…</div>
+        ) : pageItems.length === 0 ? (
+          <div style={{ padding: 48, textAlign: 'center', fontSize: 14, color: 'var(--gray-text, #64748b)' }}>No alerts</div>
+        ) : narrow ? (
