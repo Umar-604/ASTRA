@@ -132,3 +132,11 @@ export function DashboardPage() {
         const bySev = sevPayload.by_severity || {};
         const total = (bySev['CRITICAL'] || 0) + (bySev['HIGH'] || 0) + (bySev['MEDIUM'] || 0);
         if (total > 0) {
+          setSeverityData({
+            critical: (bySev['CRITICAL'] || 0) + (bySev['HIGH'] || 0),
+            high: bySev['HIGH'] || 0,
+            medium: bySev['MEDIUM'] || 0
+          });
+          severitySet = true;
+        }
+      }
