@@ -89,3 +89,13 @@ try:
                 self._fh.flush()
             except Exception:
                 pass
+
+            def flush(self):
+            try:
+                self._stream.flush()
+            except Exception:
+                pass
+            try:
+                self._fh.flush()
+            except Exception:
+                pass
