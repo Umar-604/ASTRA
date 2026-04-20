@@ -44,4 +44,8 @@ const [ackLoading, setAckLoading] = useState<string | null>(null);
   const [alertStatusFilter, setAlertStatusFilter] = useState<'ANY' | AlertStatus>('ANY');
   const [integrity, setIntegrity] = useState<(typeof integrityOptions)[number]>('ANY');
   const [hostFilter, setHostFilter] = useState('');
+const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [narrow, setNarrow] = useState(false);
+  const navigate = useNavigate();
 </svg>
