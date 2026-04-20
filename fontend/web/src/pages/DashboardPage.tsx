@@ -257,3 +257,10 @@ export function DashboardPage() {
     const totalEvents = data.map((p) => Number(p?.totalEvents) || 0);
     const maxVal = Math.max(0, ...criticalAlerts, ...aiDetections, ...logsSecured, ...totalEvents);
 
+    (async () => {
+      const mod = await import('chart.js/auto').catch(() => null as any);
+      if (!mounted || !mod) return;
+      const Chart: any = (mod as any).default || (mod as any);
+      chartsRef.current.line?.destroy();
+      chartsRef.current.donut?.destroy();
+
