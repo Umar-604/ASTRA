@@ -298,4 +298,9 @@ padding: 16,
                         background: 'var(--widget-bg)'
                       }}
                     >
+ <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+                        <div style={{ fontWeight: 600 }}>{label}</div>
+                        <span style={{ padding: '2px 8px', borderRadius: 999, background: bg, color: '#fff', fontSize: 12 }}>
+                          {item.status}
+                        </span>
 </div>
