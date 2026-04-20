@@ -435,3 +435,39 @@ export function DashboardPage() {
           </div>
         </div>
         <div className="card">
+          <div className="card-icon">🧠</div>
+          <div className="card-info">
+            <h4>AI Detections (24h)</h4>
+            <p>{metrics.ai}</p>
+          </div>
+        </div>
+        <div className="card">
+          <div className="card-icon">🔗</div>
+          <div className="card-info">
+            <h4>Logs Secured</h4>
+            <p>{metrics.secured}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="main-widgets">
+        <div className="widget widget-large">
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+            <h3 style={{ margin: 0 }}>Security Metrics</h3>
+            <div role="group" aria-label="Time range">
+              {(['1h', '24h', '7d'] as const).map((r) => (
+                <button
+                  key={r}
+                  type="button"
+                  onClick={() => setChartTimeRange(r)}
+                  className={chartTimeRange === r ? 'active' : ''}
+                  style={{
+                    marginRight: '0.5rem',
+                    padding: '0.35rem 0.75rem',
+                    borderRadius: '6px',
+                    border: '1px solid var(--border-color, #e2e8f0)',
+                    background: chartTimeRange === r ? 'var(--accent, #0891b2)' : 'transparent',
+                    color: chartTimeRange === r ? '#fff' : 'var(--fg, #0f172a)',
+                    cursor: 'pointer',
+                    fontSize: '0.875rem'
+                  }}
