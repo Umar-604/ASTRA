@@ -176,3 +176,11 @@ padding: 16,
                     fontWeight: 600
                   }}
                 >
+ {ackLoading ? '…' : 'Acknowledge'}
+                </button>
+              )}
+              {alertStatus === 'acknowledged' && (
+                <button
+                  type="button"
+                  disabled={ackLoading}
+                  onClick={() => handleAcknowledge('resolved')}
