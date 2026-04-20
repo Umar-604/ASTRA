@@ -486,3 +486,13 @@ justifyContent: 'space-between',
                             cursor: isAckLoading ? 'wait' : 'pointer',
                           }}
                         >
+   {isAckLoading ? '…' : 'Acknowledge'}
+                        </button>
+                      )}
+                      {status === 'acknowledged' && (
+                        <button
+                          type="button"
+                          disabled={isAckLoading}
+                          onClick={(e) => handleAcknowledge(e, a.event_id, 'resolved')}
+                          style={{
+                            padding: '6px 12px',
