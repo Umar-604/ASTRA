@@ -108,3 +108,7 @@ marginBottom: 12
               <div style={{ opacity: 0.7 }}>Event ID</div>
               <div style={{ overflowWrap: 'break-word' }}>{event?.event_id ?? alertId ?? '—'}</div>
               <div style={{ opacity: 0.7 }}>Endpoint</div>
+ <div>{(summary as AlertItem)?.host_id ?? '—'}</div>
+              <div style={{ opacity: 0.7 }}>AI decision</div>
+              <div>{aiLabel || '—'}</div>
+              <div style={{ opacity: 0.7 }}>{score.label}</div>
