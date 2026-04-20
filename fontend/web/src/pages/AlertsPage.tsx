@@ -313,3 +313,8 @@ justifyContent: 'space-between',
             }}
             style={{ ...filterInputStyle, cursor: 'pointer' }}
           >
+  {alertStatusOptions.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
+            ))}
