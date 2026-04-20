@@ -78,3 +78,8 @@ const showContent = summary || alertFromList;
         <div style={{ opacity: 0.8 }}>Alert not found</div>
       ) : (
         <>
+ {!hasDetails && alertFromList && (
+            <div
+              style={{
+                padding: 12,
+                marginBottom: 12,
