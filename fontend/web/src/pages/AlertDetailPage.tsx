@@ -276,4 +276,9 @@ padding: 16,
             {responseItems.length === 0 ? (
               <div style={{ opacity: 0.75, fontSize: 14 }}>No response actions recorded for this alert yet.</div>
             ) : (
+ <div style={{ display: 'grid', gap: 8 }}>
+                {responseItems.map((item, idx) => {
+                  const status = String(item.status || '').toLowerCase();
+                  const bg =
+                    status === 'ok'
 </div>
