@@ -36,3 +36,6 @@ Promise.all([
         const s = (evt?.summary as AlertItem)?.alert_status ?? fromList?.alert_status ?? 'new';
         setAlertStatus(s as AlertStatus);
       })
+.finally(() => mounted && setLoading(false));
+    return () => {
+      mounted = false;
