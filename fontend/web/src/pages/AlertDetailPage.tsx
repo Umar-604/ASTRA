@@ -281,4 +281,10 @@ padding: 16,
                   const status = String(item.status || '').toLowerCase();
                   const bg =
                     status === 'ok'
+ ? '#14532d'
+                      : status === 'recommended' || status === 'pending_approval'
+                        ? '#92400e'
+                        : status === 'simulated'
+                          ? '#334155'
+                          : '#7f1d1d';
 </div>
