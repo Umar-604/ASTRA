@@ -43,4 +43,10 @@ Promise.all([
  const handleAcknowledge = async (newStatus: 'acknowledged' | 'resolved') => {
     const id = alertId || (summary as AlertItem)?.event_id;
     if (!id) return;
-    setAckLoading(true);
+    setAckLoading(true);try {
+      await acknowledgeAlert(id, newStatus);
+      setAlertStatus(newStatus);
+    } finally {
+      setAckLoading(false);
+    }
+  };
