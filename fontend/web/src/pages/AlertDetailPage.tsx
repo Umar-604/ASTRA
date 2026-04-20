@@ -147,3 +147,9 @@ padding: 16,
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
               <span
                 style={{
+ padding: '6px 12px',
+                  borderRadius: 999,
+                  background:
+                    alertStatus === 'new'
+                      ? '#b91c1c'
+                      : alertStatus === 'acknowledged'
