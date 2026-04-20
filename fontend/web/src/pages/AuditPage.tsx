@@ -284,3 +284,16 @@ export function AuditPage() {
                     borderBottom: '1px solid var(--border-color)',
                   }}
                 >
+                  <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--gray-text, #64748b)', marginBottom: 10 }}>
+                    {it.timestamp ? String(it.timestamp) : '—'}
+                  </div>
+                  <dl
+                    style={{
+                      margin: 0,
+                      display: 'grid',
+                      gridTemplateColumns: 'minmax(100px, 38%) 1fr',
+                      gap: '8px 12px',
+                      fontSize: 13,
+                    }}
+                  >
+                    <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Host</dt>
