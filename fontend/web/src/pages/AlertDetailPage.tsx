@@ -56,4 +56,6 @@ Promise.all([
   const aiLabel = summary?.ai_label ?? '';
 const score = getAlertScoreDisplay(summary as AlertItem | undefined, 0);
   const severity = summary?.severity ?? '—';
-  const integrity = status ?? (summary?.integrity_status ? 
+  const integrity = status ?? (summary?.integrity_status ? summary.integrity_status.toUpperCase() : 'PENDING');
+  const hasDetails = Boolean(event?.summary || event?.record);
+
