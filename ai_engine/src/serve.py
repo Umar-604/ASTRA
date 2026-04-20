@@ -241,3 +241,9 @@ async def _allowlist_and_rate_limit(request: Request, call_next):
         return JSONResponse({"detail": "Not found"}, status_code=404)
     # Rate limit (simple fixed window per IP)
     try:
+        ip = request.client.host if request.client else "unknown"
+        now = int(time.time())
+        window = now // 60
+        win, cnt = _rl_state.get(ip, (window, 0))
+        if win != window:
+            _rl_state[ip] = (window, 1)
