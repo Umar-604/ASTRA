@@ -256,3 +256,11 @@ export function AuditPage() {
             style={{ ...filterInputStyle, cursor: 'pointer' }}
           >
             {[10, 20, 50].map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
