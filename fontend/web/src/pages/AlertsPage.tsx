@@ -288,3 +288,8 @@ justifyContent: 'space-between',
               fontSize: 13,
             }}
           >
+     Clear
+          </button>
+        </div>
+      </div>
+
