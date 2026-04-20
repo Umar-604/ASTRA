@@ -212,3 +212,10 @@ justifyContent: 'space-between',
                   background: selected ? 'rgba(var(--accent-rgb), 0.12)' : 'var(--widget-bg)',
                   color: selected ? 'var(--accent)' : 'var(--fg)',
                   fontWeight: selected ? 600 : 500,
+ cursor: 'pointer',
+                  fontSize: 13,
+                }}
+              >
+                {label}
+              </button>
+            );
