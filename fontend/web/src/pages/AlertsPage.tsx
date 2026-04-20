@@ -278,3 +278,13 @@ justifyContent: 'space-between',
           <button
             type="button"
             onClick={handleClear}
+  style={{
+              padding: '8px 12px',
+              borderRadius: 8,
+              border: '1px solid var(--border-color)',
+              background: 'var(--widget-bg)',
+              color: 'var(--fg)',
+              cursor: 'pointer',
+              fontSize: 13,
+            }}
+          >
