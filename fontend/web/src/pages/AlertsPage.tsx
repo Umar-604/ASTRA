@@ -134,4 +134,7 @@ const csv = [headers.join(','), ...rows.map((r) => r.map((c) => `"${String(c).re
     setSeverity('ANY');
     setAlertStatusFilter('ANY');
     setIntegrity('ANY');
+setHostFilter('');
+    setPage(1);
+  };
 </svg>
