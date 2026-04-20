@@ -223,3 +223,21 @@ export function AuditPage() {
         </div>
       </div>
 
+      {/* Secondary filters */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: narrow ? '1fr' : 'repeat(auto-fill, minmax(200px, 1fr))',
+          gap: 12,
+          marginBottom: 12,
+          alignItems: 'start',
+        }}
+      >
+        <label style={{ display: 'flex', flexDirection: 'column', fontSize: 12, opacity: 0.8, gap: 4 }}>
+          Host filter
+          <input
+            value={hostFilter}
+            onChange={(e) => {
+              setHostFilter(e.target.value);
+              setPage(1);
+            }}
