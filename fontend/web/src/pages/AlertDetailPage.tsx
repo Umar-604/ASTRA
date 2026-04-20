@@ -32,3 +32,7 @@ Promise.all([
  if (integ && integ.status) setStatus(integ.status as 'VERIFIED' | 'PENDING' | 'TAMPERED');
         if (integ && integ.tx_id) setTxId(integ.tx_id);
         setResponseItems((resp?.items || []).slice().reverse());
+ const fromList = (location.state as { alert?: AlertItem })?.alert;
+        const s = (evt?.summary as AlertItem)?.alert_status ?? fromList?.alert_status ?? 'new';
+        setAlertStatus(s as AlertStatus);
+      })
