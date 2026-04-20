@@ -87,3 +87,7 @@ export function DashboardPage() {
     high: 0,
     medium: 0
   });
+  const lineRef = useRef<HTMLCanvasElement | null>(null);
+  const donutRef = useRef<HTMLCanvasElement | null>(null);
+  const chartsRef = useRef<{ line?: any; donut?: any }>({});
+
