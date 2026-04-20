@@ -681,3 +681,10 @@ justifyContent: 'space-between',
             style={{
               padding: '6px 10px',
               borderRadius: 6,
+   border: '1px solid var(--panel-border)',
+              background: 'var(--panel-bg)',
+              color: 'var(--fg)',
+              cursor: page <= 1 ? 'not-allowed' : 'pointer',
+              opacity: page <= 1 ? 0.5 : 1
+            }}
+          >
