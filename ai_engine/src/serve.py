@@ -278,3 +278,6 @@ def _verify_jwt(token: str, secret: str) -> dict | None:
         return data
     except Exception:
         return None
+    
+def _b64url_encode(b: bytes) -> str:
+    return base64.urlsafe_b64encode(b).decode().rstrip("=")
