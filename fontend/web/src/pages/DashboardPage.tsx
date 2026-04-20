@@ -50,3 +50,9 @@ function buildSeriesFromAlerts(items: AlertItem[], range: ChartTimeRange): Dashb
     const d = new Date(ts);
     let key: string;
     if (range === '1h') {
+      const t = d.getTime();
+      if (t < oneHourAgo || t >= nowMs) return;
+      const slot = Math.floor(d.getMinutes() / 10) * 10;
+      key = `${String(d.getHours()).padStart(2, '0')}:${String(slot).padStart(2, '0')}`;
+    } else if (range === '24h') {
+      key = `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:00`;
