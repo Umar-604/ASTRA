@@ -243,3 +243,17 @@ export function DashboardPage() {
     { t: 't', v: Math.max(0, totalAlerts24h - Math.floor((totalAlerts24h / 5) * 4)) }
   ];
 
+  // Build charts with Chart.js: multi-line (Critical Alerts, AI Detections, Logs Secured)
+  useEffect(() => {
+    let mounted = true;
+    const styles = getComputedStyle(document.body);
+    const textColor = styles.getPropertyValue('--fg').trim() || '#0f172a';
+    const gridColor = styles.getPropertyValue('--border-color').trim() || '#e2e8f0';
+    const data = dashboardSeries.length ? dashboardSeries : getDefaultSeriesForRange(chartTimeRange);
+    const labels = data.map((p) => String(p?.date ?? ''));
+    const criticalAlerts = data.map((p) => Number(p?.criticalAlerts) || 0);
+    const aiDetections = data.map((p) => Number(p?.aiDetections) || 0);
+    const logsSecured = data.map((p) => Number(p?.logsSecured) || 0);
+    const totalEvents = data.map((p) => Number(p?.totalEvents) || 0);
+    const maxVal = Math.max(0, ...criticalAlerts, ...aiDetections, ...logsSecured, ...totalEvents);
+
