@@ -169,3 +169,10 @@ padding: 16,
                   style={{
                     padding: '8px 16px',
                     borderRadius: 8,
+ border: 'none',
+                    background: 'var(--accent)',
+                    color: '#fff',
+                    cursor: ackLoading ? 'wait' : 'pointer',
+                    fontWeight: 600
+                  }}
+                >
