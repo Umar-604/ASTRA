@@ -29,3 +29,6 @@ Promise.all([
       .then(([evt, integ, resp]) => {
         if (!mounted) return;
         if (evt) setEvent(evt);
+ if (integ && integ.status) setStatus(integ.status as 'VERIFIED' | 'PENDING' | 'TAMPERED');
+        if (integ && integ.tx_id) setTxId(integ.tx_id);
+        setResponseItems((resp?.items || []).slice().reverse());
