@@ -194,3 +194,8 @@ padding: 16,
                     fontWeight: 600
                   }}
                 >
+  {ackLoading ? '…' : 'Resolve'}
+                </button>
+              )}
+            </div>
+          </section>
