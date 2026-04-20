@@ -200,4 +200,8 @@ justifyContent: 'space-between',
           {severityChips.map(({ value, label }) => {
             const selected = severity === value;
             return (
-              <button
+              <button key={value}
+                type="button"
+                onClick={() => {
+                  setSeverity(value);
+                  setPage(1);
