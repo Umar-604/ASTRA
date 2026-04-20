@@ -122,4 +122,7 @@ a.event_type ?? '',
 a.integrity_status ?? 'Pending',
       ];
     });
+const csv = [headers.join(','), ...rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(','))].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
 </svg>
