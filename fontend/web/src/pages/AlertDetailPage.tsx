@@ -92,3 +92,7 @@ background: 'var(--muted)',
             >
 Full event details could not be loaded; showing summary from alerts list.
             </div>
+)}
+          {/* 1) Summary */}
+          <section
+            style={{
