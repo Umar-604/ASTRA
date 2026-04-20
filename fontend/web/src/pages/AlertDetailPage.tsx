@@ -120,3 +120,9 @@ marginBottom: 12
                     borderRadius: 999,
                     background:
                       severity.toUpperCase() === 'HIGH'
+ ? '#7f1d1d'
+                        : severity.toUpperCase() === 'MEDIUM'
+                        ? '#92400e'
+                        : 'var(--accent)',
+                    color: '#fff',
+                    fontSize: 12
