@@ -42,3 +42,11 @@ function buildSeriesFromAlerts(items: AlertItem[], range: ChartTimeRange): Dashb
   labels.forEach((d) => {
     byKey[d] = { criticalAlerts: 0, aiDetections: 0, logsSecured: 0, totalEvents: 0 };
   });
+  const nowMs = range === '1h' ? Date.now() : 0;
+  const oneHourAgo = range === '1h' ? nowMs - 60 * 60 * 1000 : 0;
+  items.forEach((i) => {
+    const ts = (i['@timestamp'] || (i as any).timestamp || '').toString();
+    if (!ts) return;
+    const d = new Date(ts);
+    let key: string;
+    if (range === '1h') {
