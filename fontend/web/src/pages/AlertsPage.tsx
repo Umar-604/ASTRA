@@ -86,4 +86,7 @@ useEffect(() => {
       });
  return () => { mounted = false; };
   }, []);
+const filtered = useMemo(() => {
+    let items = data;
+    if (severity !== 'ANY') {
 </svg>
