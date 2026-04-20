@@ -18,3 +18,5 @@ const alertStatusOptions: { value: 'ANY' | AlertStatus; label: string }[] = [
   { value: 'acknowledged', label: 'Acknowledged' },
 { value: 'resolved', label: 'Resolved' },
 ];
+const integrityOptions: Array<'ANY' | IntegrityStatus> = ['ANY', 'Verified', 'Pending', 'Tampered'];
+const integrityOptions: Array<'ANY' | IntegrityStatus> = ['ANY', 'Verified', 'Pending', 'Tampered'];
