@@ -234,3 +234,12 @@ export function DashboardPage() {
     tampered: summary?.integrity?.tampered ?? 0
   };
 
+  // Time-series: prefer from summary; else synthesize a flat series
+  const series: SeriesPoint[] = (summary?.timeseries as SeriesPoint[]) || [
+    { t: 't-4', v: Math.max(0, Math.floor(totalAlerts24h / 5)) },
+    { t: 't-3', v: Math.max(0, Math.floor(totalAlerts24h / 5)) },
+    { t: 't-2', v: Math.max(0, Math.floor(totalAlerts24h / 5)) },
+    { t: 't-1', v: Math.max(0, Math.floor(totalAlerts24h / 5)) },
+    { t: 't', v: Math.max(0, totalAlerts24h - Math.floor((totalAlerts24h / 5) * 4)) }
+  ];
+
