@@ -187,3 +187,8 @@ justifyContent: 'space-between',
           style={{
             display: 'flex',
             alignItems: 'center',
+   gap: 10,
+            flexWrap: 'wrap',
+            flex: narrow ? '1 1 100%' : undefined,
+          }}
+        >
