@@ -307,3 +307,9 @@ justifyContent: 'space-between',
           Status
           <select
             value={alertStatusFilter}
+    onChange={(e) => {
+              setAlertStatusFilter(e.target.value as 'ANY' | AlertStatus);
+              setPage(1);
+            }}
+            style={{ ...filterInputStyle, cursor: 'pointer' }}
+          >
