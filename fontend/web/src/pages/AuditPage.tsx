@@ -145,3 +145,20 @@ export function AuditPage() {
                   setIntegrityFilter(value as 'ANY' | 'VERIFIED' | 'TAMPERED' | 'PENDING');
                   setPage(1);
                 }}
+                style={{
+                  padding: '8px 14px',
+                  borderRadius: 8,
+                  border: `1px solid ${selected ? 'var(--accent)' : 'var(--border-color)'}`,
+                  background: selected ? 'rgba(var(--accent-rgb), 0.12)' : 'var(--widget-bg)',
+                  color: selected ? 'var(--accent)' : 'var(--fg)',
+                  fontWeight: selected ? 600 : 500,
+                  cursor: 'pointer',
+                  fontSize: 13,
+                }}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+
