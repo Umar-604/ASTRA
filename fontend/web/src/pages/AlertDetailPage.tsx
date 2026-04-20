@@ -184,3 +184,9 @@ padding: 16,
                   type="button"
                   disabled={ackLoading}
                   onClick={() => handleAcknowledge('resolved')}
+ style={{
+                    padding: '8px 16px',
+                    borderRadius: 8,
+                    border: 'none',
+                    background: '#15803d',
+                    color: '#fff',
