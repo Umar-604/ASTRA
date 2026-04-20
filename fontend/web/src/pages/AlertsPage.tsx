@@ -101,4 +101,5 @@ if (hostFilter.trim()) {
       const q = hostFilter.trim().toLowerCase();
       items = items.filter((a) => (a.host_id || '').toLowerCase().includes(q));
     }
-</svg>
+  return items;
+  }, [data, severity, alertStatusFilter, integrity, hostFilter]);</svg>
