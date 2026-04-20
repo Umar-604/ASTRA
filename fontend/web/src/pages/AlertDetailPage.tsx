@@ -242,4 +242,8 @@ padding: 16,
  {/* 4) Event data (Sysmon / pipeline) – all details captured by the agent */}
           {record?.data && Object.keys(record.data).length > 0 && (
             <section
-              style={{
+              style={{ border: '1px solid var(--panel-border)',
+                borderRadius: 12,
+                padding: 16,
+                background: 'var(--panel-bg)',
+                marginBottom: 12
