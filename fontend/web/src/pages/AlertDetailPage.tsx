@@ -233,3 +233,9 @@ padding: 16,
               <div>{record?.agent_id ?? (summary as AlertItem)?.agent_id ?? '—'}</div>
               <div style={{ opacity: 0.7 }}>Platform</div>
               <div>{record?.platform ?? '—'}</div>
+ <div style={{ opacity: 0.7 }}>Event type</div>
+              <div>{record?.event_type ?? (summary as AlertItem)?.event_type ?? '—'}</div>
+              <div style={{ opacity: 0.7 }}>Timestamp</div>
+              <div>{record?.timestamp ?? (summary as AlertItem)?.['@timestamp'] ?? '—'}</div>
+            </div>
+          </section>
