@@ -662,3 +662,12 @@ justifyContent: 'space-between',
       </Card>
 
       <div
+  style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 12,
+          flexWrap: 'wrap',
+          gap: 12,
+        }}
+      >
