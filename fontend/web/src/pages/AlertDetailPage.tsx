@@ -266,4 +266,14 @@ padding: 16,
           <section
             style={{
               border: '1px solid var(--panel-border)',
+ borderRadius: 12,
+              padding: 16,
+              background: 'var(--panel-bg)',
+              marginBottom: 12
+            }}
+          >
+ <h3 style={{ marginTop: 0, marginBottom: 8, fontSize: 16 }}>Response actions</h3>
+            {responseItems.length === 0 ? (
+              <div style={{ opacity: 0.75, fontSize: 14 }}>No response actions recorded for this alert yet.</div>
+            ) : (
 </div>
