@@ -31,4 +31,6 @@ const ALERTS_GRID_COLS =
 'minmax(140px, 1fr) minmax(88px, 1fr) minmax(88px, 1fr) minmax(88px, 1fr) minmax(72px, 100px) minmax(80px, 100px) minmax(76px, 96px) minmax(96px, 120px)';
 const IconRefresh = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+<polyline points="23 4 23 10 17 10" />
+    <polyline points="1 20 1 14 7 14" />
 </svg>
