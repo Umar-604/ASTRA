@@ -272,3 +272,9 @@ justifyContent: 'space-between',
               opacity: loading ? 0.7 : 1,
             }}
           >
+  <IconRefresh />
+            Refresh
+          </button>
+          <button
+            type="button"
+            onClick={handleClear}
