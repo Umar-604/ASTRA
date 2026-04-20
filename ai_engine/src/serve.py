@@ -57,3 +57,8 @@ except Exception:
     pass
 
 try:
+    from nats.aio.client import Client as NATS
+    from nats.js.api import StreamConfig
+    _NATS_AVAILABLE = True
+except Exception:
+    _NATS_AVAILABLE = False
