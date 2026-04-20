@@ -10,3 +10,8 @@ import { getAlertScoreDisplay } from '../utils/alertScore';
 export function AlertDetailPage() {
   const { alertId } = useParams();
   const location = useLocation();
+const alertFromList = (location.state as { alert?: AlertItem })?.alert;
+  const [event, setEvent] = useState<EventSummary | null>(null);
+  const [status, setStatus] = useState<'VERIFIED' | 'PENDING' | 'TAMPERED' | null>(null);
+  const [txId, setTxId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
