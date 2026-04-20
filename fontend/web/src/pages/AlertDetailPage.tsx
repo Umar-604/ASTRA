@@ -90,3 +90,5 @@ background: 'var(--muted)',
                 opacity: 0.9
 }}
             >
+Full event details could not be loaded; showing summary from alerts list.
+            </div>
