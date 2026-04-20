@@ -115,4 +115,8 @@ const score = getAlertScoreDisplay(a, 0);
       return [
         a['@timestamp'] ?? '',
         a.host_id ?? '',
+a.event_type ?? '',
+        a.ai_label ?? '',
+        score.value,
+        a.severity ?? '',
 </svg>
