@@ -475,4 +475,14 @@ justifyContent: 'space-between',
                       {status === 'new' && (
                         <button
                           type="button"
-                          disabled={isAckLoading}
+                          disabled={isAckLoading}  onClick={(e) => handleAcknowledge(e, a.event_id, 'acknowledged')}
+                          style={{
+                            padding: '6px 12px',
+                            fontSize: 12,
+                            borderRadius: 6,
+                            border: 'none',
+                            background: 'var(--accent)',
+                            color: '#fff',
+                            cursor: isAckLoading ? 'wait' : 'pointer',
+                          }}
+                        >
