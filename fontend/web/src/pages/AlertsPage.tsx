@@ -80,4 +80,8 @@ useEffect(() => {
         if (!mounted) return;
         setData([]);
       })
+ .finally(() => {
+        if (!mounted) return;
+        setLoading(false);
+      });
 </svg>
