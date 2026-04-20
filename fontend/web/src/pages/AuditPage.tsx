@@ -393,3 +393,36 @@ export function AuditPage() {
                     </div>
                     <div>
                       <span
+                        style={{
+                          padding: '2px 8px',
+                          borderRadius: 999,
+                          background: rb.bg,
+                          color: rb.fg,
+                          fontSize: 12,
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {rb.label}
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <span
+                        style={{
+                          padding: '2px 8px',
+                          borderRadius: 999,
+                          background: ip.bg,
+                          color: ip.fg,
+                          fontSize: 12,
+                        }}
+                      >
+                        {ip.label}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </Card>
+
