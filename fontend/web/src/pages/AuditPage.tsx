@@ -315,3 +315,18 @@ export function AuditPage() {
                           display: 'inline-block',
                         }}
                       >
+                        {rb.label}
+                      </span>
+                    </dd>
+                    <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Integrity</dt>
+                    <dd style={{ margin: 0 }}>
+                      <span
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: 999,
+                          background: ip.bg,
+                          color: ip.fg,
+                          fontSize: 12,
+                          fontWeight: 600,
+                        }}
+                      >
