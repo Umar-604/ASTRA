@@ -173,3 +173,9 @@ return (
         style={{
           display: 'flex',
           alignItems: 'center',
+justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: 12,
+          marginBottom: 12,
+          padding: '12px 16px',
+          background: 'var(--muted)',
