@@ -17,4 +17,7 @@ const alertFromList = (location.state as { alert?: AlertItem })?.alert;
   const [loading, setLoading] = useState(true);
  const [alertStatus, setAlertStatus] = useState<AlertStatus>('new');
   const [ackLoading, setAckLoading] = useState(false);
-  const [responseItems, setResponseItems] = useState<ResponseHistoryItem[]>([]);
+  const [responseItems, setResponseItems] = useState<ResponseHistoryItem[]>([]);useEffect(() => {
+    let mounted = true;
+    const id = alertId || '';
+    setLoading(true);
