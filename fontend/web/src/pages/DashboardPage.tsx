@@ -149,3 +149,15 @@ export function DashboardPage() {
         items.forEach((i) => {
           const s = (i.severity || '').toUpperCase();
           bySevRecent[s] = (bySevRecent[s] || 0) + 1;
+        });
+        const criticalCount = (bySevRecent['CRITICAL'] || 0) + (bySevRecent['HIGH'] || 0);
+        setMetrics({ critical: criticalCount, endpoints: uniqueHosts.size, ai: aiCount, secured });
+        // Fallback: if threats/summary didn't provide severity counts, use counts from alerts
+        if (!severitySet && items.length > 0) {
+          setSeverityData({
+            critical: (bySevRecent['CRITICAL'] || 0) + (bySevRecent['HIGH'] || 0),
+            high: bySevRecent['HIGH'] || 0,
+            medium: bySevRecent['MEDIUM'] || 0
+          });
+        }
+      }
