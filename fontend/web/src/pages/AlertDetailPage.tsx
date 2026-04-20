@@ -126,3 +126,10 @@ marginBottom: 12
                         : 'var(--accent)',
                     color: '#fff',
                     fontSize: 12
+  }}
+                >
+                  {severity}
+                </span>
+              </div>
+            </div>
+          </section>
