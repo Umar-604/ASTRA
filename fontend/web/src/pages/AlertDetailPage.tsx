@@ -50,3 +50,7 @@ Promise.all([
       setAckLoading(false);
     }
   };
+// Prefer API event summary/record; fall back to alert row passed from Alerts list
+  const summary = event?.summary ?? (alertFromList ? { ...alertFromList, integrity_status: alertFromList.integrity_status } : null);
+  const record = event?.record ?? null;
+  const aiLabel = summary?.ai_label ?? '';
