@@ -349,3 +349,7 @@ justifyContent: 'space-between',
               setHostFilter(e.target.value);
               setPage(1);
             }}
+  placeholder="hostname"
+            style={filterInputStyle}
+          />
+        </label>
