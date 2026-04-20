@@ -196,4 +196,8 @@ justifyContent: 'space-between',
           {severityChips.map(({ value, label }) => {
             const selected = severity === value;
             return (
+              <button  <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--fg)' }}>Severity:</span>
+          {severityChips.map(({ value, label }) => {
+            const selected = severity === value;
+            return (
               <button
