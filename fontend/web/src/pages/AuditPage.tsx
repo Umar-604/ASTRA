@@ -31,3 +31,12 @@ function integrityPill(integrity?: string | null) {
   return { label, bg, fg };
 }
 
+export function AuditPage() {
+  const [items, setItems] = useState<AuditLogItem[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [integrityFilter, setIntegrityFilter] = useState<'ANY' | 'VERIFIED' | 'TAMPERED' | 'PENDING'>('ANY');
+  const [hostFilter, setHostFilter] = useState('');
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [narrow, setNarrow] = useState(false);
+
