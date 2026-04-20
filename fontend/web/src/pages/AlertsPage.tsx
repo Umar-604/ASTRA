@@ -157,3 +157,11 @@ border: '1px solid var(--panel-border)',
     setAckLoading(eventId);
     try {
 </svg>
+ await acknowledgeAlert(eventId, status);
+      fetchAlerts();
+    } catch {
+      // Error already handled by client / redirect
+    } finally {
+      setAckLoading(null);
+    }
+  };
