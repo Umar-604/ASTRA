@@ -165,3 +165,16 @@ app.add_middleware(
 async def _hide_validation_details(request: Request, exc: RequestValidationError):
     # Reduce attack surface: never leak validation structure/details
     return JSONResponse({"detail": "Invalid request"}, status_code=400)
+
+
+_ALLOWLIST_PATHS = [p.strip() for p in os.getenv("ALLOWLIST_PATHS", "/health,/alerts,/events/,/audit/verify,/ui,/ui/alerts,/ui/threats/summary,/ui/integrity/,/auth/login,/auth/signup,/auth/refresh,/agents,/agents/").split(",") if p.strip()]
+_RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "600"))
+_JWT_SECRET = os.getenv("JWT_SECRET", "")
+_ACCESS_TTL_MIN = int(os.getenv("ACCESS_TOKEN_TTL_MIN", "15"))
+_REFRESH_TTL_DAYS = int(os.getenv("REFRESH_TOKEN_TTL_DAYS", "7"))
+_AGENT_TOKEN_TTL_DAYS = int(os.getenv("AGENT_TOKEN_TTL_DAYS", "90"))
+_SERVICE_TOKENS = {t.strip() for t in os.getenv("SERVICE_TOKENS", "").split(",") if t.strip()}
+_LOGIN_RATE_LIMIT_PER_MIN = int(os.getenv("LOGIN_RATE_LIMIT_PER_MIN", "30"))
+_LOGIN_MAX_FAILURES = int(os.getenv("LOGIN_MAX_FAILURES", "5"))
+_LOGIN_LOCKOUT_MIN = int(os.getenv("LOGIN_LOCKOUT_MIN", "15"))
+_PASSWORD_MIN_LEN = int(os.getenv("PASSWORD_MIN_LEN", "12"))
