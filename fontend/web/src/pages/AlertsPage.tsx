@@ -599,3 +599,16 @@ justifyContent: 'space-between',
                           fontSize: 12,
                         }}
                       >
+  {a.severity}
+                      </span>
+                    </div>
+                    <div>
+                      <span
+                        style={{
+                          padding: '2px 8px',
+                          borderRadius: 999,
+                          background: statusBg,
+                          color: '#fff',
+                          fontSize: 12,
+                        }}
+                      >
