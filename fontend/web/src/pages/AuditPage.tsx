@@ -40,3 +40,19 @@ export function AuditPage() {
   const [pageSize, setPageSize] = useState(10);
   const [narrow, setNarrow] = useState(false);
 
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 960px)');
+    const apply = () => setNarrow(mq.matches);
+    apply();
+    mq.addEventListener?.('change', apply);
+    return () => mq.removeEventListener?.('change', apply);
+  }, []);
+
+  const fetchAuditLogs = () => {
+    setLoading(true);
+    getAuditLogs({ limit: 200 })
+      .then((res) => setItems(res.items || []))
+      .catch(() => setItems([]))
+      .finally(() => setLoading(false));
+  };
+
