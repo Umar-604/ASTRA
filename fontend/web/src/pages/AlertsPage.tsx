@@ -168,3 +168,8 @@ border: '1px solid var(--panel-border)',
 return (
     <div className="alerts-page-root" style={{ maxWidth: 'min(1200px, 100%)', margin: '0 auto', padding: '0 12px' }}>
       <h2 style={{ marginTop: 0 }}>Alerts</h2>
+{/* Toolbar: Severity chips, results count, Export / Refresh / Clear */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
