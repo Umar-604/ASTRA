@@ -68,4 +68,8 @@ const fetchAlerts = () => {
       .finally(() => setLoading(false));
   };
 
+useEffect(() => {
+    let mounted = true;
+    setLoading(true);
+    getAlerts({ limit: 200 })
 </svg>
