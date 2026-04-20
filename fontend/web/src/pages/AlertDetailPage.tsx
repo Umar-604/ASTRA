@@ -227,3 +227,9 @@ padding: 16,
               marginBottom: 12
             }}
           >
+ <h3 style={{ marginTop: 0, marginBottom: 8, fontSize: 16 }}>Context</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', rowGap: 6 }}>
+              <div style={{ opacity: 0.7 }}>Agent</div>
+              <div>{record?.agent_id ?? (summary as AlertItem)?.agent_id ?? '—'}</div>
+              <div style={{ opacity: 0.7 }}>Platform</div>
+              <div>{record?.platform ?? '—'}</div>
