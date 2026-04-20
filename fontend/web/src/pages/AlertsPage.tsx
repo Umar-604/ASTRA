@@ -558,3 +558,14 @@ justifyContent: 'space-between',
                 const isAckLoading = ackLoading === a.event_id;
                 return (
                   <div
+ key={rowKey}
+                    onClick={onClick}
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: ALERTS_GRID_COLS,
+                      gap: 16,
+                      alignItems: 'center',
+                      padding: '14px 20px',
+                      borderBottom: index < pageItems.length - 1 ? '1px solid var(--border-color)' : 'none',
+                      cursor: 'pointer',
+                    }}
