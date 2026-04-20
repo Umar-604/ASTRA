@@ -152,4 +152,8 @@ border: '1px solid var(--panel-border)',
     minWidth: narrow ? 0 : 160,
  boxSizing: 'border-box',
   };
+ const handleAcknowledge = async (e: React.MouseEvent, eventId: string, status: AcknowledgeStatus) => {
+    e.stopPropagation();
+    setAckLoading(eventId);
+    try {
 </svg>
