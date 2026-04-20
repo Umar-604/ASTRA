@@ -332,4 +332,11 @@ padding: 16,
               <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', rowGap: 6, fontSize: 14 }}>
                 {Object.entries(record.metadata).map(([k, v]) => (
                   <div key={k} style={{ display: 'contents' }}>
-                    <span style={{ opacity: 0.85 }}>{k}</span></div>
+                    <span style={{ opacity: 0.85 }}>{k}</span> <span style={{ overflowWrap: 'break-word', wordBreak: 'break-word' }}>
+                      {typeof v === 'object' && v !== null ? JSON.stringify(v) : String(v ?? '—')}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+</div>
