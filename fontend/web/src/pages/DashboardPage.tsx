@@ -161,3 +161,11 @@ export function DashboardPage() {
           });
         }
       }
+      if (latestHigh.status === 'fulfilled') {
+        setLatest(latestHigh.value.items || []);
+      }
+      const apiSeries = dashboard.status === 'fulfilled' && Array.isArray(dashboard.value?.series) ? dashboard.value.series : null;
+      const expectedLen = chartTimeRange === '1h' ? 6 : chartTimeRange === '24h' ? 24 : 7;
+      const alertsItems = alertsRange.status === 'fulfilled' ? alertsRange.value?.items ?? [] : [];
+      const defaultSeries = getDefaultSeriesForRange(chartTimeRange);
+
