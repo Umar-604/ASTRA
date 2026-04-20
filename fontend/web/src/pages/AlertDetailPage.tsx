@@ -247,3 +247,9 @@ padding: 16,
                 padding: 16,
                 background: 'var(--panel-bg)',
                 marginBottom: 12
+}}
+            >
+              <h3 style={{ marginTop: 0, marginBottom: 8, fontSize: 16 }}>Event data (Sysmon / pipeline)</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', rowGap: 6, fontSize: 14 }}>
+                {Object.entries(record.data).map(([k, v]) => (
+                  <div key={k} style={{ display: 'contents' }}></div>
