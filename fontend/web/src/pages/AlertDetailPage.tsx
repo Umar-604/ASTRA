@@ -73,3 +73,8 @@ const showContent = summary || alertFromList;
 <BackButton fallbackTo="/alerts" />
       <h2 style={{ marginTop: 0 }}>Alert Details</h2>
       {loading ? (
+<div style={{ opacity: 0.8 }}>Loading...</div>
+      ) : !showContent ? (
+        <div style={{ opacity: 0.8 }}>Alert not found</div>
+      ) : (
+        <>
