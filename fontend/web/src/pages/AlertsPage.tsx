@@ -108,4 +108,7 @@ if (hostFilter.trim()) {
     // Reset to page 1 if filters change and current page is out of range
     if (page > totalPages) setPage(1);
   }, [totalPages, page]);
+ const handleExport = () => {
+    const headers = ['Timestamp', 'Host', 'Event type', 'AI verdict', 'Score', 'Severity', 'Integrity'];
+    const rows = filtered.map((a) => {
 </svg>
