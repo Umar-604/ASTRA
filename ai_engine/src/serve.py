@@ -247,3 +247,11 @@ async def _allowlist_and_rate_limit(request: Request, call_next):
         win, cnt = _rl_state.get(ip, (window, 0))
         if win != window:
             _rl_state[ip] = (window, 1)
+
+        else:
+            if cnt >= _RATE_LIMIT_PER_MIN:
+                return FastAPI.responses.JSONResponse({"detail": "rate limit exceeded"}, status_code=429)
+            _rl_state[ip] = (win, cnt + 1)
+    except Exception:
+        pass
+    return await call_next(request)
