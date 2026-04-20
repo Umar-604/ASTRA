@@ -287,4 +287,15 @@ padding: 16,
                         : status === 'simulated'
                           ? '#334155'
                           : '#7f1d1d';
+ const label = item.action_taken || item.action || 'action';
+                  return (
+                    <div
+                      key={`${item.event_id}-${item.timestamp}-${idx}`}
+                      style={{
+                        border: '1px solid var(--panel-border)',
+                        borderRadius: 8,
+                        padding: 10,
+                        background: 'var(--widget-bg)'
+                      }}
+                    >
 </div>
