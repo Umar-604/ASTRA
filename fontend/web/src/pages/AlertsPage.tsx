@@ -324,3 +324,7 @@ justifyContent: 'space-between',
           Integrity
           <select
             value={integrity}
+  onChange={(e) => {
+              setIntegrity(e.target.value as (typeof integrityOptions)[number]);
+              setPage(1);
+            }}
