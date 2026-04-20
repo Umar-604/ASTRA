@@ -78,3 +78,10 @@ try:
         def __init__(self, stream, fh):
             self._stream = stream
             self._fh = fh
+
+        def write(self, data):
+            try:
+                self._stream.write(data)
+            except Exception:
+                pass
+            try:
