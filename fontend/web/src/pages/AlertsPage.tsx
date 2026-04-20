@@ -588,3 +588,14 @@ justifyContent: 'space-between',
                       {score.isBehavioral && (
                         <span style={{ fontSize: 10, opacity: 0.8, display: 'block' }}>Anomaly</span>
                       )}
+ </div>
+                    <div>
+                      <span
+                        style={{
+                          padding: '2px 8px',
+                          borderRadius: 999,
+                          background: sevColor,
+                          color: '#fff',
+                          fontSize: 12,
+                        }}
+                      >
