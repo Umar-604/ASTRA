@@ -358,3 +358,8 @@ justifyContent: 'space-between',
           <select
             value={pageSize}
             onChange={(e) => {
+ setPageSize(parseInt(e.target.value, 10));
+              setPage(1);
+            }}
+            style={{ ...filterInputStyle, cursor: 'pointer' }}
+          >
