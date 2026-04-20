@@ -48,4 +48,7 @@ const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [narrow, setNarrow] = useState(false);
   const navigate = useNavigate();
+useEffect(() => {
+    const mq = window.matchMedia('(max-width: 960px)');
+    const apply = () => setNarrow(mq.matches);
 </svg>
