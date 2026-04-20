@@ -304,3 +304,10 @@ padding: 16,
                           {item.status}
                         </span>
 </div>
+                      <div style={{ opacity: 0.75, fontSize: 12, marginTop: 4 }}>
+                        {item.timestamp} {item.triggered_by ? `• triggered_by: ${item.triggered_by}` : ''}
+                      </div>
+                      {item.tx_id && (
+                        <div style={{ opacity: 0.9, fontSize: 12, marginTop: 4, overflowWrap: 'anywhere' }}>
+                          tx_id: {item.tx_id}
+</div>
