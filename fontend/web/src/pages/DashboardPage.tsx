@@ -339,3 +339,14 @@ export function DashboardPage() {
                 grid: { display: false },
                 ticks: { color: textColor, maxRotation: 45 }
               },
+              y: {
+                title: { display: true, text: 'Count', color: textColor },
+                grid: { color: gridColor },
+                beginAtZero: true,
+                suggestedMax: maxVal === 0 ? 5 : undefined,
+                ticks: { color: textColor, precision: 0 }
+              }
+            }
+          }
+        });
+      }
