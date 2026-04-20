@@ -15,3 +15,6 @@ const alertFromList = (location.state as { alert?: AlertItem })?.alert;
   const [status, setStatus] = useState<'VERIFIED' | 'PENDING' | 'TAMPERED' | null>(null);
   const [txId, setTxId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+ const [alertStatus, setAlertStatus] = useState<AlertStatus>('new');
+  const [ackLoading, setAckLoading] = useState(false);
+  const [responseItems, setResponseItems] = useState<ResponseHistoryItem[]>([]);
