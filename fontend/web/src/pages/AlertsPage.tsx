@@ -91,4 +91,7 @@ const filtered = useMemo(() => {
     if (severity !== 'ANY') {
 items = items.filter((a) => (a.severity || '').toUpperCase() === severity);
     }
+  if (alertStatusFilter !== 'ANY') {
+      items = items.filter((a) => (a.alert_status || 'new') === alertStatusFilter);
+    }
 </svg>
