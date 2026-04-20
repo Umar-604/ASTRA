@@ -25,3 +25,7 @@ Promise.all([
       getEvent(id).catch(() => null),
       verifyIntegrityPost(id).catch(() => null) as Promise<{ status?: string; tx_id?: string } | null>,
       getResponseHistory(id).catch(() => ({ items: [] as ResponseHistoryItem[] }))
+])
+      .then(([evt, integ, resp]) => {
+        if (!mounted) return;
+        if (evt) setEvent(evt);
