@@ -282,3 +282,12 @@ export function DashboardPage() {
                 pointHoverRadius: 5
               },
               {
+                label: 'AI Detections',
+                data: aiDetections,
+                borderColor: '#a855f7',
+                backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                tension: 0.35,
+                fill: true,
+                pointRadius: 3,
+                pointHoverRadius: 5
+              },
