@@ -104,4 +104,8 @@ if (hostFilter.trim()) {
   return items;
   }, [data, severity, alertStatusFilter, integrity, hostFilter]);const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const pageItems = filtered.slice((page - 1) * pageSize, page * pageSize);
+ useEffect(() => {
+    // Reset to page 1 if filters change and current page is out of range
+    if (page > totalPages) setPage(1);
+  }, [totalPages, page]);
 </svg>
