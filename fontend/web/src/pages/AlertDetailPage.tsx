@@ -256,4 +256,10 @@ padding: 16,
                     <span style={{ overflowWrap: 'break-word', wordBreak: 'break-word' }}>
                       {typeof v === 'object' && v !== null ? JSON.stringify(v) : String(v ?? '—')}
                     </span>
+ </div>
+                ))}
+              </div>
+            </section>
+          )}
+
 </div>
