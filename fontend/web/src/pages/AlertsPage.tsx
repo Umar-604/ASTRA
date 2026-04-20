@@ -301,3 +301,9 @@ justifyContent: 'space-between',
           gap: 12,
           marginBottom: 12,
           alignItems: 'start',
+     }}
+      >
+        <label style={{ display: 'flex', flexDirection: 'column', fontSize: 12, opacity: 0.8, gap: 4 }}>
+          Status
+          <select
+            value={alertStatusFilter}
