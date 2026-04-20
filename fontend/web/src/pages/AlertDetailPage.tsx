@@ -21,3 +21,7 @@ const alertFromList = (location.state as { alert?: AlertItem })?.alert;
     let mounted = true;
     const id = alertId || '';
     setLoading(true);
+Promise.all([
+      getEvent(id).catch(() => null),
+      verifyIntegrityPost(id).catch(() => null) as Promise<{ status?: string; tx_id?: string } | null>,
+      getResponseHistory(id).catch(() => ({ items: [] as ResponseHistoryItem[] }))
