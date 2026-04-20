@@ -36,3 +36,9 @@ function getDefaultSeriesForRange(range: ChartTimeRange): DashboardMetricsPoint[
   return out;
 }
 
+function buildSeriesFromAlerts(items: AlertItem[], range: ChartTimeRange): DashboardMetricsPoint[] {
+  const labels = getDefaultSeriesForRange(range).map((p) => p.date);
+  const byKey: Record<string, { criticalAlerts: number; aiDetections: number; logsSecured: number; totalEvents: number }> = {};
+  labels.forEach((d) => {
+    byKey[d] = { criticalAlerts: 0, aiDetections: 0, logsSecured: 0, totalEvents: 0 };
+  });
