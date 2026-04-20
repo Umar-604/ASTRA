@@ -38,4 +38,5 @@ Promise.all([
       })
 .finally(() => mounted && setLoading(false));
     return () => {
-      mounted = false;
+      mounted = false; };
+  }, [alertId, location.state]);
