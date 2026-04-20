@@ -425,3 +425,12 @@ justifyContent: 'space-between',
                       fontSize: 13,
                     }}
                   >
+ <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Host</dt>
+                    <dd style={{ margin: 0, overflowWrap: 'anywhere' }}>{a.host_id || '—'}</dd>
+                    <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Event type</dt>
+                    <dd style={{ margin: 0, overflowWrap: 'anywhere' }}>{a.event_type || '—'}</dd>
+                    <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>AI verdict</dt>
+                    <dd style={{ margin: 0, overflowWrap: 'anywhere' }}>{a.ai_label || '—'}</dd>
+                    <dt style={{ color: 'var(--gray-text, #64748b)', fontWeight: 500 }}>Score</dt>
+                    <dd style={{ margin: 0 }} title={score.tooltip ?? undefined}>
+                      {score.value}
