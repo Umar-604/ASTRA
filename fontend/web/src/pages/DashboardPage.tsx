@@ -509,3 +509,25 @@ export function DashboardPage() {
                 ) : (
                   latest.map((a) => {
                     const sev = (a.severity || '').toUpperCase();
+                    const sevClass =
+                      sev === 'CRITICAL'
+                        ? 'severity-critical'
+                        : sev === 'HIGH'
+                        ? 'severity-high'
+                        : 'severity-medium';
+                const sevLabel =
+                  sev === 'CRITICAL' ? 'Critical' : sev === 'HIGH' ? 'High' : 'Medium';
+                const statusClass =
+                  sev === 'CRITICAL' || sev === 'HIGH'
+                    ? 'status-new'
+                    : 'status-investigating';
+                const statusLabel = statusClass === 'status-new' ? 'New' : 'Investigating';
+                    return (
+                      <tr key={a.event_id}>
+                        <td>{a['@timestamp']}</td>
+                        <td className="truncate" title={a.host_id}>
+                          {a.host_id || '—'}
+                        </td>
+                        <td className="truncate" title={a.ai_label || a.event_type}>
+                          {a.ai_label || a.event_type || '—'}
+                        </td>
